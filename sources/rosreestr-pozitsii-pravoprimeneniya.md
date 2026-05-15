@@ -5,8 +5,7 @@ status: verified
 date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [Росреестр, правоприменение, позиции, кадастр, регистрация]
-related_topics:
-  - topics/kadastr/rosreestr-pozitsii.md
+related_topics: []
 source_url: https://rosreestr.gov.ru/activity/normativno-pravovoe-regulirovanie-v-sfere-nedvizhimosti/pozitsii-po-voprosam-pravoprimeneniya/
 source_type: официальный раздел Росреестра
 author: Росреестр

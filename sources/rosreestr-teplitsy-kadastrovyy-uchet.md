@@ -5,9 +5,7 @@ status: draft
 date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [теплица, кадастровый-учёт, ОКС, Росреестр, садовый-участок, ИЖС]
-related_topics:
-  - topics/kadastr/chto-stavit-na-uchet.md
-  - topics/izhs/oks-i-ne-oks.md
+related_topics: []
 source_url: https://rosreestr.gov.ru/press/archive/vopros-otvet-kakie-teplitsy-nuzhno-stavit-na-kadastrovyy-uchet/
 source_type: официальная информация Росреестра
 author: Росреестр

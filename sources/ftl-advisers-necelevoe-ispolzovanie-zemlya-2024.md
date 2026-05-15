@@ -6,7 +6,7 @@ date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [аренда-земли, нецелевое-использование, ВРИ, ОКС, публичный-участок, FTL-Advisers]
 related_topics:
-  - topics/zemelnoe-pravo/vri-i-izmenenie.md
+  - topics/zemelnoe-pravo/VRI-egrn-poryadok.md
   - topics/zemelnoe-pravo/arenda-publichnoy-zemli.md
 source_url: https://ftl-advisers.ru/ftl-yb-el-case-19062024/
 source_type: кейс юридической фирмы

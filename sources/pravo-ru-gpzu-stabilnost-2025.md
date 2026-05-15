@@ -7,7 +7,6 @@ date_updated: 2026-05-15
 tags: [ГПЗУ, градостроительство, разрешение-на-строительство, ВС-РФ, застройщик, ПЗЗ]
 related_topics:
   - topics/gradostroitelstvo/gpzu.md
-  - topics/gradostroitelstvo/razreshenie-na-stroitelstvo.md
 source_url: https://pravo.ru/opinion/259008/
 source_type: аналитическая статья
 author: pravo.ru
