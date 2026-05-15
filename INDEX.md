@@ -8,23 +8,20 @@
 ## Темы (`topics/`)
 
 ### Градостроительство
-- [topics/gradostroitelstvo/gpzu.md](topics/gradostroitelstvo/gpzu.md) — ГПЗУ, стабильность, позиция ВС РФ 2025 | `verified`
-- [topics/gradostroitelstvo/krasnye-linii.md](topics/gradostroitelstvo/krasnye-linii.md) — Красные линии, правовой статус, судебная практика | `verified`
+- [topics/gradostroitelstvo/gpzu.md](topics/gradostroitelstvo/gpzu.md) — **ГПЗУ**: Стабильность ГПЗУ при изменении ПЗЗ, позиция ВС РФ по делу № 308-ЭС24-20719 — застройщик вправе рассчитывать на параметры ГПЗУ, действовавшего при выдаче разрешения. | `verified` | теги: `ГПЗУ` `ВС-РФ` `ПЗЗ` `застройщик`
+- [topics/gradostroitelstvo/krasnye-linii.md](topics/gradostroitelstvo/krasnye-linii.md) — **Красные линии**: Правовой статус красных линий в ПЗЗ, ответственность за строительство в их пределах, обзор судебной практики по сносу и согласованию. | `verified` | теги: `красные-линии` `ГрК` `ПЗЗ` `судебная-практика`
 
 ### Земельное право
-- [topics/zemelnoe-pravo/VRI-arenda-goszemli.md](topics/zemelnoe-pravo/VRI-arenda-goszemli.md) — ВРИ при аренде госземли | `verified`
-- [topics/zemelnoe-pravo/VRI-egrn-poryadok.md](topics/zemelnoe-pravo/VRI-egrn-poryadok.md) — ВРИ и порядок внесения в ЕГРН | `verified`
-- [topics/zemelnoe-pravo/VRI-likvidirovannye-tovarishchestva.md](topics/zemelnoe-pravo/VRI-likvidirovannye-tovarishchestva.md) — ВРИ для ликвидированных товариществ | `verified`
-- [topics/zemelnoe-pravo/VRI-sadovye-uchastki.md](topics/zemelnoe-pravo/VRI-sadovye-uchastki.md) — ВРИ для садовых участков | `verified`
-- [topics/zemelnoe-pravo/arenda-publichnoy-zemli.md](topics/zemelnoe-pravo/arenda-publichnoy-zemli.md) — Аренда публичного ЗУ, ВРИ, нецелевое использование | `verified`
-- [topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md) — Охранные зоны ОКН и компенсация | `verified`
-- [topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md](topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md) — Раздел участка и градрегламенты | `verified`
+- [topics/zemelnoe-pravo/vri.md](topics/zemelnoe-pravo/vri.md) — **ВРИ**: Порядок установления и внесения в ЕГРН (в т.ч. по 295-ФЗ с 01.03.2025), использование при аренде госземли и нецелевое использование, ВРИ для садовых участков и ликвидированных товариществ, практика по спорам о соответствии фактического использования. | `verified` | теги: `ВРИ` `ЕГРН` `аренда-земли` `нецелевое-использование` `295-ФЗ`
+- [topics/zemelnoe-pravo/arenda-publichnoy-zemli.md](topics/zemelnoe-pravo/arenda-publichnoy-zemli.md) — **Аренда публичного ЗУ**: Условия и ограничения аренды государственной/муниципальной земли, связь ВРИ с договором аренды, нецелевое использование как основание для расторжения. | `verified` | теги: `аренда-земли` `ВРИ` `нецелевое-использование`
+- [topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md) — **Охранные зоны ОКН**: Ограничения права собственности в охранных зонах объектов культурного наследия, постановление КС РФ № 42-П от 01.12.2025 — право добросовестного собственника на компенсацию при установлении зон ретроактивно. | `verified` | теги: `ОКН` `охранная-зона` `КС-РФ` `компенсация`
+- [topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md](topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md) — **Раздел участка**: Запрет ВС РФ на раздел участка, если образуемые участки не соответствуют минимальным параметрам градрегламента ПЗЗ — позиция 2026 года. | `verified` | теги: `раздел-участка` `градрегламент` `ВС-РФ` `ПЗЗ`
 
 ### Жилищное право
-- [topics/zhilishnoe-pravo/edinstvennoe-zhilye.md](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md) — Единственное жильё, исполнительский иммунитет, Позиция ВС 2024 | `verified`
+- [topics/zhilishnoe-pravo/edinstvennoe-zhilye.md](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md) — **Единственное жильё**: Исполнительский иммунитет единственного жилья при банкротстве, расширение позиции ВС РФ 2024 — иммунитет сохраняется при регистрации должника даже при наличии другого жилья у членов семьи. | `verified` | теги: `единственное-жильё` `банкротство` `ВС-РФ`
 
 ### СРО
-- [topics/sro/kf-odo-uroven-otvetstvennosti.md](topics/sro/kf-odo-uroven-otvetstvennosti.md) — КФ ОДО: уровни ответственности и лимиты обязательств | `verified`
+- [topics/sro/kf-odo-uroven-otvetstvennosti.md](topics/sro/kf-odo-uroven-otvetstvennosti.md) — **КФ ОДО**: Уровни ответственности в компенсационном фонде обеспечения договорных обязательств, таблица взносов и лимитов, механизм повышения уровня, практика по ничтожности контракта при превышении лимита (дело А47-12503/2022). | `verified` | теги: `КФ-ОДО` `СРО` `44-ФЗ` `ничтожность`
 
 ---
 
@@ -33,19 +30,19 @@
 ### Статус verified
 | Файл | Описание | Теги |
 |---|---|---|
-| [A47-12503-2022-sro-kontrakt-nichtoznost.md](sources/A47-12503-2022-sro-kontrakt-nichtoznost.md) | Постановление АС Уральского округа: ничтожность контракта при превышении лимита КФ ОДО | СРО КФ-ОДО ничтожность 44-ФЗ |
-| [ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md](sources/ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md) | Офис вместо склада, FTL Advisers 2024 | аренда ВРИ ОКС публичный-участок |
-| [ks-rf-42-p-ohrannye-zony-okn-2025-12.md](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md) | Постановление КС РФ от 01.12.2025 № 42-П | КС-РФ ОКН охранная-зона компенсация |
-| [landlawfirm-ks-okn-ohrannye-zony-2025-12.md](sources/landlawfirm-ks-okn-ohrannye-zony-2025-12.md) | КС защитил право собственности в охранных зонах | КС-РФ ОКН охранные-зоны компенсация |
-| [landlawfirm-vs-razdel-uchastkov-2026-02.md](sources/landlawfirm-vs-razdel-uchastkov-2026-02.md) | ВС запретил нарезать участки в нарушение градрегламентов | раздел-участка градрегламент ВС-РФ |
-| [pravo-ru-gpzu-stabilnost-2025.md](sources/pravo-ru-gpzu-stabilnost-2025.md) | ГПЗУ — анализ дела ВС № 308-ЭС24-20719, pravo.ru | ГПЗУ вс-рф застройщик ПЗЗ |
-| [rg-vs-edinstvennoe-zhilye-2024.md](sources/rg-vs-edinstvennoe-zhilye-2024.md) | ВС расширил понятие «единственное жильё», РГ 2024 | единственное-жильё банкротство ВС-РФ |
-| [rosreestr-14-4104-LL-26.md](sources/rosreestr-14-4104-LL-26.md) | Письмо Росреестра от 15.04.2026 № 14-4104-ЛЛ/26 | ВРИ ЕГРН 295-ФЗ аренда |
-| [rosreestr-gosudarstvennyy-nadzor-obzor.md](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md) | Государственный надзор — сводный раздел Росреестра | Росреестр надзор ГЗН |
-| [rosreestr-pozitsii-pravoprimeneniya.md](sources/rosreestr-pozitsii-pravoprimeneniya.md) | Позиции Росреестра по правоприменению | Правоприменение Росреестр кадастр |
-| [rosreestr-sro-reestr.md](sources/rosreestr-sro-reestr.md) | Реестр СРО, официальный сервис Росреестра | СРО реестр кадастровые-инженеры |
-| [rosreestr-zemelnyy-nadzor.md](sources/rosreestr-zemelnyy-nadzor.md) | Государственный земельный контроль (надзор) | ГЗН земельный-надзор Росреестр |
-| [urtmag-krasnye-linii-sudebnaya-praktika.md](sources/urtmag-krasnye-linii-sudebnaya-praktika.md) | Красные линии: правовой статус, urtmag.ru | красные-линии ГрК ПЗЗ судебная-практика |
+| [A47-12503-2022-sro-kontrakt-nichtoznost.md](sources/A47-12503-2022-sro-kontrakt-nichtoznost.md) | Постановление АС Уральского округа: ничтожность контракта при превышении лимита КФ ОДО | `СРО` `КФ-ОДО` `ничтожность` `44-ФЗ` |
+| [ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md](sources/ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md) | Офис вместо склада, FTL Advisers 2024 — нецелевое использование при аренде публичного ЗУ | `аренда-земли` `ВРИ` `нецелевое-использование` |
+| [ks-rf-42-p-ohrannye-zony-okn-2025-12.md](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md) | Постановление КС РФ от 01.12.2025 № 42-П — ретроактивное установление зон ОКН и право на компенсацию | `КС-РФ` `ОКН` `охранная-зона` `компенсация` |
+| [landlawfirm-ks-okn-ohrannye-zony-2025-12.md](sources/landlawfirm-ks-okn-ohrannye-zony-2025-12.md) | КС защитил право собственности в охранных зонах, landlawfirm.ru | `КС-РФ` `ОКН` `охранная-зона` `компенсация` |
+| [landlawfirm-vs-razdel-uchastkov-2026-02.md](sources/landlawfirm-vs-razdel-uchastkov-2026-02.md) | ВС запретил нарезать участки в нарушение градрегламентов, 2026 | `раздел-участка` `градрегламент` `ВС-РФ` |
+| [pravo-ru-gpzu-stabilnost-2025.md](sources/pravo-ru-gpzu-stabilnost-2025.md) | ГПЗУ — анализ дела ВС № 308-ЭС24-20719, pravo.ru | `ГПЗУ` `ВС-РФ` `ПЗЗ` |
+| [rg-vs-edinstvennoe-zhilye-2024.md](sources/rg-vs-edinstvennoe-zhilye-2024.md) | ВС расширил понятие «единственное жильё», РГ 2024 | `единственное-жильё` `банкротство` `ВС-РФ` |
+| [rosreestr-14-4104-LL-26.md](sources/rosreestr-14-4104-LL-26.md) | Письмо Росреестра от 15.04.2026 № 14-4104-ЛЛ/26 — разъяснения по 295-ФЗ и порядку учёта ВРИ | `ВРИ` `ЕГРН` `295-ФЗ` `Росреестр` |
+| [rosreestr-gosudarstvennyy-nadzor-obzor.md](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md) | Государственный надзор — сводный раздел Росреестра | `Росреестр` `ГЗН` `земельный-надзор` |
+| [rosreestr-pozitsii-pravoprimeneniya.md](sources/rosreestr-pozitsii-pravoprimeneniya.md) | Позиции Росреестра по правоприменению | `правоприменение` `Росреестр` `кадастр` |
+| [rosreestr-sro-reestr.md](sources/rosreestr-sro-reestr.md) | Реестр СРО, официальный сервис Росреестра | `СРО` `Росреестр` |
+| [rosreestr-zemelnyy-nadzor.md](sources/rosreestr-zemelnyy-nadzor.md) | Государственный земельный контроль (надзор), Росреестр | `ГЗН` `земельный-надзор` `Росреестр` |
+| [urtmag-krasnye-linii-sudebnaya-praktika.md](sources/urtmag-krasnye-linii-sudebnaya-praktika.md) | Красные линии: правовой статус и судебная практика, urtmag.ru | `красные-линии` `ГрК` `ПЗЗ` `судебная-практика` |
 
 ### Статус draft (требует ручной проверки)
 | Файл | Описание | Причина draft |
@@ -53,23 +50,25 @@
 | [ki-rf-standarty.md](sources/ki-rf-standarty.md) | Стандарты кадастровых инженеров, КИ РФ | Нет автозагрузки |
 | [nostroy-nk-komissiya.md](sources/nostroy-nk-komissiya.md) | НК Комиссия НОСТРОЙ | Нет автозагрузки, нужна ручная сверка |
 | [osint-mindset-dom-kotoryi.md](sources/osint-mindset-dom-kotoryi.md) | OSINT-кейс по недвижимости | Нет автозагрузки |
-| [pravo-ru-story-249810.md](sources/pravo-ru-story-249810.md) | pravo.ru story 249810 | paywall / ограничение доступа |
-| [pravo-ru-story-250454.md](sources/pravo-ru-story-250454.md) | pravo.ru story 250454 | paywall / ограничение доступа |
-| [rosreestr-izhs-nspd-2025.md](sources/rosreestr-izhs-nspd-2025.md) | ИЖС через НСПД, Росреестр | Страница недоступна при загрузке |
-| [rosreestr-teplitsy-kadastrovyy-uchet.md](sources/rosreestr-teplitsy-kadastrovyy-uchet.md) | Теплицы и кадастровый учёт, Росреестр | Страница недоступна при загрузке |
+| [pravo-ru-story-249810.md](sources/pravo-ru-story-249810.md) | pravo.ru story 249810 | paywall |
+| [pravo-ru-story-250454.md](sources/pravo-ru-story-250454.md) | pravo.ru story 250454 | paywall |
+| [rosreestr-izhs-nspd-2025.md](sources/rosreestr-izhs-nspd-2025.md) | ИЖС через НСПД, Росреестр | Страница недоступна |
+| [rosreestr-teplitsy-kadastrovyy-uchet.md](sources/rosreestr-teplitsy-kadastrovyy-uchet.md) | Теплицы и кадастровый учёт, Росреестр | Страница недоступна |
 
 ---
 
 ## Все теги
 
-`ГПЗУ` `красные-линии` `ВРИ` `аренда-земли` `нецелевое-использование` `ПЗЗ` `ВС-РФ` `застройщик` `разрешение-на-строительство` `единственное-жильё` `банкротство` `взыскание` `ГЗН` `земельный-надзор` `Росреестр` `правоприменение` `КРТ` `СРО` `НОСТРОЙ` `НСПД` `ИЖС` `кадастр` `OSINT` `FTL-Advisers` `КФ-ОДО` `ничтожность` `44-ФЗ` `КС-РФ` `ОКН` `охранная-зона` `компенсация` `раздел-участка` `градрегламент` `ЕГРН` `295-ФЗ`
+`ГПЗУ` `красные-линии` `ВРИ` `аренда-земли` `нецелевое-использование` `ПЗЗ` `ВС-РФ` `застройщик` `единственное-жильё` `банкротство` `взыскание` `ГЗН` `земельный-надзор` `Росреестр` `правоприменение` `КРТ` `СРО` `НОСТРОЙ` `НСПД` `ИЖС` `кадастр` `OSINT` `КФ-ОДО` `ничтожность` `44-ФЗ` `КС-РФ` `ОКН` `охранная-зона` `компенсация` `раздел-участка` `градрегламент` `ЕГРН` `295-ФЗ` `ГрК` `ЗК` `судебная-практика`
+
+> Полный реестр тегов с описаниями: [tags-registry.md](tags-registry.md)
 
 ---
 
 ## Статистика
 
-- Всего файлов в базе: **35** (20 sources + 15 topics, включая 4 _index.md)
-- Тем: **4**
+- Всего файлов в базе: **32** (20 sources + 8 topics + 4 _index.md → 4 файла ВРИ объединены в один)
+- Тем: **4 домена**, **8 тематических файлов**
 - Источников verified: **13**
 - Источников draft: **7**
-- Тегов: **33**
+- Тегов: **36**
