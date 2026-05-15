@@ -7,7 +7,6 @@ date_updated: 2026-05-15
 tags: [единственное-жильё, исполнительный-иммунитет, ВС-РФ, банкротство, взыскание, жилищное-право]
 related_topics:
   - topics/zhilishnoe-pravo/edinstvennoe-zhilye.md
-  - topics/bankrotstvo/imuschestvo-dolzhnika.md
 source_url: https://rg.ru/2024/09/19/verhovnyj-sud-rasshiril-ponianie-edinstvennoe-zhilia.html
 source_type: новость / анализ судебной практики
 author: Российская газета

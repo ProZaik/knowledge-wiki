@@ -5,8 +5,7 @@ status: draft
 date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [НОСТРОЙ, СРО, строительство, НК-комиссия, саморегулирование]
-related_topics:
-  - topics/sro/nostroy.md
+related_topics: []
 source_url: https://nostroy.ru/nostroy/nk-komissiya/
 source_type: официальный сайт организации
 author: НОСТРОЙ

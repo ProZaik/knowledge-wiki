@@ -5,8 +5,7 @@ status: draft
 date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [ИЖС, НСПД, Росреестр, земля, жилой-дом, кадастр]
-related_topics:
-  - topics/izhs/podacha-i-oformlenie.md
+related_topics: []
 source_url: https://rosreestr.gov.ru/press/archive/vopros-otvet-kak-poluchit-zemlyu-dlya-izhs-s-pomoshchyu-servisov-nspd-i-oformit-zhiloy-050825/
 source_type: официальная информация Росреестра
 author: Росреестр

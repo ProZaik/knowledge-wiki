@@ -5,8 +5,7 @@ status: draft
 date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [кадастр, кадастровый-инженер, стандарты, КИ-РФ, СРО]
-related_topics:
-  - topics/kadastr/kadastrovye-inzhenery.md
+related_topics: []
 source_url: https://ki-rf.ru/standart/
 source_type: официальный сайт СРО
 author: Кадастровые инженеры России (КИ РФ)

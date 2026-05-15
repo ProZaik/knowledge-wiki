@@ -5,8 +5,7 @@ status: draft
 date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [OSINT, недвижимость, расследование, разведка-по-открытым-источникам]
-related_topics:
-  - topics/osint/nedvizhimost.md
+related_topics: []
 source_url: https://gitbook.osint-mindset.com/cases/dom-kotoryi
 source_type: обучающий кейс OSINT
 author: OSINT Mindset

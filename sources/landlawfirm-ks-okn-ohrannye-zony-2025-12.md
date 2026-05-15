@@ -7,6 +7,8 @@ date_published: "2025-12"
 date_added: "2026-05-15"
 tags: [КС-РФ, ОКН, охранные-зоны, земельные-участки, компенсация, изъятие, ЗК-РФ-57-1]
 reliability: "high"
+related_topics:
+  - topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md
 ---
 
 # КС защитил право собственности в охранных зонах культурных памятников

@@ -7,6 +7,8 @@ date_published: "2025-12-01"
 date_added: "2026-05-15"
 tags: [КС-РФ, ОКН, охранная-зона, компенсация, выкуп, ЗК, ЕГРН]
 reliability: "high"
+related_topics:
+  - topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md
 ---
 
 # Постановление КС РФ от 01.12.2025 № 42-П

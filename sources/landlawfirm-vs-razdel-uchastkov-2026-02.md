@@ -7,6 +7,8 @@ date_published: "2026-02-19"
 date_added: "2026-05-15"
 tags: [раздел-участка, градрегламент, ИЖС, ВС-РФ, Краснодарский-край, ЕГРН, кадастровый-учёт]
 reliability: "high"
+related_topics:
+  - topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md
 ---
 
 # ВС запретил нарезать участки в нарушение градрегламентов
