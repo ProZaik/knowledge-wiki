@@ -12,6 +12,7 @@ MCP-сервер вызывает эти функции вместо того, �
 
 import datetime
 import os
+import re
 import yaml
 
 # Корень репозитория (на один уровень выше каталога scripts/)
@@ -59,45 +60,178 @@ def _render_tags(tags: list[str]) -> str:
 
 
 def _build_source_index() -> dict[str, str]:
-    """Строит индекс источников: {title_lower: relative_path}.
+    """Строит индекс источников: {ключ_lower: relative_path}.
 
-    Сканирует sources/ и читает title из YAML-шапок.
+    Индексирует каждый source-файл по нескольким ключам:
+    - title (полное название)
+    - number / case_number / law_number (номер документа)
+    - filename без расширения
     """
-    import re
     index: dict[str, str] = {}
     sources_dir = os.path.join(ROOT, "sources")
     if not os.path.isdir(sources_dir):
         return index
     for fname in os.listdir(sources_dir):
-        if not fname.endswith(".md"):
+        if not fname.endswith(".md") or fname.startswith("_"):
             continue
         fpath = os.path.join(sources_dir, fname)
         try:
             with open(fpath, "r", encoding="utf-8") as f:
                 head = f.read(1500)
             m = re.match(r"^---\s*\n(.*?)\n---", head, re.DOTALL)
-            if m:
-                meta = yaml.safe_load(m.group(1))
-                if isinstance(meta, dict) and "title" in meta:
-                    index[meta["title"].lower()] = f"sources/{fname}"
+            if not m:
+                continue
+            meta = yaml.safe_load(m.group(1))
+            if not isinstance(meta, dict):
+                continue
+
+            rel_path = f"sources/{fname}"
+
+            # Индекс по title
+            title = meta.get("title", "")
+            if title:
+                index[title.lower()] = rel_path
+
+            # Индекс по номеру документа
+            for num_key in ("number", "case_number", "law_number"):
+                num_val = meta.get(num_key, "")
+                if num_val:
+                    index[str(num_val).lower()] = rel_path
+
+            # Индекс по имени файла без расширения
+            index[fname[:-3].lower()] = rel_path
+
         except Exception:
             continue
     return index
 
 
 def _linkify_source(name: str, source_index: dict[str, str] | None = None) -> str:
-    """Если источник найден в индексе — оборачивает его в markdown-ссылку."""
+    """Если источник найден в индексе — оборачивает его в markdown-ссылку.
+
+    Ищет совпадение по:
+    1. Точному совпадению (title, номер, имя файла)
+    2. Вхождению ключа в имя или наоборот
+    3. Извлечению номера документа (№ ...) из строки поиска
+    """
     if source_index is None:
         source_index = _build_source_index()
     key = name.lower()
-    # Точное совпадение
+
+    # 1. Точное совпадение
     if key in source_index:
         return f"[{name}]({source_index[key]})"
-    # Частичное совпадение (title содержит имя или наоборот)
+
+    # 2. Частичное совпадение
     for title_lower, path in source_index.items():
         if key in title_lower or title_lower in key:
             return f"[{name}]({path})"
+
+    # 3. Извлекаем номер документа (после «№» или «N»)
+    num_match = re.search(r"[№N]\s*([^\s,]+)", name)
+    if num_match:
+        num_str = num_match.group(1).strip().lower()
+        if num_str in source_index:
+            return f"[{name}]({source_index[num_str]})"
+        for title_lower, path in source_index.items():
+            if num_str in title_lower:
+                return f"[{name}]({path})"
+
+    # 4. Обратный паттерн: «ФЗ-97» → «97-фз», «ПП-123» → «123-пп»
+    rev_match = re.search(r"([А-Яа-яA-Za-z]+)-(\d+[А-Яа-яA-Za-z]*)", name)
+    if rev_match:
+        reversed_key = f"{rev_match.group(2)}-{rev_match.group(1)}".lower()
+        if reversed_key in source_index:
+            return f"[{name}]({source_index[reversed_key]})"
+        for title_lower, path in source_index.items():
+            if reversed_key in title_lower:
+                return f"[{name}]({path})"
+
     return name
+
+
+def _find_related_sources(tags: list[str], current_filename: str) -> list[dict]:
+    """Ищет источники с общими тегами в каталоге sources/.
+
+    Сканирует все .md файлы в sources/, читает YAML-шапку каждого,
+    сравнивает теги с переданным списком. Исключает файл текущего
+    источника по имени. Возвращает до 5 результатов, отсортированных
+    по убыванию количества общих тегов.
+
+    Аргументы:
+        tags: Список тегов текущего источника.
+        current_filename: Имя файла текущего источника для исключения.
+
+    Возвращает:
+        Список словарей {title, path, shared_tags}.
+    """
+    if not tags:
+        return []
+
+    tags_set = set(tags)
+    sources_dir = os.path.join(ROOT, "sources")
+    if not os.path.isdir(sources_dir):
+        return []
+
+    results: list[dict] = []
+    for fname in os.listdir(sources_dir):
+        if not fname.endswith(".md"):
+            continue
+        # Исключаем сам текущий файл
+        if fname == current_filename:
+            continue
+        fpath = os.path.join(sources_dir, fname)
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                head = f.read(1500)
+            m = re.match(r"^---\s*\n(.*?)\n---", head, re.DOTALL)
+            if not m:
+                continue
+            meta = yaml.safe_load(m.group(1))
+            if not isinstance(meta, dict):
+                continue
+            other_tags = meta.get("tags", [])
+            if not isinstance(other_tags, list):
+                continue
+            shared = tags_set & set(other_tags)
+            if not shared:
+                continue
+            results.append({
+                "title": meta.get("title", fname),
+                "path": f"sources/{fname}",
+                "shared_tags": sorted(shared),
+            })
+        except Exception:
+            continue
+
+    # Сортируем по убыванию кол-ва общих тегов, затем по названию
+    results.sort(key=lambda r: (-len(r["shared_tags"]), r["title"]))
+    return results[:5]
+
+
+def _render_related_sources(related: list[dict]) -> str:
+    """Формирует markdown-блок «Связанные источники».
+
+    Аргументы:
+        related: Список из _find_related_sources().
+
+    Возвращает:
+        Markdown-строку с секцией или пустую строку, если связей нет.
+    """
+    if not related:
+        return ""
+    lines = [
+        "---",
+        "",
+        "> **📎 Связанные источники:**",
+    ]
+    for item in related:
+        tag_str = "`, `".join(item["shared_tags"])
+        lines.append(
+            f"> - [{item['title']}]({item['path']}) — совпадение по тегам: `{tag_str}`"
+        )
+    return "\n".join(lines)
+
 
 
 # =========================================================================
@@ -182,8 +316,17 @@ def build_letter(params: dict) -> str:
         "## Полный текст",
         "",
         full_text.strip(),
-        "",
     ])
+
+    # --- Связанные источники ---
+    filename = params.get("filename", "")
+    related_block = _render_related_sources(
+        _find_related_sources(tags, filename)
+    )
+    if related_block:
+        sections.extend(["", related_block])
+
+    sections.append("")
     return "\n".join(sections)
 
 
@@ -275,8 +418,17 @@ def build_court_decision(params: dict) -> str:
         "## Полный текст",
         "",
         full_text.strip(),
-        "",
     ])
+
+    # --- Связанные источники ---
+    filename = params.get("filename", "")
+    related_block = _render_related_sources(
+        _find_related_sources(tags, filename)
+    )
+    if related_block:
+        sections.extend(["", related_block])
+
+    sections.append("")
     return "\n".join(sections)
 
 
@@ -352,8 +504,17 @@ def build_article(params: dict) -> str:
         "## Полный текст",
         "",
         full_text.strip(),
-        "",
     ])
+
+    # --- Связанные источники ---
+    filename = params.get("filename", "")
+    related_block = _render_related_sources(
+        _find_related_sources(tags, filename)
+    )
+    if related_block:
+        sections.extend(["", related_block])
+
+    sections.append("")
     return "\n".join(sections)
 
 
@@ -435,8 +596,17 @@ def build_law(params: dict) -> str:
         "## Текст (извлечение)",
         "",
         full_text.strip(),
-        "",
     ])
+
+    # --- Связанные источники ---
+    filename = params.get("filename", "")
+    related_block = _render_related_sources(
+        _find_related_sources(tags, filename)
+    )
+    if related_block:
+        sections.extend(["", related_block])
+
+    sections.append("")
     return "\n".join(sections)
 
 

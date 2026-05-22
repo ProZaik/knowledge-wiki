@@ -117,20 +117,83 @@ def generate_stats_markdown(stats):
 - Тегов: **{stats['tags_count']}**"""
 
 
+# Маппинг типов источников на эмодзи-заголовки для сайдбара и каталога
+SOURCE_TYPE_EMOJI = {
+    'письмо органа': '📜 Письма органов',
+    'судебный акт': '⚖️ Судебные акты',
+    'статья': '📝 Статьи',
+    'нормативный акт': '📋 Нормативные акты',
+}
+
+# Порядок отображения групп источников в сайдбаре и каталоге
+SOURCE_TYPE_ORDER = ['письмо органа', 'судебный акт', 'статья', 'нормативный акт']
+
+# Русские названия месяцев для хронологии
+RUSSIAN_MONTHS = {
+    1: 'Январь', 2: 'Февраль', 3: 'Март', 4: 'Апрель',
+    5: 'Май', 6: 'Июнь', 7: 'Июль', 8: 'Август',
+    9: 'Сентябрь', 10: 'Октябрь', 11: 'Ноябрь', 12: 'Декабрь',
+}
+
+
+def _get_source_date(meta):
+    """Извлекает дату источника из YAML-метаданных (поле date или date_adopted)."""
+    date_str = meta.get('date') or meta.get('date_adopted') or ''
+    return str(date_str).strip()
+
+
+def _collect_sources_grouped():
+    """Собирает все источники из sources/, группирует по типу, сортирует по дате (новые первыми).
+
+    Возвращает dict: {тип -> [{filename, title, date, meta}, ...]}.
+    """
+    sources_dir = os.path.join(ROOT, 'sources')
+    groups = {}  # type: dict[str, list[dict]]
+
+    if not os.path.exists(sources_dir):
+        return groups
+
+    for fn in os.listdir(sources_dir):
+        if not fn.endswith('.md') or fn.startswith('.') or fn.startswith('_'):
+            continue
+        fpath = os.path.join(sources_dir, fn)
+        meta = parse_yaml_front(fpath)
+        if not meta:
+            continue
+
+        src_type = meta.get('type', '').strip()
+        title = meta.get('title', fn[:-3].replace('-', ' ').capitalize())
+        date_str = _get_source_date(meta)
+
+        if src_type not in groups:
+            groups[src_type] = []
+        groups[src_type].append({
+            'filename': fn,
+            'title': title,
+            'date': date_str,
+            'meta': meta,
+        })
+
+    # Сортировка внутри каждой группы — новые первыми
+    for entries in groups.values():
+        entries.sort(key=lambda e: e['date'], reverse=True)
+
+    return groups
+
+
 def generate_sidebar():
-    """Автоматически генерирует файл _sidebar.md на основе существующей файловой структуры в topics/"""
+    """Автоматически генерирует _sidebar.md: темы, источники по типам, ссылки на теги и граф."""
     sidebar_path = os.path.join(ROOT, "_sidebar.md")
     topics_dir = os.path.join(ROOT, "topics")
-    
+
     # Стандартный заголовок
     lines = [
         "<!-- _sidebar.md -->",
         "",
-        "* [🏠 Главная](INDEX.md)",
-        "* [🏷️ Теги](tags-registry.md)",
+        "* **📚 База знаний**",
         ""
     ]
-    
+
     # Стандартный маппинг эмодзи для доменов на случай, если они не указаны в _index.md
     emoji_map = {
         "gradostroitelstvo": "⚖️",
@@ -138,19 +201,19 @@ def generate_sidebar():
         "zhilishnoe-pravo": "🏠",
         "sro": "🏗️"
     }
-    
-    # Сканируем директории первого уровня в topics/
+
+    # ——— Секция тем ———
     if os.path.exists(topics_dir):
         domains = sorted([d for d in os.listdir(topics_dir) if os.path.isdir(os.path.join(topics_dir, d)) and not d.startswith(".")])
-        
+
         for domain in domains:
             domain_path = os.path.join(topics_dir, domain)
             index_path = os.path.join(domain_path, "_index.md")
-            
+
             # Читаем название домена из _index.md
             domain_title = domain.capitalize().replace("-", " ")
             emoji = emoji_map.get(domain, "📁")
-            
+
             if os.path.exists(index_path):
                 meta = parse_yaml_front(index_path)
                 if meta:
@@ -171,7 +234,7 @@ def generate_sidebar():
                                     break
                     except Exception:
                         pass
-            
+
             # Находим все файлы тем
             topic_files = []
             for fn in sorted(os.listdir(domain_path)):
@@ -192,13 +255,10 @@ def generate_sidebar():
                         except Exception:
                             pass
                     topic_files.append((fn, title))
-            
-            lines.append("---")
-            lines.append("")
-            
+
             # Ссылка на обзорный файл темы всегда полезна
             rel_index_path = f"topics/{domain}/_index.md"
-            
+
             if topic_files:
                 lines.append(f"* **{emoji} {domain_title}**")
                 lines.append(f"  * [🧭 Обзор](topics/{domain}/_index.md)")
@@ -208,6 +268,38 @@ def generate_sidebar():
                 # Если подтем нет, показываем только сам домен со ссылкой на обзор
                 lines.append(f"* [{emoji} **{domain_title}**]({rel_index_path})")
             lines.append("")
+
+    # ——— Секция источников ———
+    source_groups = _collect_sources_grouped()
+    if source_groups:
+        lines.append("* **📂 Источники**")
+        lines.append("  * [📋 Каталог источников](sources/_index.md)")
+        lines.append("")
+
+        for src_type in SOURCE_TYPE_ORDER:
+            entries = source_groups.get(src_type)
+            if not entries:
+                continue
+            header = SOURCE_TYPE_EMOJI.get(src_type, f"📄 {src_type.capitalize()}")
+            lines.append(f"* **{header}**")
+            for entry in entries:
+                lines.append(f"  * [{entry['title']}](sources/{entry['filename']})")
+            lines.append("")
+
+        # Типы, которых нет в стандартном маппинге
+        for src_type, entries in source_groups.items():
+            if src_type in SOURCE_TYPE_ORDER:
+                continue
+            header = f"📄 {src_type.capitalize()}" if src_type else "📄 Прочее"
+            lines.append(f"* **{header}**")
+            for entry in entries:
+                lines.append(f"  * [{entry['title']}](sources/{entry['filename']})")
+            lines.append("")
+
+    # ——— Нижние ссылки ———
+    lines.append("* **🏷️ [Индекс тегов](tags/index.md)**")
+    lines.append("* **🕸️ [Граф знаний](_graph.md)**")
+    lines.append("")
 
     with open(sidebar_path, "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines))
@@ -417,6 +509,182 @@ def generate_tag_index():
     return True
 
 
+def generate_sources_catalog():
+    """Генерирует sources/_index.md — каталог всех источников, сгруппированных по типу."""
+    sources_dir = os.path.join(ROOT, 'sources')
+    os.makedirs(sources_dir, exist_ok=True)
+    catalog_path = os.path.join(sources_dir, '_index.md')
+
+    source_groups = _collect_sources_grouped()
+
+    lines = [
+        '---',
+        'title: Каталог источников',
+        '---',
+        '# 📋 Каталог источников',
+        '',
+    ]
+
+    # Определяем колонки таблицы в зависимости от типа источника
+    type_columns = {
+        'письмо органа':   ('Дата', 'Документ', 'Автор', 'Теги'),
+        'судебный акт':    ('Дата', 'Документ', 'Суд', 'Теги'),
+        'статья':          ('Дата', 'Документ', 'Автор', 'Теги'),
+        'нормативный акт': ('Дата', 'Документ', 'Номер', 'Теги'),
+    }
+
+    def _format_tags(meta):
+        """Форматирует список тегов как кликабельные ссылки на tags/index.md."""
+        tags = meta.get('tags', [])
+        if not isinstance(tags, list) or not tags:
+            return ''
+        parts = []
+        for t in tags:
+            tag_str = str(t).strip()
+            anchor = tag_str.lower()
+            parts.append(f'[`{tag_str}`](../tags/index.md#{anchor})')
+        return ' · '.join(parts)
+
+    def _get_extra_column(meta, src_type):
+        """Извлекает значение дополнительной колонки (Автор/Суд/Номер) в зависимости от типа."""
+        if src_type == 'письмо органа':
+            return meta.get('author_org', meta.get('author', ''))
+        elif src_type == 'судебный акт':
+            return meta.get('court', '')
+        elif src_type == 'статья':
+            return meta.get('author', meta.get('author_org', ''))
+        elif src_type == 'нормативный акт':
+            return meta.get('law_number', meta.get('number', ''))
+        return ''
+
+    for src_type in SOURCE_TYPE_ORDER:
+        entries = source_groups.get(src_type)
+        if not entries:
+            continue
+        header = SOURCE_TYPE_EMOJI.get(src_type, f'📄 {src_type.capitalize()}')
+        cols = type_columns.get(src_type, ('Дата', 'Документ', 'Автор', 'Теги'))
+
+        lines.append(f'## {header} ({len(entries)})')
+        lines.append('')
+        lines.append(f'| {cols[0]} | {cols[1]} | {cols[2]} | {cols[3]} |')
+        lines.append('|------|----------|-------|------|')
+
+        for entry in entries:
+            m = entry['meta']
+            date_val = entry['date']
+            link = f"[{entry['title']}]({entry['filename']})"
+            extra = _get_extra_column(m, src_type)
+            tags_str = _format_tags(m)
+            lines.append(f'| {date_val} | {link} | {extra} | {tags_str} |')
+
+        lines.append('')
+
+    # Нестандартные типы
+    for src_type, entries in source_groups.items():
+        if src_type in SOURCE_TYPE_ORDER:
+            continue
+        header = f'📄 {src_type.capitalize()}' if src_type else '📄 Прочее'
+        lines.append(f'## {header} ({len(entries)})')
+        lines.append('')
+        lines.append('| Дата | Документ | Теги |')
+        lines.append('|------|----------|------|')
+        for entry in entries:
+            m = entry['meta']
+            date_val = entry['date']
+            link = f"[{entry['title']}]({entry['filename']})"
+            tags_str = _format_tags(m)
+            lines.append(f'| {date_val} | {link} | {tags_str} |')
+        lines.append('')
+
+    with open(catalog_path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(lines))
+
+    total = sum(len(v) for v in source_groups.values())
+    print(f'[OK] Каталог источников сгенерирован: sources/_index.md ({total} источников).')
+    return True
+
+
+def generate_timeline():
+    """Генерирует _timeline.md — хронологию всех источников по месяцам."""
+    timeline_path = os.path.join(ROOT, '_timeline.md')
+    source_groups = _collect_sources_grouped()
+
+    # Собираем все источники в единый плоский список
+    all_sources = []
+    for entries in source_groups.values():
+        for entry in entries:
+            all_sources.append(entry)
+
+    # Сортируем по дате — новые первыми
+    all_sources.sort(key=lambda e: e['date'], reverse=True)
+
+    # Группируем по месяцу (YYYY-MM)
+    months = {}  # type: dict[str, list[dict]]
+    for entry in all_sources:
+        d = entry['date']
+        month_key = d[:7] if len(d) >= 7 else 'без даты'
+        if month_key not in months:
+            months[month_key] = []
+        months[month_key].append(entry)
+
+    # Маппинг типа в компактный эмодзи
+    type_emoji_short = {
+        'письмо органа': '📜',
+        'судебный акт': '⚖️',
+        'статья': '📝',
+        'нормативный акт': '📋',
+    }
+
+    lines = [
+        '---',
+        'title: Хронология',
+        '---',
+        '# 📅 Хронология источников',
+        '',
+    ]
+
+    for month_key in sorted(months.keys(), reverse=True):
+        entries = months[month_key]
+
+        # Формируем красивый заголовок месяца: "Май 2026"
+        if month_key != 'без даты' and len(month_key) == 7:
+            try:
+                year = int(month_key[:4])
+                month_num = int(month_key[5:7])
+                month_name = RUSSIAN_MONTHS.get(month_num, month_key)
+                month_header = f'{month_name} {year}'
+            except (ValueError, IndexError):
+                month_header = month_key
+        else:
+            month_header = month_key
+
+        lines.append(f'## {month_header}')
+        lines.append('')
+        lines.append('| Дата | Тип | Документ |')
+        lines.append('|------|-----|----------|')
+
+        for entry in entries:
+            # Форматируем дату как ДД.ММ.ГГГГ
+            d = entry['date']
+            if len(d) == 10 and d[4] == '-':
+                formatted_date = f"{d[8:10]}.{d[5:7]}.{d[:4]}"
+            else:
+                formatted_date = d
+
+            src_type = entry['meta'].get('type', '')
+            emoji = type_emoji_short.get(src_type, '📄')
+            link = f"[{entry['title']}](sources/{entry['filename']})"
+            lines.append(f'| {formatted_date} | {emoji} | {link} |')
+
+        lines.append('')
+
+    with open(timeline_path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write('\n'.join(lines))
+
+    print(f'[OK] Хронология сгенерирована: _timeline.md ({len(all_sources)} источников).')
+    return True
+
+
 def generate_knowledge_graph():
     """Генерирует _graph.md — граф знаний в формате Mermaid на основе связей между темами."""
     topics_dir = os.path.join(ROOT, "topics")
@@ -591,6 +859,18 @@ def update_index_stats():
         generate_knowledge_graph()
     except Exception as e:
         print(f"[!] Ошибка при генерации графа знаний: {e}")
+
+    # Генерация каталога источников
+    try:
+        generate_sources_catalog()
+    except Exception as e:
+        print(f"[!] Ошибка при генерации каталога источников: {e}")
+
+    # Генерация хронологии
+    try:
+        generate_timeline()
+    except Exception as e:
+        print(f"[!] Ошибка при генерации хронологии: {e}")
 
     return True
 
