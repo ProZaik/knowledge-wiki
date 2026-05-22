@@ -277,3 +277,11 @@
 - **Обновлены темы:**
   - [reestrovye-oshibki](file:///topics/zemelnoe-pravo/reestrovye-oshibki)
   - [mezhevoj-plan](file:///topics/zemelnoe-pravo/mezhevoj-plan)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (статья):** [Государственный надзор — раздел Росреестра (обзор)](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md)
+- **Обновлены темы:**
+  - [zemelnyy-nadzor.md](file:///topics/zemelnoe-pravo/zemelnyy-nadzor.md)
