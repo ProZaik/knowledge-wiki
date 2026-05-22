@@ -336,3 +336,12 @@
 - **Источник (статья):** [Государственный земельный контроль (надзор) — Росреестр](sources/rosreestr-zemelnyy-nadzor.md)
 - **Обновлены темы:**
   - [zemelnyy-nadzor.md](file:///topics/zemelnoe-pravo/zemelnyy-nadzor.md)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (статья):** [Красные линии: правовой статус и выводы из судебной практики](sources/urtmag-krasnye-linii-sudebnaya-praktika.md)
+- **Обновлены темы:**
+  - [krasnye-linii.md](file:///topics/gradostroitelstvo/krasnye-linii.md)
+  - [territorii-obshchego-polzovaniya.md](file:///topics/zemelnoe-pravo/territorii-obshchego-polzovaniya.md)
