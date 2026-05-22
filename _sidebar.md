@@ -14,7 +14,9 @@
   * [Кадастровый учёт — реестровые ошибки, приостановление, техпланы](topics/zemelnoe-pravo/kadastrovyy-uchet.md)
   * [ВРИ земельных участков — изменение, ЕГРН, нецелевое использование](topics/zemelnoe-pravo/vri.md)
 
-* [🏠 **Жилищное право**](topics/zhilishnoe-pravo/_index.md)
+* **🏠 Жилищное право**
+  * [🧭 Обзор](topics/zhilishnoe-pravo/_index.md)
+  * [Единственное жильё должника — имущественный иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md)
 
 * **📂 Источники**
   * [📋 Каталог источников](sources/_index.md)

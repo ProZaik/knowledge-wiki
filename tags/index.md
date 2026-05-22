@@ -24,10 +24,12 @@ type: служебный
 - [Офис вместо склада: последствия нецелевого использования муниципального земельного участка](sources/ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md) (источник)
 
 ## банкротство
+- [Единственное жильё должника — имущественный иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md) (тема)
 - [Жилищное право — обзор темы](topics/zhilishnoe-pravo/_index.md) (тема)
 - [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md) (источник)
 
 ## взыскание
+- [Единственное жильё должника — имущественный иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md) (тема)
 - [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md) (источник)
 
 ## ВРИ
@@ -40,6 +42,7 @@ type: служебный
 - [Письмо Росреестра от 15.04.2026 № 14-4104-ЛЛ/26](sources/rosreestr-14-4104-LL-26.md) (источник)
 
 ## ВС-РФ
+- [Единственное жильё должника — имущественный иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md) (тема)
 - [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md) (источник)
 - [ВС запретил нарезать участки в нарушение градрегламентов](sources/landlawfirm-vs-razdel-uchastkov-2026-02.md) (источник)
 - [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md) (источник)
@@ -86,6 +89,7 @@ type: служебный
 - [Федеральный закон от 01.05.2026 № 97-ФЗ о внесении изменений в ФЗ-218](sources/fz-218-izmenenia-2026-05.md) (источник)
 
 ## единственное-жильё
+- [Единственное жильё должника — имущественный иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md) (тема)
 - [Жилищное право — обзор темы](topics/zhilishnoe-pravo/_index.md) (тема)
 - [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md) (источник)
 
@@ -271,6 +275,7 @@ type: служебный
 - [НК Комиссия НОСТРОЙ](sources/nostroy-nk-komissiya.md) (источник)
 
 ## судебная-практика
+- [Единственное жильё должника — имущественный иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md) (тема)
 - [Красные линии: правовой статус и выводы из судебной практики](sources/urtmag-krasnye-linii-sudebnaya-praktika.md) (источник)
 - [Материал pravo.ru — story/249810](sources/pravo-ru-story-249810.md) (источник)
 - [Материал pravo.ru — story/250454](sources/pravo-ru-story-250454.md) (источник)
