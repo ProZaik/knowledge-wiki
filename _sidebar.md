@@ -14,6 +14,7 @@
   * [Кадастровый учёт — реестровые ошибки, приостановление, техпланы](topics/zemelnoe-pravo/kadastrovyy-uchet.md)
   * [Охранные зоны объектов культурного наследия: компенсация, ограничения, ЕГРН](topics/zemelnoe-pravo/ohrannye-zony-okn.md)
   * [ВРИ земельных участков — изменение, ЕГРН, нецелевое использование](topics/zemelnoe-pravo/vri.md)
+  * [Земельный надзор — полномочия ГЗН, нарушения, штрафы, нецелевое использование](topics/zemelnoe-pravo/zemelnyy-nadzor.md)
 
 * **🏠 Жилищное право**
   * [🧭 Обзор](topics/zhilishnoe-pravo/_index.md)
