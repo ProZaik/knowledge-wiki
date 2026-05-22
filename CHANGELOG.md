@@ -137,3 +137,11 @@
 
 ### Добавлено:
 - **Источник (статья):** [Стандарты кадастровой деятельности — КИ РФ](sources/ki-rf-standarty.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (судебный акт):** [Постановление КС РФ от 01.12.2025 № 42-П](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md)
+- **Обновлены темы:**
+  - [ohrannye-zony-okn-kompensaciya.md](file:///topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md)

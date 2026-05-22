@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">12 узлов · 15 связей</div>
+<div id="stats">13 узлов · 17 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -136,6 +136,19 @@ var nodes = new vis.DataSet([
     "group": "судебный акт"
   },
   {
+    "id": "s_ks_rf_42_p_ohrannye_zony_okn_2025_12_md",
+    "label": "Постановление КС РФ от 01.12.2025 № 42-П",
+    "color": "#D94A68",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md",
+    "group": "судебный акт"
+  },
+  {
     "id": "s_ftl_advisers_necelevoe_ispolzovanie_zemlya_2024_md",
     "label": "Офис вместо склада: последствия нецел...",
     "color": "#50B878",
@@ -221,6 +234,14 @@ var edges = new vis.DataSet([
   {
     "from": "s_A47_12503_2022_sro_kontrakt_nichtoznost_md",
     "to": "t_topics_sro__index_md"
+  },
+  {
+    "from": "s_ks_rf_42_p_ohrannye_zony_okn_2025_12_md",
+    "to": "t_topics_zemelnoe-pravo_izhs-registratsiya_md"
+  },
+  {
+    "from": "s_ks_rf_42_p_ohrannye_zony_okn_2025_12_md",
+    "to": "t_topics_zemelnoe-pravo__index_md"
   },
   {
     "from": "s_ftl_advisers_necelevoe_ispolzovanie_zemlya_2024_md",
