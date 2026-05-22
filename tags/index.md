@@ -13,6 +13,9 @@ type: служебный
 ## OSINT
 - [Дом, который... — OSINT Mindset GitBook](sources/osint-mindset-dom-kotoryi.md) (источник)
 
+## адресация
+- [Письмо Росреестра от 03.04.2026 № 18-00852/26](sources/rosreestr-2026-04-03-18-00852.md) (источник)
+
 ## аренда
 - [Земельное право — обзор темы](topics/zemelnoe-pravo/_index.md) (тема)
 

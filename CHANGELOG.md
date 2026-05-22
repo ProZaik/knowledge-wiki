@@ -242,3 +242,12 @@
 - **Источник (письмо органа):** [Письмо Росреестра от 23.03.2026 № 336576078](sources/rosreestr-2026-03-23-336576078.md)
 - **Обновлены темы:**
   - [kompleksnye-kadastrovye-raboty](file:///topics/zemelnoe-pravo/kompleksnye-kadastrovye-raboty)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Росреестра от 03.04.2026 № 18-00852/26](sources/rosreestr-2026-04-03-18-00852.md)
+- **Обновлены темы:**
+  - [adresatsiya](file:///topics/zemelnoe-pravo/adresatsiya)
+  - [egrn-vypiski](file:///topics/zemelnoe-pravo/egrn-vypiski)
