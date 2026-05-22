@@ -122,3 +122,12 @@
 - **Источник (судебный акт):** [Постановление АС Уральского округа от 28.08.2023 — дело А47-12503/2022](sources/A47-12503-2022-sro-kontrakt-nichtoznost.md)
 - **Обновлены темы:**
   - [kf-odo-uroven-otvetstvennosti.md](file:///topics/sro/kf-odo-uroven-otvetstvennosti.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [Офис вместо склада: последствия нецелевого использования муниципального земельного участка](sources/ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md)
+- **Обновлены темы:**
+  - [VRI-egrn-poryadok.md](file:///topics/zemelnoe-pravo/VRI-egrn-poryadok.md)
+  - [arenda-publichnoy-zemli.md](file:///topics/zemelnoe-pravo/arenda-publichnoy-zemli.md)
