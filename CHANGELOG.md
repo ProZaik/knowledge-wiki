@@ -226,3 +226,11 @@
 - **Обновлены темы:**
   - [VRI-arenda-goszemli.md](file:///topics/zemelnoe-pravo/VRI-arenda-goszemli.md)
   - [VRI-sadovye-uchastki.md](file:///topics/zemelnoe-pravo/VRI-sadovye-uchastki.md)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Росреестра от 18.03.2026 № 14-2722-ЛЛ/26](sources/rosreestr-2026-03-18-14-2722.md)
+- **Обновлены темы:**
+  - [gosposhlina](file:///topics/zemelnoe-pravo/gosposhlina)
