@@ -11,6 +11,7 @@ tags:
 - Росреестр
 - ИЖС
 source_url: https://rosreestr.gov.ru/press/archive/vopros-otvet-kakie-teplitsy-nuzhno-stavit-na-kadastrovyy-uchet/
+date: '2025-06-01'
 ---
 
 # Какие теплицы нужно ставить на кадастровый учёт

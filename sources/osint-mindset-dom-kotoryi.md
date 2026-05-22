@@ -8,6 +8,7 @@ date_added: '2026-05-22'
 tags:
 - OSINT
 source_url: https://gitbook.osint-mindset.com/cases/dom-kotoryi
+date: '2025-01-01'
 ---
 
 # Дом, который... — OSINT Mindset GitBook

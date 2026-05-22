@@ -10,6 +10,7 @@ tags:
 - СРО
 - строительство
 source_url: https://nostroy.ru/nostroy/nk-komissiya/
+date: '2025-06-01'
 ---
 
 # НК Комиссия НОСТРОЙ

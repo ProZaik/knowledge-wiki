@@ -11,8 +11,7 @@ tags:
 - банкротство
 - взыскание
 source_url: https://rg.ru/2024/09/19/verhovnyj-sud-rasshiril-ponianie-edinstvennoe-zhilia.html
-related_topics:
-- topics/zhilishnoe-pravo/edinstvennoe-zhilye.md
+date: '2024-10-01'
 ---
 
 # ВС РФ расширил понятие "единственное жильё"

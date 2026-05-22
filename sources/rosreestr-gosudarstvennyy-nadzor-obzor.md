@@ -9,8 +9,7 @@ tags:
 - Росреестр
 - ГЗН
 source_url: https://rosreestr.gov.ru/activity/gosudarstvennyy-nadzor/
-related_topics:
-- topics/zemelnoe-pravo/zemelnyy-nadzor.md
+date: '2025-06-01'
 ---
 
 # Государственный надзор — раздел Росреестра (обзор)

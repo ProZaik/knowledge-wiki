@@ -8,6 +8,7 @@ date_added: '2026-05-22'
 tags:
 - судебная-практика
 source_url: https://pravo.ru/story/250454/
+date: '2025-07-01'
 ---
 
 # Материал pravo.ru — story/250454

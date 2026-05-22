@@ -12,8 +12,7 @@ tags:
 - ВС-РФ
 - ЕГРН
 - кадастровый-учёт
-related_topics:
-- topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md
+date: '2026-02-01'
 ---
 
 # ВС запретил нарезать участки в нарушение градрегламентов

@@ -11,8 +11,7 @@ tags:
 - компенсация
 - изъятие
 - ЗК
-related_topics:
-- topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md
+date: '2025-12-15'
 ---
 
 # КС защитил право собственности в охранных зонах культурных памятников

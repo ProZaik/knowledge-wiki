@@ -12,9 +12,7 @@ tags:
 - ПЗЗ
 - судебная-практика
 source_url: https://urtmag.ru/public/1633/
-related_topics:
-- topics/gradostroitelstvo/krasnye-linii.md
-- topics/zemelnoe-pravo/territorii-obshchego-polzovaniya.md
+date: '2025-01-01'
 ---
 
 # Красные линии: правовой статус и выводы из судебной практики

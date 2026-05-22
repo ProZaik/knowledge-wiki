@@ -11,6 +11,7 @@ tags:
 source_url: https://zakon.ru/publication/gpzu-2026-analiz
 related_topics:
 - topics/gradostroitelstvo/_index.md
+date: '2026-05-15'
 ---
 
 # ГПЗУ как щит застройщика: анализ судебной практики 2024–2026

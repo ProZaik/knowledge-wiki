@@ -9,8 +9,7 @@ tags:
 - СРО
 - Росреестр
 source_url: https://rosreestr.gov.ru/wps/portal/p/cc_ib_portal_services/cc_ib_sro_reestrs/
-related_topics:
-- topics/sro/reestry.md
+date: '2025-06-01'
 ---
 
 # Реестр СРО — сервис Росреестра

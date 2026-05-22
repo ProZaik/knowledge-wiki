@@ -11,8 +11,6 @@ tags:
 - ничтожность
 - 44-ФЗ
 - ГрК
-related_topics:
-- topics/sro/kf-odo-uroven-otvetstvennosti.md
 ---
 
 # Постановление АС Уральского округа от 28.08.2023 — дело А47-12503/2022

@@ -11,9 +11,6 @@ tags:
 - ЕГРН
 - 295-ФЗ
 - Росреестр
-related_topics:
-- topics/zemelnoe-pravo/VRI-arenda-goszemli.md
-- topics/zemelnoe-pravo/VRI-sadovye-uchastki.md
 ---
 
 # Письмо Росреестра от 15.04.2026 № 14-4104-ЛЛ/26

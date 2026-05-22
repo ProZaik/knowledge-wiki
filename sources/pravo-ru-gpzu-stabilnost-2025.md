@@ -13,8 +13,7 @@ tags:
 - застройщик
 - ПЗЗ
 source_url: https://pravo.ru/opinion/259008/
-related_topics:
-- topics/gradostroitelstvo/gpzu.md
+date: '2025-09-01'
 ---
 
 # Есть ли сила в градостроительных планах земельных участков?

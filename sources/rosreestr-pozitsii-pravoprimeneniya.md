@@ -10,6 +10,7 @@ tags:
 - правоприменение
 - кадастр
 source_url: https://rosreestr.gov.ru/activity/normativno-pravovoe-regulirovanie-v-sfere-nedvizhimosti/pozitsii-po-voprosam-pravoprimeneniya/
+date: '2025-06-01'
 ---
 
 # Позиции по вопросам правоприменения — Росреестр

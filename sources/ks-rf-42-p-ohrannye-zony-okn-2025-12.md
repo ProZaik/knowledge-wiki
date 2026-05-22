@@ -13,8 +13,6 @@ tags:
 - компенсация
 - ЗК
 - ЕГРН
-related_topics:
-- topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md
 ---
 
 # Постановление КС РФ от 01.12.2025 № 42-П

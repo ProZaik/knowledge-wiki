@@ -11,6 +11,7 @@ tags:
 - Росреестр
 - кадастр
 source_url: https://rosreestr.gov.ru/press/archive/vopros-otvet-kak-poluchit-zemlyu-dlya-izhs-s-pomoshchyu-servisov-nspd-i-oformit-zhiloy-050825/
+date: '2025-03-01'
 ---
 
 # Как получить землю для ИЖС с помощью сервисов НСПД и оформить жилой дом

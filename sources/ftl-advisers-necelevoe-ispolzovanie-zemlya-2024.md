@@ -13,9 +13,7 @@ tags:
 - ОКС
 - публичный-участок
 source_url: https://ftl-advisers.ru/ftl-yb-el-case-19062024/
-related_topics:
-- topics/zemelnoe-pravo/VRI-egrn-poryadok.md
-- topics/zemelnoe-pravo/arenda-publichnoy-zemli.md
+date: '2024-06-01'
 ---
 
 # Офис вместо склада: последствия нецелевого использования муниципального земельного участка
