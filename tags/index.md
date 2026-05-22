@@ -7,6 +7,9 @@ type: служебный
 ## 44-ФЗ
 - [Постановление АС Уральского округа от 28.08.2023 — дело А47-12503/2022](sources/A47-12503-2022-sro-kontrakt-nichtoznost.md) (источник)
 
+## OSINT
+- [Дом, который... — OSINT Mindset GitBook](sources/osint-mindset-dom-kotoryi.md) (источник)
+
 ## аренда
 - [Земельное право — обзор темы](topics/zemelnoe-pravo/_index.md) (тема)
 

@@ -175,3 +175,9 @@
 
 ### Добавлено:
 - **Источник (статья):** [НК Комиссия НОСТРОЙ](sources/nostroy-nk-komissiya.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [Дом, который... — OSINT Mindset GitBook](sources/osint-mindset-dom-kotoryi.md)
