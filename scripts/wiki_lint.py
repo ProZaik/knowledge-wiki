@@ -9,6 +9,7 @@ Wiki Lint — автоматическая проверка целостност
 3. Ссылки: все внутренние ссылки (markdown + YAML related_topics) ведут на существующие файлы
 4. Структура: topics/ — максимум 2 уровня вложенности
 5. INDEX.md: все файлы из topics/ и sources/ упомянуты в индексе
+6. Сироты: файлы из topics/ и sources/, на которые нет ссылок ни из одного другого файла
 """
 
 import os
@@ -213,6 +214,86 @@ def check_index_coverage(index_content):
                     warn(f"{rel_path}: файл не упомянут в INDEX.md")
 
 
+# ---------------------------------------------------------------------------
+# 9. Проверка сирот — файлы, на которые нет ссылок из других файлов
+# ---------------------------------------------------------------------------
+def check_orphans():
+    """
+    Собирает все .md-файлы из topics/ и sources/ (кроме _index.md, _sidebar.md)
+    и проверяет, ссылается ли на них хотя бы один другой .md-файл в репозитории.
+    Файлы-сироты генерируют предупреждения (не ошибки).
+    """
+    # --- Шаг 1: собираем кандидатов (файлы, которые могут быть сиротами) ---
+    candidate_dirs = ["topics", "sources"]
+    candidates = set()  # относительные пути от ROOT, с прямым слэшем
+    for d in candidate_dirs:
+        full_dir = os.path.join(ROOT, d)
+        if not os.path.exists(full_dir):
+            continue
+        for dirpath, _, filenames in os.walk(full_dir):
+            for fn in filenames:
+                if not fn.endswith(".md"):
+                    continue
+                if fn.startswith("_"):
+                    continue
+                rel = os.path.relpath(
+                    os.path.join(dirpath, fn), ROOT
+                ).replace("\\", "/")
+                candidates.add(rel)
+
+    if not candidates:
+        return
+
+    # --- Шаг 2: собираем все ссылки из всех .md-файлов репозитория ---
+    linked_paths = set()  # нормализованные относительные пути
+    link_re = re.compile(r'\]\(([^)]+)\)')  # захватывает содержимое ](...)
+
+    for dirpath, _, filenames in os.walk(ROOT):
+        # Пропускаем служебные директории
+        rel_dir = os.path.relpath(dirpath, ROOT)
+        if rel_dir.startswith(".git") or rel_dir.startswith("archive_v1"):
+            continue
+
+        for fn in filenames:
+            if not fn.endswith(".md"):
+                continue
+
+            filepath = os.path.join(dirpath, fn)
+            try:
+                with open(filepath, "r", encoding="utf-8") as f:
+                    content = f.read()
+            except (OSError, UnicodeDecodeError):
+                continue
+
+            # Парсим markdown-ссылки: ](путь)
+            for m in link_re.finditer(content):
+                target = m.group(1).strip()
+                if target.startswith("http") or target.startswith("#") or target.startswith("mailto:"):
+                    continue
+                target_clean = target.split("#")[0].strip()
+                if not target_clean:
+                    continue
+                # Нормализуем: Docsify разрешает от корня
+                normalized = target_clean.replace("\\", "/")
+                linked_paths.add(normalized)
+
+            # Парсим YAML-шапку: related_topics
+            meta, _ = parse_yaml_front(filepath)
+            if meta and isinstance(meta.get("related_topics"), list):
+                for rt in meta["related_topics"]:
+                    rt_str = str(rt).strip().replace("\\", "/")
+                    if rt_str:
+                        linked_paths.add(rt_str)
+
+    # --- Шаг 3: кто из кандидатов не упомянут нигде ---
+    for candidate in sorted(candidates):
+        if candidate not in linked_paths:
+            warn(
+                f"Сирота: файл '{candidate}' не упоминается "
+                f"ни в одном другом файле базы знаний"
+            )
+
+
 def run_linter(quiet=False):
     """
     Запускает полную проверку базы знаний.
@@ -259,6 +340,7 @@ def run_linter(quiet=False):
 
     check_depth()
     check_index_coverage(index_content)
+    check_orphans()
 
     return list(errors), list(warnings)
 

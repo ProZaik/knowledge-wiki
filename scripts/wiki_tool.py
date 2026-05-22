@@ -215,6 +215,332 @@ def generate_sidebar():
     return True
 
 
+def _read_title_from_file(filepath):
+    """Извлекает заголовок из YAML frontmatter (поле title) или из первого H1."""
+    meta = parse_yaml_front(filepath)
+    if meta and "title" in meta:
+        return meta["title"]
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.startswith("# "):
+                    return line[2:].strip()
+    except Exception:
+        pass
+    # Крайний случай — имя файла без расширения
+    return os.path.splitext(os.path.basename(filepath))[0].replace("-", " ").capitalize()
+
+
+def generate_backlinks():
+    """Сканирует все .md-файлы в topics/ и sources/, строит карту обратных ссылок
+    и дописывает/обновляет секцию BACKLINKS в каждом файле topics/."""
+    sources_dir = os.path.join(ROOT, "sources")
+    topics_dir = os.path.join(ROOT, "topics")
+
+    all_files = get_all_markdown_files(topics_dir) + get_all_markdown_files(sources_dir)
+    # Включаем также _index.md-файлы для полноты сканирования ссылок
+    for dirpath, _, filenames in os.walk(topics_dir):
+        for fn in filenames:
+            if fn.startswith("_") and fn.endswith(".md"):
+                fp = os.path.join(dirpath, fn)
+                if fp not in all_files:
+                    all_files.append(fp)
+
+    # Карта: относительный путь (от ROOT) -> список файлов, которые ссылаются на него
+    backlinks_map = {}  # type: dict[str, list[str]]
+
+    # Регулярка для поиска markdown-ссылок вида [текст](путь.md)
+    link_pattern = re.compile(r'\]\(([^)]+\.md)\)')
+
+    for fpath in all_files:
+        rel_self = os.path.relpath(fpath, ROOT).replace("\\", "/")
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception:
+            continue
+
+        # Убираем секцию backlinks из содержимого, чтобы не считать их как ссылки
+        content_clean = re.sub(
+            r'<!-- BACKLINKS_START -->.*?<!-- BACKLINKS_END -->',
+            '', content, flags=re.DOTALL
+        )
+
+        for match in link_pattern.finditer(content_clean):
+            raw_link = match.group(1)
+            # Разрешаем относительные пути от файла-источника
+            link_dir = os.path.dirname(fpath)
+            abs_target = os.path.normpath(os.path.join(link_dir, raw_link))
+            rel_target = os.path.relpath(abs_target, ROOT).replace("\\", "/")
+
+            if rel_target == rel_self:
+                continue  # не считаем самоссылку
+
+            if rel_target not in backlinks_map:
+                backlinks_map[rel_target] = []
+            if rel_self not in backlinks_map[rel_target]:
+                backlinks_map[rel_target].append(rel_self)
+
+    # Обрабатываем только файлы тем (topics/) — дописываем/обновляем секцию
+    topic_files_all = get_all_markdown_files(topics_dir)
+    # Также включаем _index.md
+    for dirpath, _, filenames in os.walk(topics_dir):
+        for fn in filenames:
+            if fn.startswith("_") and fn.endswith(".md"):
+                fp = os.path.join(dirpath, fn)
+                if fp not in topic_files_all:
+                    topic_files_all.append(fp)
+
+    updated_count = 0
+    for fpath in topic_files_all:
+        rel_path = os.path.relpath(fpath, ROOT).replace("\\", "/")
+        linkers = backlinks_map.get(rel_path, [])
+
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception:
+            continue
+
+        # Удаляем существующую секцию backlinks
+        content_stripped = re.sub(
+            r'\n*<!-- BACKLINKS_START -->.*?<!-- BACKLINKS_END -->\s*',
+            '', content, flags=re.DOTALL
+        ).rstrip()
+
+        if linkers:
+            # Формируем секцию
+            bl_lines = []
+            bl_lines.append("<!-- BACKLINKS_START -->")
+            bl_lines.append("---")
+            bl_lines.append("> **📎 На эту статью ссылаются:**")
+            for lf in sorted(linkers):
+                abs_lf = os.path.join(ROOT, lf.replace("/", os.sep))
+                title = _read_title_from_file(abs_lf)
+                # Вычисляем относительный путь от текущего файла к ссылающемуся
+                rel_link = os.path.relpath(abs_lf, os.path.dirname(fpath)).replace("\\", "/")
+                bl_lines.append(f"> - [{title}]({rel_link})")
+            bl_lines.append("<!-- BACKLINKS_END -->")
+            new_content = content_stripped + "\n\n" + "\n".join(bl_lines) + "\n"
+        else:
+            new_content = content_stripped + "\n"
+
+        if new_content != content:
+            with open(fpath, "w", encoding="utf-8", newline="\n") as f:
+                f.write(new_content)
+            updated_count += 1
+
+    print(f"[OK] Обратные ссылки обновлены для {updated_count} файлов тем.")
+    return True
+
+
+def generate_tag_index():
+    """Генерирует tags/index.md — индекс всех тегов с ссылками на статьи."""
+    sources_dir = os.path.join(ROOT, "sources")
+    topics_dir = os.path.join(ROOT, "topics")
+    tags_dir = os.path.join(ROOT, "tags")
+
+    all_files = get_all_markdown_files(topics_dir) + get_all_markdown_files(sources_dir)
+    # Включаем _index.md-файлы, которые тоже содержат теги
+    for dirpath, _, filenames in os.walk(topics_dir):
+        for fn in filenames:
+            if fn.startswith("_") and fn.endswith(".md"):
+                fp = os.path.join(dirpath, fn)
+                if fp not in all_files:
+                    all_files.append(fp)
+
+    # Карта: тег -> [{title, path, type}]
+    tag_map = {}  # type: dict[str, list[dict]]
+
+    for fpath in all_files:
+        meta = parse_yaml_front(fpath)
+        if not meta:
+            continue
+
+        tags = meta.get("tags", [])
+        if not isinstance(tags, list) or not tags:
+            continue
+
+        rel_path = os.path.relpath(fpath, ROOT).replace("\\", "/")
+        title = _read_title_from_file(fpath)
+
+        # Определяем тип: тема или источник
+        if rel_path.startswith("topics/"):
+            file_type = "тема"
+            sort_order = 0
+        else:
+            file_type = "источник"
+            sort_order = 1
+
+        for tag in tags:
+            tag_str = str(tag).strip()
+            if not tag_str:
+                continue
+            if tag_str not in tag_map:
+                tag_map[tag_str] = []
+            tag_map[tag_str].append({
+                "title": title,
+                "path": rel_path,
+                "type": file_type,
+                "sort_order": sort_order,
+            })
+
+    # Сортируем теги по алфавиту (без учёта регистра)
+    sorted_tags = sorted(tag_map.keys(), key=lambda t: t.lower())
+
+    # Формируем содержимое
+    lines = [
+        '---',
+        'title: "Индекс по тегам"',
+        'type: служебный',
+        '---',
+        '# 🏷️ Индекс по тегам',
+        '',
+    ]
+
+    for tag in sorted_tags:
+        lines.append(f"## {tag}")
+        # Сортируем: сначала темы (sort_order=0), потом источники (sort_order=1)
+        articles = sorted(tag_map[tag], key=lambda a: (a["sort_order"], a["title"]))
+        for art in articles:
+            lines.append(f"- [{art['title']}]({art['path']}) ({art['type']})")
+        lines.append("")
+
+    # Создаём директорию tags/ при необходимости
+    os.makedirs(tags_dir, exist_ok=True)
+
+    tag_index_path = os.path.join(tags_dir, "index.md")
+    with open(tag_index_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(lines))
+
+    print(f"[OK] Индекс тегов сгенерирован: tags/index.md ({len(sorted_tags)} тегов).")
+    return True
+
+
+def generate_knowledge_graph():
+    """Генерирует _graph.md — граф знаний в формате Mermaid на основе связей между темами."""
+    topics_dir = os.path.join(ROOT, "topics")
+    graph_path = os.path.join(ROOT, "_graph.md")
+
+    topic_files = get_all_markdown_files(topics_dir)
+    # Включаем _index.md тоже
+    for dirpath, _, filenames in os.walk(topics_dir):
+        for fn in filenames:
+            if fn.startswith("_") and fn.endswith(".md"):
+                fp = os.path.join(dirpath, fn)
+                if fp not in topic_files:
+                    topic_files.append(fp)
+
+    # Собираем информацию о каждом файле темы
+    # node_id -> {title, rel_path}
+    nodes = {}  # type: dict[str, dict]
+    # Карта: rel_path -> node_id для быстрого поиска
+    path_to_id = {}  # type: dict[str, str]
+
+    for fpath in topic_files:
+        rel_path = os.path.relpath(fpath, ROOT).replace("\\", "/")
+        # Генерируем короткий id из имени файла
+        basename = os.path.splitext(os.path.basename(fpath))[0]
+        # Убираем подчёркивание для _index
+        node_id = basename.lstrip("_").replace("-", "_")
+        # Добавляем папку для уникальности
+        parent_dir = os.path.basename(os.path.dirname(fpath))
+        if node_id == "index":
+            node_id = parent_dir.replace("-", "_")
+
+        # На случай коллизии id
+        original_id = node_id
+        counter = 2
+        while node_id in nodes:
+            node_id = f"{original_id}_{counter}"
+            counter += 1
+
+        title = _read_title_from_file(fpath)
+        # Укорачиваем заголовок — убираем " — обзор темы" и подобное
+        title_short = title.split("—")[0].strip()
+
+        nodes[node_id] = {"title": title_short, "rel_path": rel_path}
+        path_to_id[rel_path] = node_id
+
+    # Собираем рёбра графа
+    edges = set()  # type: set[tuple[str, str]]
+    link_pattern = re.compile(r'\]\(([^)]+\.md)\)')
+
+    for fpath in topic_files:
+        rel_self = os.path.relpath(fpath, ROOT).replace("\\", "/")
+        self_id = path_to_id.get(rel_self)
+        if not self_id:
+            continue
+
+        meta = parse_yaml_front(fpath)
+
+        # 1. Ссылки из related_topics в frontmatter
+        if meta:
+            related = meta.get("related_topics", [])
+            if isinstance(related, list):
+                for rt in related:
+                    rt_str = str(rt).strip()
+                    # related_topics может быть путём или просто именем
+                    if rt_str in path_to_id:
+                        target_id = path_to_id[rt_str]
+                        edge = tuple(sorted([self_id, target_id]))
+                        edges.add(edge)
+
+        # 2. Markdown-ссылки в теле файла на другие файлы topics/
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception:
+            continue
+
+        for match in link_pattern.finditer(content):
+            raw_link = match.group(1)
+            link_dir = os.path.dirname(fpath)
+            abs_target = os.path.normpath(os.path.join(link_dir, raw_link))
+            rel_target = os.path.relpath(abs_target, ROOT).replace("\\", "/")
+
+            if rel_target in path_to_id and rel_target != rel_self:
+                target_id = path_to_id[rel_target]
+                edge = tuple(sorted([self_id, target_id]))
+                edges.add(edge)
+
+    # Генерируем Mermaid-диаграмму
+    lines = [
+        '---',
+        'title: "Граф знаний"',
+        '---',
+        '# 🕸️ Граф знаний',
+        '',
+        '```mermaid',
+        'graph LR',
+    ]
+
+    # Добавляем узлы (только те, что имеют хотя бы одно ребро, плюс изолированные)
+    nodes_in_edges = set()
+    for a, b in edges:
+        nodes_in_edges.add(a)
+        nodes_in_edges.add(b)
+
+    # Добавляем все узлы — даже изолированные, для полноты карты
+    for nid, info in sorted(nodes.items()):
+        # Экранируем кавычки в заголовке для Mermaid
+        safe_title = info["title"].replace('"', "'")
+        lines.append(f'    {nid}["{safe_title}"]')
+
+    # Добавляем рёбра
+    for a, b in sorted(edges):
+        lines.append(f'    {a} --> {b}')
+
+    lines.append('```')
+    lines.append('')
+
+    with open(graph_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(lines))
+
+    print(f"[OK] Граф знаний сгенерирован: _graph.md ({len(nodes)} узлов, {len(edges)} связей).")
+    return True
+
+
 def update_index_stats():
     """Считывает INDEX.md, обновляет блок статистики, генерирует _sidebar.md и записывает обратно."""
     index_path = os.path.join(ROOT, "INDEX.md")
@@ -247,6 +573,25 @@ def update_index_stats():
     
     # Также автоматически генерируем сайдбар
     generate_sidebar()
+
+    # Генерация обратных ссылок
+    try:
+        generate_backlinks()
+    except Exception as e:
+        print(f"[!] Ошибка при генерации обратных ссылок: {e}")
+
+    # Генерация индекса тегов
+    try:
+        generate_tag_index()
+    except Exception as e:
+        print(f"[!] Ошибка при генерации индекса тегов: {e}")
+
+    # Генерация графа знаний
+    try:
+        generate_knowledge_graph()
+    except Exception as e:
+        print(f"[!] Ошибка при генерации графа знаний: {e}")
+
     return True
 
 

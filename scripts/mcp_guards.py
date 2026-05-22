@@ -196,6 +196,164 @@ def _clean_blank_lines(text: str) -> str:
     return re.sub(r"\n{4,}", "\n\n\n", text)
 
 
+def _build_topic_index() -> dict[str, str]:
+    """
+    Строит индекс всех тем: {название_темы_lower → относительный_путь}.
+
+    Считывает YAML-шапки всех .md файлов в topics/ и собирает:
+    - title из frontmatter
+    - Заголовок H1 (# ...) если нет title
+    - Имя файла без расширения как fallback
+
+    Возвращает:
+        Словарь {название_в_нижнем_регистре: 'topics/domain/file.md'}
+    """
+    index: dict[str, str] = {}
+    topics_dir = os.path.join(ROOT, "topics")
+
+    if not os.path.isdir(topics_dir):
+        return index
+
+    for dirpath, _dirnames, filenames in os.walk(topics_dir):
+        for fname in filenames:
+            if not fname.endswith(".md") or fname.startswith("_"):
+                continue
+
+            abs_path = os.path.join(dirpath, fname)
+            rel_path = os.path.relpath(abs_path, ROOT).replace("\\", "/")
+
+            title = None
+            try:
+                with open(abs_path, "r", encoding="utf-8") as f:
+                    content = f.read(2000)  # Читаем только начало для скорости
+
+                # Пытаемся извлечь title из YAML frontmatter
+                fm_match = re.match(r"^---\s*\n(.*?)\n---", content, re.DOTALL)
+                if fm_match:
+                    import yaml
+                    try:
+                        meta = yaml.safe_load(fm_match.group(1))
+                        if isinstance(meta, dict):
+                            title = meta.get("title")
+                    except Exception:
+                        pass
+
+                # Fallback: заголовок H1
+                if not title:
+                    h1_match = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
+                    if h1_match:
+                        title = h1_match.group(1).strip()
+
+                # Fallback: имя файла
+                if not title:
+                    title = fname[:-3].replace("-", " ")
+
+            except Exception:
+                continue
+
+            if title:
+                index[title.lower()] = rel_path
+
+    return index
+
+
+def autolink(text: str) -> str:
+    """
+    Автоматически расставляет ссылки на существующие темы wiki.
+
+    Сканирует текст на упоминания известных тем (по их title из YAML-шапок)
+    и оборачивает первое вхождение каждого термина в markdown-ссылку.
+
+    Не линкует:
+    - Текст внутри уже существующих markdown-ссылок [...](...) 
+    - Текст внутри заголовков (# ...)
+    - Текст внутри блоков кода (``` ... ```)
+    - Текст внутри YAML frontmatter (--- ... ---)
+    - Повторные вхождения одного и того же термина (линкуется только первое)
+
+    Аргументы:
+        text: markdown-текст для обработки
+
+    Возвращает:
+        Текст с расставленными ссылками.
+    """
+    topic_index = _build_topic_index()
+    if not topic_index:
+        return text
+
+    # Сортируем по длине (длинные термины первыми, чтобы "разрешение на строительство"
+    # матчилось раньше чем "строительство")
+    sorted_terms = sorted(topic_index.keys(), key=len, reverse=True)
+
+    # Отделяем YAML frontmatter — не линкуем в нём
+    frontmatter = ""
+    body = text
+    fm_match = re.match(r"^(---\s*\n.*?\n---\s*\n?)", text, re.DOTALL)
+    if fm_match:
+        frontmatter = fm_match.group(1)
+        body = text[len(frontmatter):]
+
+    # Отделяем блоки кода — не линкуем в них
+    code_blocks: list[str] = []
+    code_pattern = re.compile(r"(```.*?```)", re.DOTALL)
+
+    def _save_code(match: re.Match) -> str:
+        code_blocks.append(match.group(0))
+        return f"__CODE_BLOCK_{len(code_blocks) - 1}__"
+
+    body = code_pattern.sub(_save_code, body)
+
+    # Множество уже залинкованных терминов (линкуем только первое вхождение)
+    linked: set[str] = set()
+
+    for term_lower in sorted_terms:
+        if term_lower in linked:
+            continue
+
+        rel_path = topic_index[term_lower]
+
+        # Паттерн: ищем термин целым словом, НЕ внутри [...] и НЕ в строке-заголовке
+        # Используем case-insensitive поиск
+        pattern = re.compile(
+            r"(?<!\[)"           # Не внутри квадратных скобок (начало)
+            r"(?<!\()"           # Не внутри круглых скобок (путь ссылки)
+            r"\b("
+            + re.escape(term_lower)
+            + r")\b"
+            r"(?!\])"            # Не внутри квадратных скобок (конец)
+            r"(?!\()",           # Не перед круглой скобкой
+            re.IGNORECASE
+        )
+
+        def _replace_first(match: re.Match) -> str:
+            """Заменяет только первое вхождение."""
+            original = match.group(0)
+            line_start = body.rfind("\n", 0, match.start()) + 1
+            line = body[line_start:match.start()]
+
+            # Не линкуем в заголовках
+            if line.lstrip().startswith("#"):
+                return original
+
+            # Не линкуем если уже внутри markdown-ссылки
+            before = body[max(0, match.start() - 1):match.start()]
+            if before == "[":
+                return original
+
+            return f"[{original}]({rel_path})"
+
+        new_body, count = pattern.subn(_replace_first, body, count=1)
+        if count > 0:
+            body = new_body
+            linked.add(term_lower)
+
+    # Восстанавливаем блоки кода
+    for i, block in enumerate(code_blocks):
+        body = body.replace(f"__CODE_BLOCK_{i}__", block)
+
+    return frontmatter + body
+
+
 def sanitize_content(text: str) -> str:
     """
     Санитизирует входящий markdown-контент перед записью в wiki.
@@ -205,6 +363,7 @@ def sanitize_content(text: str) -> str:
     2. Удаление опасных HTML-тегов, конвертация безопасных в markdown
     3. Нормализация относительных путей (убираем ../)
     4. Очистка избыточных пустых строк
+    5. Автолинкер: расстановка ссылок на существующие темы wiki
 
     Аргументы:
         text: исходный markdown-текст
@@ -223,6 +382,9 @@ def sanitize_content(text: str) -> str:
 
     # Шаг 4: Очистка пустых строк
     text = _clean_blank_lines(text)
+
+    # Шаг 5: Автоматическая расстановка ссылок на темы
+    text = autolink(text)
 
     return text
 

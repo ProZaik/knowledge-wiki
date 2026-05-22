@@ -20,6 +20,9 @@ import uvicorn
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+from mcp_guards import sanitize_content, normalize_tags, validate_content_length, auto_git_commit
+from mcp_templates import build_letter, build_court_decision, build_article, build_law, build_topic
+
 # Импортируем официальный SDK
 try:
     from mcp.server.fastmcp import FastMCP
@@ -138,70 +141,21 @@ def read_file(path: str) -> str:
         return f"Ошибка при чтении файла: {e}"
 
 
-@mcp.tool()
-def ingest_source(
+def _post_write_pipeline(
     filename: str,
     title: str,
-    full_text: str,
-    tags: list[str],
-    status: str = "draft",
-    source_url: str = "",
-    related_topics: list[str] = None
-) -> dict:
-    """Интеллектуальный импорт нового источника по правилам Andrej Karpathy Ingestion Workflow.
-    Создает карточку в sources/, автоматически связывает её с указанными темами в topics/,
-    обновляет CHANGELOG.md и INDEX.md, пересчитывает статистику и запускает линтер.
-    
-    ВАЖНО: В параметре full_text ОБЯЗАТЕЛЬНО передавать ПОЛНЫЙ оригинальный текст документа без сокращений!
+    doc_type: str,
+    related_topics: list[str],
+    tag_warnings: list[str]
+) -> tuple[list[str], dict]:
+    """Общий пайплайн после записи источника: связывание с темами, CHANGELOG, INDEX, линтер, git.
+
+    Возвращает кортеж (link_reports, linter_results).
     """
-    if not filename.endswith(".md"):
-        filename += ".md"
-        
-    sources_dir = os.path.join(ROOT, "sources")
-    os.makedirs(sources_dir, exist_ok=True)
-    
-    filepath = os.path.join(sources_dir, filename)
-    if os.path.exists(filepath):
-        return {"success": False, "error": f"Файл источника '{filename}' уже существует."}
-        
-    # Валидация тегов
-    from wiki_lint import load_allowed_tags
-    allowed_tags = load_allowed_tags()
-    invalid_tags = [t for t in tags if t not in allowed_tags]
-    if invalid_tags:
-        return {
-            "success": False, 
-            "error": f"Используются незарегистрированные теги: {', '.join(invalid_tags)}. Пожалуйста, сначала добавьте их в tags-registry.md."
-        }
-        
     date_str = datetime.date.today().isoformat()
-    
-    # Формируем YAML шапку
-    frontmatter = {
-        "title": title,
-        "type": "судебный акт" if any(x in title.lower() for x in ["дело", "решение", "постановление"]) else "письмо органа",
-        "status": status,
-        "date_added": date_str,
-        "tags": tags
-    }
-    if source_url:
-        frontmatter["source_url"] = source_url
-    if related_topics:
-        frontmatter["related_topics"] = related_topics
-        
-    yaml_str = yaml.dump(frontmatter, allow_unicode=True, default_flow_style=False, sort_keys=False)
-    content = f"---\n{yaml_str}---\n\n{full_text.strip()}\n"
-    
-    # 1. Запись источника
-    try:
-        with open(filepath, "w", encoding="utf-8", newline="\n") as f:
-            f.write(content)
-    except Exception as e:
-        return {"success": False, "error": f"Не удалось записать файл источника: {e}"}
-        
-    link_reports = []
-    
-    # 2. Связывание с темами
+    link_reports: list[str] = []
+
+    # 1. Связывание с темами
     if related_topics:
         for topic in related_topics:
             topic_path = os.path.join(ROOT, topic)
@@ -209,18 +163,18 @@ def ingest_source(
                 try:
                     with open(topic_path, "r", encoding="utf-8") as f:
                         topic_content = f.read()
-                    
+
                     source_rel_path = f"sources/{filename}"
                     if source_rel_path not in topic_content:
                         link_line = f"\n\n- [{title}]({source_rel_path})"
-                        
+
                         if "## Источники" in topic_content:
                             topic_content = topic_content.replace("## Источники", f"## Источники{link_line}")
                         elif "## Связанные источники" in topic_content:
                             topic_content = topic_content.replace("## Связанные источники", f"## Связанные источники{link_line}")
                         else:
                             topic_content += f"\n\n### Связанные источники{link_line}"
-                            
+
                         with open(topic_path, "w", encoding="utf-8", newline="\n") as f:
                             f.write(topic_content)
                         link_reports.append(f"Связан с темой {topic}")
@@ -228,20 +182,20 @@ def ingest_source(
                     link_reports.append(f"Ошибка связывания с {topic}: {e}")
             else:
                 link_reports.append(f"Тема не найдена: {topic}")
-                
-    # 3. Обновление CHANGELOG.md
+
+    # 2. Обновление CHANGELOG.md
     changelog_path = os.path.join(ROOT, "CHANGELOG.md")
     if os.path.exists(changelog_path):
         try:
             with open(changelog_path, "r", encoding="utf-8") as f:
                 changelog_content = f.read()
-            
-            new_entry = f"\n\n## [{date_str}]\n\n### Добавлено:\n- **Источник:** [{title}](sources/{filename})\n"
+
+            new_entry = f"\n\n## [{date_str}]\n\n### Добавлено:\n- **Источник ({doc_type}):** [{title}](sources/{filename})\n"
             if related_topics:
                 new_entry += "- **Обновлены темы:**\n"
                 for topic in related_topics:
                     new_entry += f"  - [{os.path.basename(topic)}](file:///{topic})\n"
-            
+
             if "# История изменений" in changelog_content:
                 parts = changelog_content.split("# История изменений", 1)
                 if "## [" in parts[1]:
@@ -251,46 +205,335 @@ def ingest_source(
                     updated_changelog = changelog_content + new_entry
             else:
                 updated_changelog = changelog_content + new_entry
-                
+
             with open(changelog_path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(updated_changelog)
             link_reports.append("CHANGELOG.md обновлен")
         except Exception as e:
             link_reports.append(f"Ошибка обновления CHANGELOG.md: {e}")
-            
-    # 4. Обновление INDEX.md и статистики
+
+    # 3. Обновление INDEX.md и статистики
     index_path = os.path.join(ROOT, "INDEX.md")
     if os.path.exists(index_path):
         try:
             with open(index_path, "r", encoding="utf-8") as f:
                 index_content = f.read()
-                
+
             source_link = f"- [{title}](sources/{filename}) — добавлен {date_str}."
             if "## Источники" in index_content:
                 parts = index_content.split("## Источники", 1)
                 updated_index = parts[0] + "## Источники\n\n" + source_link + "\n" + parts[1].lstrip()
                 with open(index_path, "w", encoding="utf-8", newline="\n") as f:
                     f.write(updated_index)
-            
+
             from wiki_tool import update_index_stats
             update_index_stats()
             link_reports.append("INDEX.md обновлен и статистика пересчитана")
         except Exception as e:
             link_reports.append(f"Ошибка обновления INDEX.md: {e}")
-            
-    # 5. Запуск линтера
+
+    # 4. Запуск линтера
     from wiki_lint import run_linter
     errors, warnings = run_linter(quiet=True)
-    
+
+    # 5. Автоматический Git-коммит
+    committed_files = [f"sources/{filename}"]
+    if related_topics:
+        committed_files.extend(related_topics)
+    committed_files.extend(["CHANGELOG.md", "INDEX.md", "_sidebar.md"])
+    git_result = auto_git_commit(ROOT, committed_files, f"[MCP] Импорт {doc_type}: {title}")
+    link_reports.append(f"Git: {git_result.get('output', git_result.get('error', 'неизвестно'))}")
+
+    if tag_warnings:
+        link_reports.append(f"Теги нормализованы: {'; '.join(tag_warnings)}")
+
+    linter_results = {
+        "is_valid": len(errors) == 0,
+        "errors": errors,
+        "warnings": warnings
+    }
+    return link_reports, linter_results
+
+
+def _validate_and_prepare_source(
+    filename: str,
+    full_text: str,
+    tags: list[str]
+) -> tuple[str, str, list[str], list[str], str | None]:
+    """Общая валидация для всех ingest-инструментов.
+
+    Возвращает (filename, sanitized_text, validated_tags, tag_warnings, error_message).
+    Если error_message не None — нужно прервать операцию.
+    """
+    if not filename.endswith(".md"):
+        filename += ".md"
+
+    sources_dir = os.path.join(ROOT, "sources")
+    os.makedirs(sources_dir, exist_ok=True)
+
+    filepath = os.path.join(sources_dir, filename)
+    if os.path.exists(filepath):
+        return filename, full_text, tags, [], f"Файл источника '{filename}' уже существует."
+
+    # Санитайзер контента
+    full_text = sanitize_content(full_text)
+
+    # Валидация минимальной длины
+    is_valid_len, len_error = validate_content_length(full_text, min_chars=200)
+    if not is_valid_len:
+        return filename, full_text, tags, [], len_error
+
+    # Нормализация и валидация тегов
+    from wiki_lint import load_allowed_tags
+    allowed_tags = load_allowed_tags()
+    tags, tag_warnings = normalize_tags(tags, allowed_tags)
+    if not tags:
+        return filename, full_text, tags, tag_warnings, (
+            "Ни один из переданных тегов не удалось сопоставить с реестром tags-registry.md. "
+            "Передайте корректные теги."
+        )
+
+    return filename, full_text, tags, tag_warnings, None
+
+
+@mcp.tool()
+def ingest_letter(
+    filename: str,
+    title: str,
+    number: str,
+    date: str,
+    author_org: str,
+    full_text: str,
+    key_conclusions: list[str],
+    practical_significance: str,
+    tags: list[str],
+    source_url: str = "",
+    related_topics: list[str] = None
+) -> dict:
+    """Импорт письма органа власти (Росреестра, Минстроя, Минэнерго и др.).
+
+    Модель ОБЯЗАНА заполнить все структурированные поля. Сервер сам соберёт
+    качественный markdown по шаблону.
+
+    ВАЖНО: В параметре full_text ОБЯЗАТЕЛЬНО передавать ПОЛНЫЙ текст без сокращений!
+    """
+    # Валидация
+    filename, full_text, tags, tag_warnings, error = _validate_and_prepare_source(filename, full_text, tags)
+    if error:
+        return {"success": False, "error": error}
+
+    # Сборка markdown через шаблон
+    params = {
+        "title": title,
+        "number": number,
+        "date": date,
+        "author_org": author_org,
+        "full_text": full_text,
+        "key_conclusions": key_conclusions,
+        "practical_significance": practical_significance,
+        "tags": tags,
+        "source_url": source_url,
+        "related_topics": related_topics or [],
+    }
+    content = build_letter(params)
+
+    # Запись файла
+    filepath = os.path.join(ROOT, "sources", filename)
+    try:
+        with open(filepath, "w", encoding="utf-8", newline="\n") as f:
+            f.write(content)
+    except Exception as e:
+        return {"success": False, "error": f"Не удалось записать файл источника: {e}"}
+
+    # Пост-обработка
+    link_reports, linter_results = _post_write_pipeline(
+        filename, title, "письмо органа", related_topics or [], tag_warnings
+    )
+
     return {
-        "success": len(errors) == 0,
+        "success": linter_results["is_valid"],
         "imported_file": f"sources/{filename}",
         "logs": link_reports,
-        "linter_results": {
-            "is_valid": len(errors) == 0,
-            "errors": errors,
-            "warnings": warnings
-        }
+        "linter_results": linter_results
+    }
+
+
+@mcp.tool()
+def ingest_court_decision(
+    filename: str,
+    title: str,
+    case_number: str,
+    court: str,
+    date: str,
+    fabula: str,
+    full_text: str,
+    court_position: str,
+    practical_conclusions: list[str],
+    tags: list[str],
+    source_url: str = "",
+    related_topics: list[str] = None
+) -> dict:
+    """Импорт судебного акта (решение, определение, постановление).
+
+    Модель ОБЯЗАНА извлечь фабулу, позицию суда и практические выводы.
+
+    ВАЖНО: В параметре full_text ОБЯЗАТЕЛЬНО передавать ПОЛНЫЙ текст без сокращений!
+    """
+    # Валидация
+    filename, full_text, tags, tag_warnings, error = _validate_and_prepare_source(filename, full_text, tags)
+    if error:
+        return {"success": False, "error": error}
+
+    # Сборка markdown через шаблон
+    params = {
+        "title": title,
+        "case_number": case_number,
+        "court": court,
+        "date": date,
+        "fabula": fabula,
+        "full_text": full_text,
+        "court_position": court_position,
+        "practical_conclusions": practical_conclusions,
+        "tags": tags,
+        "source_url": source_url,
+        "related_topics": related_topics or [],
+    }
+    content = build_court_decision(params)
+
+    # Запись файла
+    filepath = os.path.join(ROOT, "sources", filename)
+    try:
+        with open(filepath, "w", encoding="utf-8", newline="\n") as f:
+            f.write(content)
+    except Exception as e:
+        return {"success": False, "error": f"Не удалось записать файл источника: {e}"}
+
+    # Пост-обработка
+    link_reports, linter_results = _post_write_pipeline(
+        filename, title, "судебный акт", related_topics or [], tag_warnings
+    )
+
+    return {
+        "success": linter_results["is_valid"],
+        "imported_file": f"sources/{filename}",
+        "logs": link_reports,
+        "linter_results": linter_results
+    }
+
+
+@mcp.tool()
+def ingest_article(
+    filename: str,
+    title: str,
+    author: str,
+    source_name: str,
+    full_text: str,
+    key_theses: list[str],
+    tags: list[str],
+    source_url: str = "",
+    related_topics: list[str] = None
+) -> dict:
+    """Импорт статьи, комментария, аналитического обзора.
+
+    Модель ОБЯЗАНА выделить ключевые тезисы автора.
+
+    ВАЖНО: В параметре full_text ОБЯЗАТЕЛЬНО передавать ПОЛНЫЙ текст без сокращений!
+    """
+    # Валидация
+    filename, full_text, tags, tag_warnings, error = _validate_and_prepare_source(filename, full_text, tags)
+    if error:
+        return {"success": False, "error": error}
+
+    # Сборка markdown через шаблон
+    params = {
+        "title": title,
+        "author": author,
+        "source_name": source_name,
+        "full_text": full_text,
+        "key_theses": key_theses,
+        "tags": tags,
+        "source_url": source_url,
+        "related_topics": related_topics or [],
+    }
+    content = build_article(params)
+
+    # Запись файла
+    filepath = os.path.join(ROOT, "sources", filename)
+    try:
+        with open(filepath, "w", encoding="utf-8", newline="\n") as f:
+            f.write(content)
+    except Exception as e:
+        return {"success": False, "error": f"Не удалось записать файл источника: {e}"}
+
+    # Пост-обработка
+    link_reports, linter_results = _post_write_pipeline(
+        filename, title, "статья", related_topics or [], tag_warnings
+    )
+
+    return {
+        "success": linter_results["is_valid"],
+        "imported_file": f"sources/{filename}",
+        "logs": link_reports,
+        "linter_results": linter_results
+    }
+
+
+@mcp.tool()
+def ingest_law(
+    filename: str,
+    title: str,
+    law_number: str,
+    date_adopted: str,
+    full_text: str,
+    what_changes: str,
+    commentary: str,
+    tags: list[str],
+    source_url: str = "",
+    related_topics: list[str] = None
+) -> dict:
+    """Импорт нормативного акта (федеральный закон, постановление Правительства и др.).
+
+    Модель ОБЯЗАНА описать что меняет закон и дать комментарий.
+
+    ВАЖНО: В параметре full_text допускается извлечение релевантных статей, а не полный текст закона.
+    """
+    # Валидация
+    filename, full_text, tags, tag_warnings, error = _validate_and_prepare_source(filename, full_text, tags)
+    if error:
+        return {"success": False, "error": error}
+
+    # Сборка markdown через шаблон
+    params = {
+        "title": title,
+        "law_number": law_number,
+        "date_adopted": date_adopted,
+        "full_text": full_text,
+        "what_changes": what_changes,
+        "commentary": commentary,
+        "tags": tags,
+        "source_url": source_url,
+        "related_topics": related_topics or [],
+    }
+    content = build_law(params)
+
+    # Запись файла
+    filepath = os.path.join(ROOT, "sources", filename)
+    try:
+        with open(filepath, "w", encoding="utf-8", newline="\n") as f:
+            f.write(content)
+    except Exception as e:
+        return {"success": False, "error": f"Не удалось записать файл источника: {e}"}
+
+    # Пост-обработка
+    link_reports, linter_results = _post_write_pipeline(
+        filename, title, "нормативный акт", related_topics or [], tag_warnings
+    )
+
+    return {
+        "success": linter_results["is_valid"],
+        "imported_file": f"sources/{filename}",
+        "logs": link_reports,
+        "linter_results": linter_results
     }
 
 
@@ -298,47 +541,55 @@ def ingest_source(
 def update_topic(
     topic_path: str,
     title: str,
-    content: str,
+    normativnaya_osnova: str,
+    klyuchevye_pozitsii: list[dict],
+    prakticheskie_riski: str,
+    svodnaya_tablitsa: list[dict],
     tags: list[str] = None,
     related_topics: list[str] = None
 ) -> dict:
-    """Создать или аккуратно обновить тему в папке `topics/`.
-    Выполняет автоматическую проверку линтером и обновляет INDEX.md.
-    
+    """Создать или обновить тему в папке topics/.
+
+    Тема — это СИНТЕЗ из нескольких источников, а НЕ копия одного источника.
+
     Параметры:
-    - topic_path: Относительный путь, например 'topics/zemelnoe-pravo/vri.md' (максимум 2 уровня вложенности).
-    - title: Название темы.
-    - content: Markdown контент.
-    - tags: Список тегов.
-    - related_topics: Список путей к связанным файлам.
+    - topic_path: Относительный путь, например 'topics/zemelnoe-pravo/vri.md'
+    - title: Название темы
+    - normativnaya_osnova: Какие нормы регулируют этот институт
+    - klyuchevye_pozitsii: Список позиций, каждая: {"tezis": "...", "istochnik": "...", "vyvod": "..."}
+    - prakticheskie_riski: Что может пойти не так на практике
+    - svodnaya_tablitsa: Список для сводки: {"istochnik": "...", "tip": "...", "klyuchevoy_vyvod": "..."}
+    - tags: Теги
+    - related_topics: Связанные темы
     """
     normalized_path = os.path.normpath(topic_path)
     if normalized_path.startswith("..") or os.path.isabs(normalized_path):
         return {"success": False, "error": "Недопустимый путь. Путь должен быть относительным внутри репозитория."}
-        
+
     if not (normalized_path.startswith("topics" + os.sep) or normalized_path.startswith("topics/")):
         return {"success": False, "error": "Темы должны располагаться строго в папке 'topics/'."}
-        
+
     parts = normalized_path.split(os.sep)
     if len(parts) > 3:
         return {"success": False, "error": "Превышена глубина вложенности! Допустимо максимум: topics/<домен>/<тема>.md"}
-        
+
     full_path = os.path.join(ROOT, normalized_path)
     os.makedirs(os.path.dirname(full_path), exist_ok=True)
-    
+
+    # === ЗАЩИТА: Санитайзер текстовых полей ===
+    normativnaya_osnova = sanitize_content(normativnaya_osnova)
+    prakticheskie_riski = sanitize_content(prakticheskie_riski)
+
+    # === ЗАЩИТА: Нормализация и валидация тегов ===
+    tag_warnings = []
     if tags:
         from wiki_lint import load_allowed_tags
         allowed_tags = load_allowed_tags()
-        invalid_tags = [t for t in tags if t not in allowed_tags]
-        if invalid_tags:
-            return {
-                "success": False, 
-                "error": f"Используются незарегистрированные теги: {', '.join(invalid_tags)}. Пожалуйста, сначала добавьте их в tags-registry.md."
-            }
-            
+        tags, tag_warnings = normalize_tags(tags, allowed_tags)
+
     date_str = datetime.date.today().isoformat()
-    
-    # Сохраняем date_added
+
+    # Сохраняем date_added из существующего файла
     date_added = date_str
     existing_meta = None
     if os.path.exists(full_path):
@@ -346,71 +597,67 @@ def update_topic(
         existing_meta = parse_yaml_front(full_path)
         if existing_meta and "date_added" in existing_meta:
             date_added = existing_meta["date_added"]
-            
-    frontmatter = {
+
+    # Формируем итоговые теги (приоритет: переданные > существующие > пустой список)
+    final_tags = tags if tags else (existing_meta.get("tags", []) if existing_meta else [])
+    final_related = related_topics if related_topics else (existing_meta.get("related_topics", []) if existing_meta else [])
+
+    # Сборка markdown через шаблон
+    template_params = {
         "title": title,
-        "type": "тема",
-        "status": "verified",
+        "normativnaya_osnova": normativnaya_osnova,
+        "klyuchevye_pozitsii": klyuchevye_pozitsii,
+        "prakticheskie_riski": prakticheskie_riski,
+        "svodnaya_tablitsa": svodnaya_tablitsa,
+        "tags": final_tags,
+        "related_topics": final_related,
         "date_added": date_added,
         "date_updated": date_str,
     }
-    if tags:
-        frontmatter["tags"] = tags
-    elif existing_meta and "tags" in existing_meta:
-        frontmatter["tags"] = existing_meta["tags"]
-    else:
-        frontmatter["tags"] = []
-        
-    if related_topics:
-        frontmatter["related_topics"] = related_topics
-    elif existing_meta and "related_topics" in existing_meta:
-        frontmatter["related_topics"] = existing_meta["related_topics"]
-        
-    yaml_str = yaml.dump(frontmatter, allow_unicode=True, default_flow_style=False, sort_keys=False)
-    
-    # Очищаем контент от переданного frontmatter
-    clean_content = content.strip()
-    if clean_content.startswith("---"):
-        split_parts = re.split(r'^---\s*$', clean_content, maxsplit=2, flags=re.MULTILINE)
-        if len(split_parts) >= 3:
-            clean_content = split_parts[2].strip()
-            
-    full_content = f"---\n{yaml_str}---\n\n{clean_content}\n"
-    
+    full_content = build_topic(template_params)
+
     try:
         with open(full_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(full_content)
     except Exception as e:
         return {"success": False, "error": f"Не удалось записать тему: {e}"}
-        
+
     link_reports = [f"Файл {normalized_path} успешно сохранен"]
-    
+
     # Обновление INDEX.md
     index_path = os.path.join(ROOT, "INDEX.md")
     if os.path.exists(index_path):
         try:
             with open(index_path, "r", encoding="utf-8") as f:
                 index_content = f.read()
-                
+
             topic_rel_path = normalized_path.replace("\\", "/")
             if topic_rel_path not in index_content:
                 topic_link = f"- [{title}]({topic_rel_path}) — обзор правового института."
                 if "## Темы" in index_content:
-                    parts = index_content.split("## Темы", 1)
-                    updated_index = parts[0] + "## Темы\n\n" + topic_link + "\n" + parts[1].lstrip()
+                    idx_parts = index_content.split("## Темы", 1)
+                    updated_index = idx_parts[0] + "## Темы\n\n" + topic_link + "\n" + idx_parts[1].lstrip()
                     with open(index_path, "w", encoding="utf-8", newline="\n") as f:
                         f.write(updated_index)
-            
+
             from wiki_tool import update_index_stats
             update_index_stats()
             link_reports.append("INDEX.md обновлен и статистика пересчитана")
         except Exception as e:
             link_reports.append(f"Ошибка обновления INDEX.md: {e}")
-            
+
     # Запуск линтера
     from wiki_lint import run_linter
     errors, warnings = run_linter(quiet=True)
-    
+
+    # Автоматический Git-коммит
+    topic_rel_path = normalized_path.replace("\\", "/")
+    git_result = auto_git_commit(ROOT, [topic_rel_path, "INDEX.md", "_sidebar.md"], f"[MCP] Обновление темы: {title}")
+    link_reports.append(f"Git: {git_result.get('output', git_result.get('error', 'неизвестно'))}")
+
+    if tag_warnings:
+        link_reports.append(f"Теги нормализованы: {'; '.join(tag_warnings)}")
+
     return {
         "success": len(errors) == 0,
         "topic_file": topic_rel_path,
