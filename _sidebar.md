@@ -7,7 +7,9 @@
   * [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md)
   * [Красные линии — границы территорий общего пользования, влияние на строительство, судебная практика](topics/gradostroitelstvo/krasnye-linii.md)
 
-* [🏗️ **СРО**](topics/sro/_index.md)
+* **🏗️ СРО**
+  * [🧭 Обзор](topics/sro/_index.md)
+  * [СРО в строительстве — членство, уровни ответственности (КФ ОДО), судебная практика, реестр НОСТРОЙ](topics/sro/sro-v-stroitelstve.md)
 
 * **🌍 Земельное право**
   * [🧭 Обзор](topics/zemelnoe-pravo/_index.md)
