@@ -145,3 +145,11 @@
 - **Источник (судебный акт):** [Постановление КС РФ от 01.12.2025 № 42-П](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md)
 - **Обновлены темы:**
   - [ohrannye-zony-okn-kompensaciya.md](file:///topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [КС защитил право собственности в охранных зонах культурных памятников](sources/landlawfirm-ks-okn-ohrannye-zony-2025-12.md)
+- **Обновлены темы:**
+  - [ohrannye-zony-okn-kompensaciya.md](file:///topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md)
