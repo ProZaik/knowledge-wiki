@@ -131,3 +131,9 @@
 - **Обновлены темы:**
   - [VRI-egrn-poryadok.md](file:///topics/zemelnoe-pravo/VRI-egrn-poryadok.md)
   - [arenda-publichnoy-zemli.md](file:///topics/zemelnoe-pravo/arenda-publichnoy-zemli.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [Стандарты кадастровой деятельности — КИ РФ](sources/ki-rf-standarty.md)

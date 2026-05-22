@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">11 узлов · 14 связей</div>
+<div id="stats">12 узлов · 15 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -149,6 +149,19 @@ var nodes = new vis.DataSet([
     "group": "статья"
   },
   {
+    "id": "s_ki_rf_standarty_md",
+    "label": "Стандарты кадастровой деятельности — ...",
+    "color": "#50B878",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/ki-rf-standarty.md",
+    "group": "статья"
+  },
+  {
     "id": "s_zakon_ru_gpzu_2026_analiz_md",
     "label": "ГПЗУ как щит застройщика: анализ суде...",
     "color": "#50B878",
@@ -216,6 +229,10 @@ var edges = new vis.DataSet([
   {
     "from": "s_ftl_advisers_necelevoe_ispolzovanie_zemlya_2024_md",
     "to": "t_topics_zemelnoe-pravo__index_md"
+  },
+  {
+    "from": "s_ki_rf_standarty_md",
+    "to": "t_topics_sro__index_md"
   },
   {
     "from": "s_zakon_ru_gpzu_2026_analiz_md",
