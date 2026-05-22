@@ -27,6 +27,7 @@
 
 ## Источники
 
+- [Материал pravo.ru — story/250454](sources/pravo-ru-story-250454.md) — добавлен 2026-05-22.
 - [Материал pravo.ru — story/249810](sources/pravo-ru-story-249810.md) — добавлен 2026-05-22.
 - [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md) — добавлен 2026-05-22.
 - [Дом, который... — OSINT Mindset GitBook](sources/osint-mindset-dom-kotoryi.md) — добавлен 2026-05-22.
@@ -71,8 +72,8 @@
 
 ## Статистика
 
-- Всего файлов в базе: **22** (15 sources + 1 topics + 6 service files)
+- Всего файлов в базе: **23** (16 sources + 1 topics + 6 service files)
 - Тем: **1 домена**, **1 тематических файлов**
-- Источников verified: **15**
+- Источников verified: **16**
 - Источников draft: **0**
 - Тегов: **37**

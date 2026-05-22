@@ -15,6 +15,7 @@ title: Хронология
 |  | 📝 | [Дом, который... — OSINT Mindset GitBook](sources/osint-mindset-dom-kotoryi.md) |
 |  | 📝 | [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md) |
 |  | 📝 | [Материал pravo.ru — story/249810](sources/pravo-ru-story-249810.md) |
+|  | 📝 | [Материал pravo.ru — story/250454](sources/pravo-ru-story-250454.md) |
 |  | 📝 | [ГПЗУ как щит застройщика: анализ судебной практики 2024–2026](sources/zakon-ru-gpzu-2026-analiz.md) |
 
 ## Май 2026
