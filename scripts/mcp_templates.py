@@ -42,6 +42,64 @@ def _numbered_list(items: list[str]) -> str:
     return "\n".join(lines)
 
 
+def _render_tags(tags: list[str]) -> str:
+    """Рендерит теги как кликабельные ссылки на индекс тегов.
+
+    Каждый тег становится ссылкой вида [тег](tags/index.md#тег),
+    где якорь — lowercase slug тега.
+    """
+    if not tags:
+        return ""
+    tag_links = []
+    for tag in tags:
+        # Docsify якори: lowercase, пробелы → дефисы
+        anchor = tag.lower().replace(" ", "-")
+        tag_links.append(f"[`{tag}`](tags/index.md#{ anchor })")
+    return "**Теги:** " + " · ".join(tag_links)
+
+
+def _build_source_index() -> dict[str, str]:
+    """Строит индекс источников: {title_lower: relative_path}.
+
+    Сканирует sources/ и читает title из YAML-шапок.
+    """
+    import re
+    index: dict[str, str] = {}
+    sources_dir = os.path.join(ROOT, "sources")
+    if not os.path.isdir(sources_dir):
+        return index
+    for fname in os.listdir(sources_dir):
+        if not fname.endswith(".md"):
+            continue
+        fpath = os.path.join(sources_dir, fname)
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                head = f.read(1500)
+            m = re.match(r"^---\s*\n(.*?)\n---", head, re.DOTALL)
+            if m:
+                meta = yaml.safe_load(m.group(1))
+                if isinstance(meta, dict) and "title" in meta:
+                    index[meta["title"].lower()] = f"sources/{fname}"
+        except Exception:
+            continue
+    return index
+
+
+def _linkify_source(name: str, source_index: dict[str, str] | None = None) -> str:
+    """Если источник найден в индексе — оборачивает его в markdown-ссылку."""
+    if source_index is None:
+        source_index = _build_source_index()
+    key = name.lower()
+    # Точное совпадение
+    if key in source_index:
+        return f"[{name}]({source_index[key]})"
+    # Частичное совпадение (title содержит имя или наоборот)
+    for title_lower, path in source_index.items():
+        if key in title_lower or title_lower in key:
+            return f"[{name}]({path})"
+    return name
+
+
 # =========================================================================
 # Функция 1: Письмо органа власти
 # =========================================================================
@@ -99,6 +157,7 @@ def build_letter(params: dict) -> str:
         fm["related_topics"] = related_topics
 
     # --- Сборка markdown ---
+    tag_line = _render_tags(tags)
     sections = [
         _render_frontmatter(fm),
         "",
@@ -107,6 +166,10 @@ def build_letter(params: dict) -> str:
         f"**Автор:** {author_org}  ",
         f"**Номер:** {number}  ",
         f"**Дата:** {date}",
+    ]
+    if tag_line:
+        sections.extend(["", tag_line])
+    sections.extend([
         "",
         "## Ключевые выводы",
         "",
@@ -120,7 +183,7 @@ def build_letter(params: dict) -> str:
         "",
         full_text.strip(),
         "",
-    ]
+    ])
     return "\n".join(sections)
 
 
@@ -183,6 +246,7 @@ def build_court_decision(params: dict) -> str:
         fm["related_topics"] = related_topics
 
     # --- Markdown ---
+    tag_line = _render_tags(tags)
     sections = [
         _render_frontmatter(fm),
         "",
@@ -191,6 +255,10 @@ def build_court_decision(params: dict) -> str:
         f"**Суд:** {court}  ",
         f"**Номер дела:** {case_number}  ",
         f"**Дата:** {date}",
+    ]
+    if tag_line:
+        sections.extend(["", tag_line])
+    sections.extend([
         "",
         "## Фабула",
         "",
@@ -208,7 +276,7 @@ def build_court_decision(params: dict) -> str:
         "",
         full_text.strip(),
         "",
-    ]
+    ])
     return "\n".join(sections)
 
 
@@ -264,6 +332,7 @@ def build_article(params: dict) -> str:
         fm["related_topics"] = related_topics
 
     # --- Markdown ---
+    tag_line = _render_tags(tags)
     sections = [
         _render_frontmatter(fm),
         "",
@@ -271,6 +340,10 @@ def build_article(params: dict) -> str:
         "",
         f"**Автор:** {author}  ",
         f"**Источник:** {source_name}",
+    ]
+    if tag_line:
+        sections.extend(["", tag_line])
+    sections.extend([
         "",
         "## Ключевые тезисы",
         "",
@@ -280,7 +353,7 @@ def build_article(params: dict) -> str:
         "",
         full_text.strip(),
         "",
-    ]
+    ])
     return "\n".join(sections)
 
 
@@ -338,6 +411,7 @@ def build_law(params: dict) -> str:
         fm["related_topics"] = related_topics
 
     # --- Markdown ---
+    tag_line = _render_tags(tags)
     sections = [
         _render_frontmatter(fm),
         "",
@@ -345,6 +419,10 @@ def build_law(params: dict) -> str:
         "",
         f"**Номер:** {law_number}  ",
         f"**Дата принятия:** {date_adopted}",
+    ]
+    if tag_line:
+        sections.extend(["", tag_line])
+    sections.extend([
         "",
         "## Что меняет",
         "",
@@ -358,7 +436,7 @@ def build_law(params: dict) -> str:
         "",
         full_text.strip(),
         "",
-    ]
+    ])
     return "\n".join(sections)
 
 
@@ -428,23 +506,29 @@ def build_topic(params: dict) -> str:
         pozitsii_parts.append(f"**Вывод:** {pos['vyvod']}")
         pozitsii_parts.append("")
 
-    # --- Секция «Сводная таблица источников» ---
+    # --- Секция «Сводная таблица источников» (с линковкой на sources/) ---
+    source_index = _build_source_index()
     table_lines: list[str] = [
         "| Источник | Тип | Ключевой вывод |",
         "|----------|-----|----------------|",
     ]
     for row in svodnaya_tablitsa:
-        src = row["istochnik"]
+        src = _linkify_source(row["istochnik"], source_index)
         tip = row["tip"]
         conclusion = row["klyuchevoy_vyvod"]
         table_lines.append(f"| {src} | {tip} | {conclusion} |")
 
     # --- Markdown ---
+    tag_line = _render_tags(tags)
     sections = [
         _render_frontmatter(fm),
         "",
         f"# {title}",
         "",
+    ]
+    if tag_line:
+        sections.extend([tag_line, ""])
+    sections.extend([
         "## Нормативная основа",
         "",
         normativnaya_osnova.strip(),
@@ -461,5 +545,5 @@ def build_topic(params: dict) -> str:
         "",
         "\n".join(table_lines),
         "",
-    ]
+    ])
     return "\n".join(sections)
