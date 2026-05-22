@@ -189,3 +189,9 @@
 - **Источник (статья):** [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md)
 - **Обновлены темы:**
   - [gpzu.md](file:///topics/gradostroitelstvo/gpzu.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [Материал pravo.ru — story/249810](sources/pravo-ru-story-249810.md)
