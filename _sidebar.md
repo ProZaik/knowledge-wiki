@@ -44,6 +44,7 @@
   * [Материал pravo.ru — story/250454](sources/pravo-ru-story-250454.md)
   * [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md)
   * [Государственный надзор — раздел Росреестра (обзор)](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md)
+  * [Как получить землю для ИЖС с помощью сервисов НСПД и оформить жилой дом](sources/rosreestr-izhs-nspd-2025.md)
   * [ГПЗУ как щит застройщика: анализ судебной практики 2024–2026](sources/zakon-ru-gpzu-2026-analiz.md)
 
 * **📋 Нормативные акты**

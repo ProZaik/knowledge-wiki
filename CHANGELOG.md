@@ -285,3 +285,9 @@
 - **Источник (статья):** [Государственный надзор — раздел Росреестра (обзор)](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md)
 - **Обновлены темы:**
   - [zemelnyy-nadzor.md](file:///topics/zemelnoe-pravo/zemelnyy-nadzor.md)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (статья):** [Как получить землю для ИЖС с помощью сервисов НСПД и оформить жилой дом](sources/rosreestr-izhs-nspd-2025.md)
