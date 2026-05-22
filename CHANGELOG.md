@@ -268,3 +268,12 @@
 - **Обновлены темы:**
   - [adresatsiya](file:///topics/zemelnoe-pravo/adresatsiya)
   - [tehplan](file:///topics/gradostroitelstvo/tehplan)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Росреестра от 29.04.2026 № 18-4658-ЛЛ/26](sources/rosreestr-2026-04-29-18-4658-ll.md)
+- **Обновлены темы:**
+  - [reestrovye-oshibki](file:///topics/zemelnoe-pravo/reestrovye-oshibki)
+  - [mezhevoj-plan](file:///topics/zemelnoe-pravo/mezhevoj-plan)
