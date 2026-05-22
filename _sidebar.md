@@ -5,6 +5,7 @@
 * **⚖️ Градостроительство**
   * [🧭 Обзор](topics/gradostroitelstvo/_index.md)
   * [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md)
+  * [Красные линии — границы территорий общего пользования, влияние на строительство, судебная практика](topics/gradostroitelstvo/krasnye-linii.md)
 
 * [🏗️ **СРО**](topics/sro/_index.md)
 
