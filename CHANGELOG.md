@@ -169,3 +169,9 @@
 - **Источник (письмо органа):** [Письмо Минстроя РФ от 20.12.2024 № 76955-СМ/08 — разъяснение условий, при которых разрешение на строительство не требуется](sources/minstroy-76955-SM-08-2024-12.md)
 - **Обновлены темы:**
   - [razreshenie-na-stroitelstvo-isklyucheniya.md](file:///topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [НК Комиссия НОСТРОЙ](sources/nostroy-nk-komissiya.md)

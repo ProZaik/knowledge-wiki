@@ -11,6 +11,7 @@ title: Хронология
 |  | 📝 | [Стандарты кадастровой деятельности — КИ РФ](sources/ki-rf-standarty.md) |
 |  | 📝 | [КС защитил право собственности в охранных зонах культурных памятников](sources/landlawfirm-ks-okn-ohrannye-zony-2025-12.md) |
 |  | 📝 | [ВС запретил нарезать участки в нарушение градрегламентов](sources/landlawfirm-vs-razdel-uchastkov-2026-02.md) |
+|  | 📝 | [НК Комиссия НОСТРОЙ](sources/nostroy-nk-komissiya.md) |
 |  | 📝 | [ГПЗУ как щит застройщика: анализ судебной практики 2024–2026](sources/zakon-ru-gpzu-2026-analiz.md) |
 
 ## Май 2026

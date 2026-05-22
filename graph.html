@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">16 узлов · 21 связей</div>
+<div id="stats">17 узлов · 23 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -201,6 +201,19 @@ var nodes = new vis.DataSet([
     "group": "статья"
   },
   {
+    "id": "s_nostroy_nk_komissiya_md",
+    "label": "НК Комиссия НОСТРОЙ",
+    "color": "#50B878",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/nostroy-nk-komissiya.md",
+    "group": "статья"
+  },
+  {
     "id": "s_zakon_ru_gpzu_2026_analiz_md",
     "label": "ГПЗУ как щит застройщика: анализ суде...",
     "color": "#50B878",
@@ -305,6 +318,14 @@ var edges = new vis.DataSet([
   {
     "from": "s_landlawfirm_vs_razdel_uchastkov_2026_02_md",
     "to": "t_topics_zemelnoe-pravo__index_md"
+  },
+  {
+    "from": "s_nostroy_nk_komissiya_md",
+    "to": "t_topics_gradostroitelstvo__index_md"
+  },
+  {
+    "from": "s_nostroy_nk_komissiya_md",
+    "to": "t_topics_sro__index_md"
   },
   {
     "from": "s_zakon_ru_gpzu_2026_analiz_md",
