@@ -44,6 +44,7 @@ type: служебный
 - [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md) (источник)
 
 ## ГЗН
+- [Государственный земельный контроль (надзор) — Росреестр](sources/rosreestr-zemelnyy-nadzor.md) (источник)
 - [Государственный надзор — раздел Росреестра (обзор)](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md) (источник)
 
 ## ГПЗУ
@@ -95,6 +96,9 @@ type: служебный
 - [Земельное право — обзор темы](topics/zemelnoe-pravo/_index.md) (тема)
 - [Регистрация прав на объекты ИЖС](topics/zemelnoe-pravo/izhs-registratsiya.md) (тема)
 - [Федеральный закон от 01.05.2026 № 97-ФЗ о внесении изменений в ФЗ-218](sources/fz-218-izmenenia-2026-05.md) (источник)
+
+## земельный-надзор
+- [Государственный земельный контроль (надзор) — Росреестр](sources/rosreestr-zemelnyy-nadzor.md) (источник)
 
 ## ЗК
 - [Земельное право — обзор темы](topics/zemelnoe-pravo/_index.md) (тема)
@@ -219,6 +223,7 @@ type: служебный
 - [Письмо Росреестра от 18.03.2026 № 14-2722-ЛЛ/26](sources/rosreestr-2026-03-18-14-2722.md) (источник)
 
 ## Росреестр
+- [Государственный земельный контроль (надзор) — Росреестр](sources/rosreestr-zemelnyy-nadzor.md) (источник)
 - [Государственный надзор — раздел Росреестра (обзор)](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md) (источник)
 - [Как получить землю для ИЖС с помощью сервисов НСПД и оформить жилой дом](sources/rosreestr-izhs-nspd-2025.md) (источник)
 - [Какие теплицы нужно ставить на кадастровый учёт](sources/rosreestr-teplitsy-kadastrovyy-uchet.md) (источник)

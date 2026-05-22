@@ -328,3 +328,11 @@
 
 ### Добавлено:
 - **Источник (статья):** [Какие теплицы нужно ставить на кадастровый учёт](sources/rosreestr-teplitsy-kadastrovyy-uchet.md)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (статья):** [Государственный земельный контроль (надзор) — Росреестр](sources/rosreestr-zemelnyy-nadzor.md)
+- **Обновлены темы:**
+  - [zemelnyy-nadzor.md](file:///topics/zemelnoe-pravo/zemelnyy-nadzor.md)

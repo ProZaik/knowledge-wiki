@@ -22,6 +22,7 @@ title: Хронология
 |  | 📝 | [Позиции по вопросам правоприменения — Росреестр](sources/rosreestr-pozitsii-pravoprimeneniya.md) |
 |  | 📝 | [Реестр СРО — сервис Росреестра](sources/rosreestr-sro-reestr.md) |
 |  | 📝 | [Какие теплицы нужно ставить на кадастровый учёт](sources/rosreestr-teplitsy-kadastrovyy-uchet.md) |
+|  | 📝 | [Государственный земельный контроль (надзор) — Росреестр](sources/rosreestr-zemelnyy-nadzor.md) |
 |  | 📝 | [ГПЗУ как щит застройщика: анализ судебной практики 2024–2026](sources/zakon-ru-gpzu-2026-analiz.md) |
 
 ## Май 2026
