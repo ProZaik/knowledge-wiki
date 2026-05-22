@@ -2,7 +2,9 @@
 
 * **📚 База знаний**
 
-* [⚖️ **Градостроительство**](topics/gradostroitelstvo/_index.md)
+* **⚖️ Градостроительство**
+  * [🧭 Обзор](topics/gradostroitelstvo/_index.md)
+  * [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md)
 
 * [🏗️ **СРО**](topics/sro/_index.md)
 
