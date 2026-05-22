@@ -5,7 +5,12 @@ E2E-тест: симуляция 5 вызовов MCP-инструментов �
 """
 import sys
 import os
+import io
 import json
+
+# Фикс кодировки для Windows-консоли (cp1251 не поддерживает Unicode-эмодзи)
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -73,7 +78,7 @@ r1 = ingest_letter(
         "градрегламента, (3) соответствие ВРИ участка. Невыполнение любого из условий — приостановка.",
     tags=["ИЖС", "ЕГРН", "ВРИ", "градостроительство"],
     source_url="https://rosreestr.gov.ru/press/news/pismo-14-5100/",
-    related_topics=["topics/zemelnoe-pravo/vri.md"]
+    related_topics=["topics/zemelnoe-pravo/_index.md"]
 )
 pp(r1, "ТЕСТ 1: ingest_letter — Письмо Росреестра об ИЖС")
 
