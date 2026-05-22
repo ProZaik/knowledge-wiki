@@ -13,7 +13,9 @@
 
 ---
 
-* [🌍 **Земельное право**](topics/zemelnoe-pravo/_index.md)
+* **🌍 Земельное право**
+  * [🧭 Обзор](topics/zemelnoe-pravo/_index.md)
+  * [Регистрация прав на объекты ИЖС](topics/zemelnoe-pravo/izhs-registratsiya.md)
 
 ---
 
