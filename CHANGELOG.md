@@ -201,3 +201,19 @@
 
 ### Добавлено:
 - **Источник (статья):** [Материал pravo.ru — story/250454](sources/pravo-ru-story-250454.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md)
+- **Обновлены темы:**
+  - [edinstvennoe-zhilye.md](file:///topics/zhilishnoe-pravo/edinstvennoe-zhilye.md)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Росреестра от 30.01.2025 № 13-0728-АБ/25 — ЕГРН при капремонте и перепланировке нежилых зданий](sources/rosreestr-13-0728-AB-25-2025-01.md)
+- **Обновлены темы:**
+  - [razreshenie-na-stroitelstvo-isklyucheniya.md](file:///topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md)
