@@ -11,6 +11,7 @@
 * **🌍 Земельное право**
   * [🧭 Обзор](topics/zemelnoe-pravo/_index.md)
   * [Регистрация прав на объекты ИЖС](topics/zemelnoe-pravo/izhs-registratsiya.md)
+  * [Кадастровый учёт — реестровые ошибки, приостановление, техпланы](topics/zemelnoe-pravo/kadastrovyy-uchet.md)
   * [ВРИ земельных участков — изменение, ЕГРН, нецелевое использование](topics/zemelnoe-pravo/vri.md)
 
 * [🏠 **Жилищное право**](topics/zhilishnoe-pravo/_index.md)
