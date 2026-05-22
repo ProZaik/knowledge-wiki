@@ -305,3 +305,12 @@
 - **Источник (письмо органа):** [Письмо ППК «Роскадастр» от 24.03.2026 № 19-0348/26](sources/rosreestr-ppk-2026-03-24-19-0348.md)
 - **Обновлены темы:**
   - [egrn-vypiski](file:///topics/zemelnoe-pravo/egrn-vypiski)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо ППК «Роскадастр» от 08.04.2026 № 18-0846/26](sources/rosreestr-ppk-2026-04-08-18-0846.md)
+- **Обновлены темы:**
+  - [zouit](file:///topics/zemelnoe-pravo/zouit)
+  - [razreshenie-na-stroitelstvo](file:///topics/gradostroitelstvo/razreshenie-na-stroitelstvo)
