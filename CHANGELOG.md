@@ -259,3 +259,12 @@
 - **Источник (письмо органа):** [Письмо Росреестра от 08.04.2026 № 11-3764-АБ/26](sources/rosreestr-2026-04-08-11-3764.md)
 - **Обновлены темы:**
   - [mnogokonturnye-uchastki](file:///topics/zemelnoe-pravo/mnogokonturnye-uchastki)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Росреестра от 15.04.2026 № 14-02228/26](sources/rosreestr-2026-04-15-14-02228.md)
+- **Обновлены темы:**
+  - [adresatsiya](file:///topics/zemelnoe-pravo/adresatsiya)
+  - [tehplan](file:///topics/gradostroitelstvo/tehplan)
