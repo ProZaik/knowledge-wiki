@@ -161,3 +161,11 @@
 - **Источник (статья):** [ВС запретил нарезать участки в нарушение градрегламентов](sources/landlawfirm-vs-razdel-uchastkov-2026-02.md)
 - **Обновлены темы:**
   - [razdel-uchastka-gradreglament.md](file:///topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Минстроя РФ от 20.12.2024 № 76955-СМ/08 — разъяснение условий, при которых разрешение на строительство не требуется](sources/minstroy-76955-SM-08-2024-12.md)
+- **Обновлены темы:**
+  - [razreshenie-na-stroitelstvo-isklyucheniya.md](file:///topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md)

@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">15 узлов · 20 связей</div>
+<div id="stats">16 узлов · 21 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -238,6 +238,19 @@ var nodes = new vis.DataSet([
     },
     "url": "#/sources/rosreestr-2026-05-10-14-5100.md",
     "group": "письмо органа"
+  },
+  {
+    "id": "s_minstroy_76955_SM_08_2024_12_md",
+    "label": "Письмо Минстроя РФ от 20.12.2024 № 76...",
+    "color": "#E8A838",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/minstroy-76955-SM-08-2024-12.md",
+    "group": "письмо органа"
   }
 ]);
 var edges = new vis.DataSet([
@@ -315,6 +328,10 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_rosreestr_2026_05_10_14_5100_md",
+    "to": "t_topics_gradostroitelstvo__index_md"
+  },
+  {
+    "from": "s_minstroy_76955_SM_08_2024_12_md",
     "to": "t_topics_gradostroitelstvo__index_md"
   },
   {
