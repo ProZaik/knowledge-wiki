@@ -1,0 +1,208 @@
+============================================================
+  WIKI LINT — knowledge-wiki
+============================================================
+
+[!] ПРЕДУПРЕЖДЕНИЯ (15):
+  - topics/zemelnoe-pravo/adresatsiya.md: файл не упомянут в INDEX.md
+  - topics/zemelnoe-pravo/egrn-vypiski.md: файл не упомянут в INDEX.md
+  - topics/zemelnoe-pravo/gosposhlina.md: файл не упомянут в INDEX.md
+  - topics/zemelnoe-pravo/izyatie-uchastka-kak-uznat.md: файл не упомянут в INDEX.md
+  - topics/zemelnoe-pravo/kompleksnye-kadastrovye-raboty.md: файл не упомянут в INDEX.md
+  - topics/zemelnoe-pravo/setevye-obekty.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-2026-03-12-13-2496.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-2026-03-18-14-2722.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-2026-03-23-336576078.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-2026-04-03-18-00852.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-2026-04-08-11-3764.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-2026-04-15-14-02228.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-2026-04-29-18-4658-ll.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-ppk-2026-03-24-19-0348.md: файл не упомянут в INDEX.md
+  - sources/rosreestr-ppk-2026-04-08-18-0846.md: файл не упомянут в INDEX.md
+
+[X] ОШИБКИ (182):
+  - topics\gradostroitelstvo\ekspertiza-proektnoy-dokumentatsii.md: тег 'градостроительство' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\ekspertiza-proektnoy-dokumentatsii.md: тег 'ГрК-РФ' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\ekspertiza-proektnoy-dokumentatsii.md: тег 'государственная-экспертиза' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\ekspertiza-proektnoy-dokumentatsii.md: тег 'негосударственная-экспертиза' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\gpzu.md: тег 'градостроительство' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\gpzu.md: YAML related_topics — битая ссылка -> topics/gradostroitelstvo/razreshenie-na-stroitelstvo.md
+  - topics\gradostroitelstvo\krasnye-linii.md: тег 'территории-общего-пользования' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\krasnye-linii.md: тег 'планировка-территории' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\krasnye-linii.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/territorii-obshchego-polzovaniya.md
+  - topics\gradostroitelstvo\nekapitalnye-stroeniya-i-sooruzheniya.md: тег 'некапитальные-сооружения' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\nekapitalnye-stroeniya-i-sooruzheniya.md: тег 'градостроительство' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\nekapitalnye-stroeniya-i-sooruzheniya.md: тег 'ГрК-РФ' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\nekapitalnye-stroeniya-i-sooruzheniya.md: тег 'объект-капитального-строительства' отсутствует в tags-registry.md
+  - topics\gradostroitelstvo\nekapitalnye-stroeniya-i-sooruzheniya.md: тег 'временные-постройки' отсутствует в tags-registry.md
+  - topics\sro\kf-odo-uroven-otvetstvennosti.md: тег 'КФ ОДО' отсутствует в tags-registry.md
+  - topics\sro\kf-odo-uroven-otvetstvennosti.md: тег 'ГрК-55.8' отсутствует в tags-registry.md
+  - topics\sro\kf-odo-uroven-otvetstvennosti.md: тег 'ГрК-55.16' отсутствует в tags-registry.md
+  - topics\sro\kf-odo-uroven-otvetstvennosti.md: тег 'строительные контракты' отсутствует в tags-registry.md
+  - topics\sro\kf-odo-uroven-otvetstvennosti.md: битая ссылка -> ../../sources/A47-12503-2022-sro-kontrakt-nichtoznost.md
+  - topics\zemelnoe-pravo\adresatsiya.md: YAML — не хватает полей: date_added, status, type
+  - topics\zemelnoe-pravo\adresatsiya.md: YAML related_topics — битая ссылка -> zemelnoe-pravo
+  - topics\zemelnoe-pravo\adresatsiya.md: YAML related_topics — битая ссылка -> gradostroitelstvo
+  - topics\zemelnoe-pravo\arenda-publichnoy-zemli.md: тег 'аренда' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\arenda-publichnoy-zemli.md: тег 'публичный-участок' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\arenda-publichnoy-zemli.md: тег 'ОКС' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\arenda-publichnoy-zemli.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/zemelnyy-nadzor.md
+  - topics\zemelnoe-pravo\egrn-vypiski.md: YAML — не хватает полей: date_added, status, type
+  - topics\zemelnoe-pravo\egrn-vypiski.md: тег 'выписки' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\egrn-vypiski.md: тег 'льготы' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\egrn-vypiski.md: тег 'сведения' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\egrn-vypiski.md: YAML related_topics — битая ссылка -> zemelnoe-pravo
+  - topics\zemelnoe-pravo\gosposhlina.md: YAML — не хватает полей: date_added, status, type
+  - topics\zemelnoe-pravo\gosposhlina.md: тег 'регистрация прав' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\gosposhlina.md: тег 'НК РФ' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\gosposhlina.md: тег 'реорганизация' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\gosposhlina.md: YAML related_topics — битая ссылка -> zemelnoe-pravo
+  - topics\zemelnoe-pravo\gosposhlina.md: YAML related_topics — битая ссылка -> zhilishnoe-pravo
+  - topics\zemelnoe-pravo\izyatie-uchastka-kak-uznat.md: тег 'земля' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\izyatie-uchastka-kak-uznat.md: тег 'госнужды' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\izyatie-uchastka-kak-uznat.md: тег 'муницнужды' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\izyatie-uchastka-kak-uznat.md: тег 'ППТ' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\izyatie-uchastka-kak-uznat.md: тег 'ПМТ' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\izyatie-uchastka-kak-uznat.md: тег 'возмещение' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\izyatie-uchastka-kak-uznat.md: тег 'земельное-право' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\kompleksnye-kadastrovye-raboty.md: YAML — не хватает полей: date_added, status, type
+  - topics\zemelnoe-pravo\kompleksnye-kadastrovye-raboty.md: тег 'карта-план' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\kompleksnye-kadastrovye-raboty.md: тег 'реестровые ошибки' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\kompleksnye-kadastrovye-raboty.md: YAML related_topics — битая ссылка -> zemelnoe-pravo
+  - topics\zemelnoe-pravo\ohrannye-zony-okn-kompensaciya.md: YAML — не хватает полей: date_added, type
+  - topics\zemelnoe-pravo\ohrannye-zony-okn-kompensaciya.md: тег 'выкуп' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\ohrannye-zony-okn-kompensaciya.md: битая ссылка -> VRI-egrn-poryadok.md
+  - topics\zemelnoe-pravo\ohrannye-zony-okn-kompensaciya.md: битая ссылка -> VRI-arenda-goszemli.md
+  - topics\zemelnoe-pravo\ohrannye-zony-okn-kompensaciya.md: битая ссылка -> razdel-uchastka-gradreglament.md
+  - topics\zemelnoe-pravo\ohrannye-zony-okn-kompensaciya.md: битая ссылка -> ../../sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md
+  - topics\zemelnoe-pravo\razdel-uchastka-gradreglament.md: YAML — не хватает полей: date_added, type
+  - topics\zemelnoe-pravo\razdel-uchastka-gradreglament.md: тег 'минимальный-размер' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\razdel-uchastka-gradreglament.md: тег 'эстоппель' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\razdel-uchastka-gradreglament.md: битая ссылка -> VRI-arenda-goszemli.md
+  - topics\zemelnoe-pravo\razdel-uchastka-gradreglament.md: битая ссылка -> VRI-egrn-poryadok.md
+  - topics\zemelnoe-pravo\razdel-uchastka-gradreglament.md: битая ссылка -> ../../sources/landlawfirm-vs-razdel-uchastkov-2026-02.md
+  - topics\zemelnoe-pravo\setevye-obekty.md: YAML — не хватает полей: date_added, status, type
+  - topics\zemelnoe-pravo\setevye-obekty.md: тег 'электросети' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\setevye-obekty.md: тег 'преимущественный выкуп' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\setevye-obekty.md: тег 'энергообъекты' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\setevye-obekty.md: тег 'регистрация прав' отсутствует в tags-registry.md
+  - topics\zemelnoe-pravo\setevye-obekty.md: YAML related_topics — битая ссылка -> zemelnoe-pravo
+  - topics\zemelnoe-pravo\setevye-obekty.md: YAML related_topics — битая ссылка -> gradostroitelstvo
+  - topics\zhilishnoe-pravo\edinstvennoe-zhilye.md: тег 'исполнительский-иммунитет' отсутствует в tags-registry.md
+  - topics\zhilishnoe-pravo\edinstvennoe-zhilye.md: тег 'ст-446-ГПК' отсутствует в tags-registry.md
+  - topics\zhilishnoe-pravo\edinstvennoe-zhilye.md: YAML related_topics — битая ссылка -> topics/bankrotstvo/imuschestvo-dolzhnika.md
+  - sources\A47-12503-2022-sro-kontrakt-nichtoznost.md: тег 'КФ ОДО' отсутствует в tags-registry.md
+  - sources\A47-12503-2022-sro-kontrakt-nichtoznost.md: тег 'ГрК-55.8' отсутствует в tags-registry.md
+  - sources\ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md: тег 'ОКС' отсутствует в tags-registry.md
+  - sources\ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md: тег 'публичный-участок' отсутствует в tags-registry.md
+  - sources\ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md: тег 'FTL-Advisers' отсутствует в tags-registry.md
+  - sources\ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/VRI-egrn-poryadok.md
+  - sources\ki-rf-standarty.md: тег 'кадастровый-инженер' отсутствует в tags-registry.md
+  - sources\ki-rf-standarty.md: тег 'стандарты' отсутствует в tags-registry.md
+  - sources\ks-rf-42-p-ohrannye-zony-okn-2025-12.md: YAML — не хватает полей: status
+  - sources\ks-rf-42-p-ohrannye-zony-okn-2025-12.md: тег 'выкуп' отсутствует в tags-registry.md
+  - sources\ks-rf-42-p-ohrannye-zony-okn-2025-12.md: битая ссылка -> ../topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md
+  - sources\landlawfirm-ks-okn-ohrannye-zony-2025-12.md: YAML — не хватает полей: status
+  - sources\landlawfirm-ks-okn-ohrannye-zony-2025-12.md: тег 'охранные-зоны' отсутствует в tags-registry.md
+  - sources\landlawfirm-ks-okn-ohrannye-zony-2025-12.md: тег 'земельные-участки' отсутствует в tags-registry.md
+  - sources\landlawfirm-ks-okn-ohrannye-zony-2025-12.md: тег 'ЗК-РФ-57-1' отсутствует в tags-registry.md
+  - sources\landlawfirm-vs-razdel-uchastkov-2026-02.md: YAML — не хватает полей: status
+  - sources\landlawfirm-vs-razdel-uchastkov-2026-02.md: тег 'Краснодарский-край' отсутствует в tags-registry.md
+  - sources\landlawfirm-vs-razdel-uchastkov-2026-02.md: битая ссылка -> ../topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md
+  - sources\nostroy-nk-komissiya.md: тег 'строительство' отсутствует в tags-registry.md
+  - sources\nostroy-nk-komissiya.md: тег 'НК-комиссия' отсутствует в tags-registry.md
+  - sources\nostroy-nk-komissiya.md: тег 'саморегулирование' отсутствует в tags-registry.md
+  - sources\osint-mindset-dom-kotoryi.md: тег 'недвижимость' отсутствует в tags-registry.md
+  - sources\osint-mindset-dom-kotoryi.md: тег 'расследование' отсутствует в tags-registry.md
+  - sources\osint-mindset-dom-kotoryi.md: тег 'разведка-по-открытым-источникам' отсутствует в tags-registry.md
+  - sources\pravo-ru-gpzu-stabilnost-2025.md: тег 'градостроительство' отсутствует в tags-registry.md
+  - sources\pravo-ru-story-249810.md: тег 'pravo-ru' отсутствует в tags-registry.md
+  - sources\pravo-ru-story-249810.md: тег 'недвижимость' отсутствует в tags-registry.md
+  - sources\pravo-ru-story-250454.md: тег 'pravo-ru' отсутствует в tags-registry.md
+  - sources\pravo-ru-story-250454.md: тег 'недвижимость' отсутствует в tags-registry.md
+  - sources\rg-vs-edinstvennoe-zhilye-2024.md: тег 'исполнительный-иммунитет' отсутствует в tags-registry.md
+  - sources\rg-vs-edinstvennoe-zhilye-2024.md: тег 'жилищное-право' отсутствует в tags-registry.md
+  - sources\rosreestr-14-4104-LL-26.md: YAML — не хватает полей: status
+  - sources\rosreestr-14-4104-LL-26.md: тег 'земельный-участок' отсутствует в tags-registry.md
+  - sources\rosreestr-14-4104-LL-26.md: тег 'аренда' отсутствует в tags-registry.md
+  - sources\rosreestr-14-4104-LL-26.md: тег 'садоводство' отсутствует в tags-registry.md
+  - sources\rosreestr-14-4104-LL-26.md: битая ссылка -> ../topics/zemelnoe-pravo/VRI-arenda-goszemli.md
+  - sources\rosreestr-14-4104-LL-26.md: битая ссылка -> ../topics/zemelnoe-pravo/VRI-egrn-poryadok.md
+  - sources\rosreestr-14-4104-LL-26.md: битая ссылка -> ../topics/zemelnoe-pravo/VRI-sadovye-uchastki.md
+  - sources\rosreestr-14-4104-LL-26.md: битая ссылка -> ../topics/zemelnoe-pravo/VRI-likvidirovannye-tovarishchestva.md
+  - sources\rosreestr-14-4104-LL-26.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/VRI-arenda-goszemli.md
+  - sources\rosreestr-14-4104-LL-26.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/VRI-sadovye-uchastki.md
+  - sources\rosreestr-2026-03-12-13-2496.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-2026-03-12-13-2496.md: тег 'электросетевое-хозяйство' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-12-13-2496.md: тег 'преимущественное-право-выкупа' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-12-13-2496.md: тег 'регистрация-перехода-прав' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-12-13-2496.md: тег 'системообразующая-организация' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-12-13-2496.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/setevye-obekty
+  - sources\rosreestr-2026-03-18-14-2722.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-2026-03-18-14-2722.md: тег 'государственная-пошлина' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-18-14-2722.md: тег 'реорганизация-юрлица' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-18-14-2722.md: тег 'регистрация-прав' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-18-14-2722.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/gosposhlina
+  - sources\rosreestr-2026-03-23-336576078.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-2026-03-23-336576078.md: тег 'комплексные-кадастровые-работы' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-23-336576078.md: тег 'карта-план-территории' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-23-336576078.md: тег 'гарантийный-срок' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-03-23-336576078.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/kompleksnye-kadastrovye-raboty
+  - sources\rosreestr-2026-04-03-18-00852.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-2026-04-03-18-00852.md: тег 'кадастровый-инженер' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-03-18-00852.md: тег 'выписка-из-ЕГРН' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-03-18-00852.md: тег 'адреса-правообладателей' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-03-18-00852.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/adresatsiya
+  - sources\rosreestr-2026-04-03-18-00852.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/egrn-vypiski
+  - sources\rosreestr-2026-04-08-11-3764.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-2026-04-08-11-3764.md: тег 'многоконтурный-участок' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-08-11-3764.md: тег 'образование-участков' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-08-11-3764.md: тег 'переходный-период' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-08-11-3764.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/mnogokonturnye-uchastki
+  - sources\rosreestr-2026-04-15-14-02228.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-2026-04-15-14-02228.md: тег 'приостановление-учета' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-15-14-02228.md: тег 'государственный-адресный-реестр' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-15-14-02228.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/adresatsiya
+  - sources\rosreestr-2026-04-15-14-02228.md: YAML related_topics — битая ссылка -> gradostroitelstvo/tehplan
+  - sources\rosreestr-2026-04-29-18-4658-ll.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-2026-04-29-18-4658-ll.md: тег 'приостановление-учета' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-29-18-4658-ll.md: тег 'кадастровый-инженер' отсутствует в tags-registry.md
+  - sources\rosreestr-2026-04-29-18-4658-ll.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/reestrovye-oshibki
+  - sources\rosreestr-2026-04-29-18-4658-ll.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/mezhevoj-plan
+  - sources\rosreestr-gosudarstvennyy-nadzor-obzor.md: тег 'надзор' отсутствует в tags-registry.md
+  - sources\rosreestr-gosudarstvennyy-nadzor-obzor.md: тег 'геодезический-надзор' отсутствует в tags-registry.md
+  - sources\rosreestr-gosudarstvennyy-nadzor-obzor.md: тег 'контроль' отсутствует в tags-registry.md
+  - sources\rosreestr-gosudarstvennyy-nadzor-obzor.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/zemelnyy-nadzor.md
+  - sources\rosreestr-izhs-nspd-2025.md: тег 'земля' отсутствует в tags-registry.md
+  - sources\rosreestr-izhs-nspd-2025.md: тег 'жилой-дом' отсутствует в tags-registry.md
+  - sources\rosreestr-pozitsii-pravoprimeneniya.md: тег 'позиции' отсутствует в tags-registry.md
+  - sources\rosreestr-pozitsii-pravoprimeneniya.md: тег 'регистрация' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-03-24-19-0348.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-ppk-2026-03-24-19-0348.md: тег 'выписка-из-ЕГРН' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-03-24-19-0348.md: тег 'льготы' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-03-24-19-0348.md: тег 'плата-за-сведения' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-03-24-19-0348.md: тег 'МФЦ' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-03-24-19-0348.md: тег 'QR-код' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-03-24-19-0348.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/egrn-vypiski
+  - sources\rosreestr-ppk-2026-04-08-18-0846.md: YAML — не хватает полей: date_added
+  - sources\rosreestr-ppk-2026-04-08-18-0846.md: тег 'охранные-зоны' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-04-08-18-0846.md: тег 'магистральные-трубопроводы' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-04-08-18-0846.md: тег 'планируемые-объекты' отсутствует в tags-registry.md
+  - sources\rosreestr-ppk-2026-04-08-18-0846.md: YAML related_topics — битая ссылка -> zemelnoe-pravo/zouit
+  - sources\rosreestr-ppk-2026-04-08-18-0846.md: YAML related_topics — битая ссылка -> gradostroitelstvo/razreshenie-na-stroitelstvo
+  - sources\rosreestr-sro-reestr.md: тег 'реестр' отсутствует в tags-registry.md
+  - sources\rosreestr-sro-reestr.md: тег 'кадастровые-инженеры' отсутствует в tags-registry.md
+  - sources\rosreestr-sro-reestr.md: тег 'саморегулирование' отсутствует в tags-registry.md
+  - sources\rosreestr-sro-reestr.md: YAML related_topics — битая ссылка -> topics/sro/reestry.md
+  - sources\rosreestr-teplitsy-kadastrovyy-uchet.md: тег 'теплица' отсутствует в tags-registry.md
+  - sources\rosreestr-teplitsy-kadastrovyy-uchet.md: тег 'ОКС' отсутствует в tags-registry.md
+  - sources\rosreestr-teplitsy-kadastrovyy-uchet.md: тег 'садовый-участок' отсутствует в tags-registry.md
+  - sources\rosreestr-zemelnyy-nadzor.md: тег 'земельный-контроль' отсутствует в tags-registry.md
+  - sources\rosreestr-zemelnyy-nadzor.md: тег 'проверки' отсутствует в tags-registry.md
+  - sources\rosreestr-zemelnyy-nadzor.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/zemelnyy-nadzor.md
+  - sources\urtmag-krasnye-linii-sudebnaya-praktika.md: тег 'планировка-территории' отсутствует в tags-registry.md
+  - sources\urtmag-krasnye-linii-sudebnaya-praktika.md: тег 'земельный-участок' отсутствует в tags-registry.md
+  - sources\urtmag-krasnye-linii-sudebnaya-praktika.md: YAML related_topics — битая ссылка -> topics/zemelnoe-pravo/territorii-obshchego-polzovaniya.md
+
+============================================================
+ИТОГО: 182 ошибок, 15 предупреждений
+============================================================

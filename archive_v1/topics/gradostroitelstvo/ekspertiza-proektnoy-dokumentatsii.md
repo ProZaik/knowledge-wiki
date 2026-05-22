@@ -4,7 +4,7 @@ type: тема
 status: verified
 date_added: 2026-05-15
 date_updated: 2026-05-15
-tags: [экспертиза, проектная-документация, градостроительство, ГрК-РФ, ИЖС, государственная-экспертиза, негосударственная-экспертиза]
+tags: [экспертиза, проектная-документация, градостроительство, ГрК, ИЖС]
 related_topics:
   - topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md
   - topics/gradostroitelstvo/gpzu.md

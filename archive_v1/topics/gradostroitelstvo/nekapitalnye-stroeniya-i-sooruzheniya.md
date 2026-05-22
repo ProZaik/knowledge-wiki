@@ -4,7 +4,7 @@ type: тема
 status: draft
 date_added: 2026-05-15
 date_updated: 2026-05-15
-tags: [некапитальные-строения, некапитальные-сооружения, градостроительство, ГрК-РФ, объект-капитального-строительства, временные-постройки]
+tags: [некапитальные-строения, градостроительство, ГрК, ОКС]
 related_topics:
   - topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md
   - topics/gradostroitelstvo/ekspertiza-proektnoy-dokumentatsii.md

@@ -1,24 +1,31 @@
 ---
-title: "[Название источника]"
-type: "book | article | site | video | doc | other"
-url: ""
-author: ""
-date_published: ""
-date_added: "YYYY-MM-DD"
-tags: []
-reliability: "high | medium | low"
+title: "[Название документа/акта]"
+type: источник                # источник | судебный-акт
+status: draft                 # draft | verified | needs-review | archived
+date_added: 2026-01-01
+date_updated: 2026-01-01
+tags: []                      # только из tags-registry.md
+source_url: "https://..."
+related_topics:
+  - topics/<домен>/<тема>.md
 ---
 
-# [Название источника]
+# [Название]
 
-## О чём
+## Суть
 
-_Краткое описание источника._
+_Краткое изложение — о чём документ и почему важен._
 
-## Что из него взято
+## Ключевые положения
 
-- 
+1. ...
+2. ...
+3. ...
 
-## Ссылки на заметки из этого источника
+## Практическое значение
 
-- 
+_Как это влияет на практику._
+
+## Связанные темы
+
+- [Тема](topics/<домен>/<тема>.md)

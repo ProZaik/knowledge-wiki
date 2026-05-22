@@ -72,7 +72,7 @@ def parse_yaml_front(filepath):
     if not content.startswith("---"):
         return None, content
 
-    parts = content.split("---", 2)
+    parts = re.split(r'^---\s*$', content, maxsplit=2, flags=re.MULTILINE)
     if len(parts) < 3:
         return None, content
 
@@ -213,12 +213,33 @@ def check_index_coverage(index_content):
                     warn(f"{rel_path}: файл не упомянут в INDEX.md")
 
 
-# ---------------------------------------------------------------------------
-# MAIN
-# ---------------------------------------------------------------------------
-def main():
+def run_linter(quiet=False):
+    """
+    Запускает полную проверку базы знаний.
+    Возвращает кортеж (errors, warnings).
+    """
+    global errors, warnings
+    errors.clear()
+    warnings.clear()
+
     allowed_tags = load_allowed_tags()
     index_content = load_index_content()
+
+    # 1. Проверяем наличие CHANGELOG.md в корне
+    changelog_path = os.path.join(ROOT, "CHANGELOG.md")
+    if not os.path.exists(changelog_path):
+        err("CHANGELOG.md не найден в корне репозитория")
+
+    # 2. Проверяем актуальность статистики в INDEX.md
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        from wiki_tool import check_index_stats
+        if not quiet:
+            print("Сверка статистики INDEX.md...")
+        if not check_index_stats():
+            err("INDEX.md: статистика в файле не соответствует реальным данным. Запустите 'python scripts/wiki_tool.py --update-stats'")
+    except ImportError as e:
+        err(f"Не удалось импортировать wiki_tool для сверки статистики: {e}")
 
     # Сканируем topics/ и sources/
     scan_dirs = ["topics", "sources", "inbox"]
@@ -228,7 +249,7 @@ def main():
             continue
         for dirpath, _, filenames in os.walk(full_dir):
             for fn in filenames:
-                if not fn.endswith(".md") or fn.startswith(".") or fn.startswith("_"):
+                if not fn.endswith(".md") or fn.startswith(".") or fn.startswith("_") or fn == "sources_to_ingest.md":
                     continue
                 filepath = os.path.join(dirpath, fn)
                 meta, content = parse_yaml_front(filepath)
@@ -239,28 +260,37 @@ def main():
     check_depth()
     check_index_coverage(index_content)
 
+    return list(errors), list(warnings)
+
+
+# ---------------------------------------------------------------------------
+# MAIN
+# ---------------------------------------------------------------------------
+def main():
+    errs, warns = run_linter()
+
     # Вывод
     print("=" * 60)
     print("  WIKI LINT — knowledge-wiki")
     print("=" * 60)
 
-    if warnings:
-        print(f"\n[!] ПРЕДУПРЕЖДЕНИЯ ({len(warnings)}):")
-        for w in warnings:
+    if warns:
+        print(f"\n[!] ПРЕДУПРЕЖДЕНИЯ ({len(warns)}):")
+        for w in warns:
             print(f"  - {w}")
 
-    if errors:
-        print(f"\n[X] ОШИБКИ ({len(errors)}):")
-        for e in errors:
+    if errs:
+        print(f"\n[X] ОШИБКИ ({len(errs)}):")
+        for e in errs:
             print(f"  - {e}")
         print(f"\n{'=' * 60}")
-        print(f"ИТОГО: {len(errors)} ошибок, {len(warnings)} предупреждений")
+        print(f"ИТОГО: {len(errs)} ошибок, {len(warns)} предупреждений")
         print("=" * 60)
         sys.exit(1)
     else:
         print(f"\n[OK] Все проверки пройдены.")
-        if warnings:
-            print(f"     ({len(warnings)} предупреждений — не блокируют)")
+        if warns:
+            print(f"     ({len(warns)} предупреждений — не блокируют)")
         print("=" * 60)
         sys.exit(0)
 

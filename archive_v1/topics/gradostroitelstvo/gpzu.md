@@ -6,7 +6,7 @@ date_added: 2026-05-15
 date_updated: 2026-05-15
 tags: [ГПЗУ, градостроительство, разрешение-на-строительство, ПЗЗ, ВС-РФ]
 related_topics:
-  - topics/gradostroitelstvo/razreshenie-na-stroitelstvo.md
+  - topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md
   - topics/gradostroitelstvo/krasnye-linii.md
 ---
 

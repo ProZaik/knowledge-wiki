@@ -5,28 +5,16 @@
 
 ---
 
-* **⚖️ Градостроительство**
-* [ГПЗУ](topics/gradostroitelstvo/gpzu.md)
-* [Красные линии](topics/gradostroitelstvo/krasnye-linii.md)
-* [Некапитальные строения](topics/gradostroitelstvo/nekapitalnye-stroeniya-i-sooruzheniya.md)
-* [Экспертиза проектной документации](topics/gradostroitelstvo/ekspertiza-proektnoy-dokumentatsii.md)
-* [Разрешение на строительство — исключения](topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md)
-* [Пристройка vs Отдельное здание](topics/gradostroitelstvo/rekonstrukciya-pristoyka.md)
+* [⚖️ **Градостроительство**](topics/gradostroitelstvo/_index.md)
 
 ---
 
-* **🌍 Земельное право**
-* [ВРИ](topics/zemelnoe-pravo/vri.md)
-* [Аренда публичного ЗУ](topics/zemelnoe-pravo/arenda-publichnoy-zemli.md)
-* [Охранные зоны ОКН](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md)
-* [Раздел участка](topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md)
+* [🏗️ **СРО**](topics/sro/_index.md)
 
 ---
 
-* **🏠 Жилищное право**
-* [Единственное жильё](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md)
+* [🌍 **Земельное право**](topics/zemelnoe-pravo/_index.md)
 
 ---
 
-* **🏗️ СРО**
-* [КФ ОДО](topics/sro/kf-odo-uroven-otvetstvennosti.md)
+* [🏠 **Жилищное право**](topics/zhilishnoe-pravo/_index.md)

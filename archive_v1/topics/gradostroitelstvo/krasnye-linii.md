@@ -7,7 +7,6 @@ date_updated: 2026-05-15
 tags: [красные-линии, ГрК, ПЗЗ, территории-общего-пользования, планировка-территории]
 related_topics:
   - topics/gradostroitelstvo/gpzu.md
-  - topics/zemelnoe-pravo/territorii-obshchego-polzovaniya.md
 ---
 
 # Красные линии — правовой статус
