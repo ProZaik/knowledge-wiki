@@ -314,3 +314,11 @@
 - **Обновлены темы:**
   - [zouit](file:///topics/zemelnoe-pravo/zouit)
   - [razreshenie-na-stroitelstvo](file:///topics/gradostroitelstvo/razreshenie-na-stroitelstvo)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (статья):** [Реестр СРО — сервис Росреестра](sources/rosreestr-sro-reestr.md)
+- **Обновлены темы:**
+  - [reestry.md](file:///topics/sro/reestry.md)

@@ -48,6 +48,7 @@
   * [Государственный надзор — раздел Росреестра (обзор)](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md)
   * [Как получить землю для ИЖС с помощью сервисов НСПД и оформить жилой дом](sources/rosreestr-izhs-nspd-2025.md)
   * [Позиции по вопросам правоприменения — Росреестр](sources/rosreestr-pozitsii-pravoprimeneniya.md)
+  * [Реестр СРО — сервис Росреестра](sources/rosreestr-sro-reestr.md)
   * [ГПЗУ как щит застройщика: анализ судебной практики 2024–2026](sources/zakon-ru-gpzu-2026-analiz.md)
 
 * **📋 Нормативные акты**
