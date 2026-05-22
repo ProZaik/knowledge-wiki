@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">23 узлов · 29 связей</div>
+<div id="stats">24 узлов · 31 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -342,6 +342,19 @@ var nodes = new vis.DataSet([
     },
     "url": "#/sources/rosreestr-13-0728-AB-25-2025-01.md",
     "group": "письмо органа"
+  },
+  {
+    "id": "s_rosreestr_14_4104_LL_26_md",
+    "label": "Письмо Росреестра от 15.04.2026 № 14-...",
+    "color": "#E8A838",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/rosreestr-14-4104-LL-26.md",
+    "group": "письмо органа"
   }
 ]);
 var edges = new vis.DataSet([
@@ -456,6 +469,14 @@ var edges = new vis.DataSet([
   {
     "from": "s_rosreestr_13_0728_AB_25_2025_01_md",
     "to": "t_topics_zhilishnoe-pravo__index_md"
+  },
+  {
+    "from": "s_rosreestr_14_4104_LL_26_md",
+    "to": "t_topics_zemelnoe-pravo_izhs-registratsiya_md"
+  },
+  {
+    "from": "s_rosreestr_14_4104_LL_26_md",
+    "to": "t_topics_zemelnoe-pravo__index_md"
   },
   {
     "from": "t_topics_zemelnoe-pravo_izhs-registratsiya_md",

@@ -217,3 +217,12 @@
 - **Источник (письмо органа):** [Письмо Росреестра от 30.01.2025 № 13-0728-АБ/25 — ЕГРН при капремонте и перепланировке нежилых зданий](sources/rosreestr-13-0728-AB-25-2025-01.md)
 - **Обновлены темы:**
   - [razreshenie-na-stroitelstvo-isklyucheniya.md](file:///topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Росреестра от 15.04.2026 № 14-4104-ЛЛ/26](sources/rosreestr-14-4104-LL-26.md)
+- **Обновлены темы:**
+  - [VRI-arenda-goszemli.md](file:///topics/zemelnoe-pravo/VRI-arenda-goszemli.md)
+  - [VRI-sadovye-uchastki.md](file:///topics/zemelnoe-pravo/VRI-sadovye-uchastki.md)
