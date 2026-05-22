@@ -322,3 +322,9 @@
 - **Источник (статья):** [Реестр СРО — сервис Росреестра](sources/rosreestr-sro-reestr.md)
 - **Обновлены темы:**
   - [reestry.md](file:///topics/sro/reestry.md)
+
+
+## [2026-05-23]
+
+### Добавлено:
+- **Источник (статья):** [Какие теплицы нужно ставить на кадастровый учёт](sources/rosreestr-teplitsy-kadastrovyy-uchet.md)

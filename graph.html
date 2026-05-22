@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">36 узлов · 33 связей</div>
+<div id="stats">37 узлов · 34 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -331,6 +331,19 @@ var nodes = new vis.DataSet([
     "group": "статья"
   },
   {
+    "id": "s_rosreestr_teplitsy_kadastrovyy_uchet_md",
+    "label": "Какие теплицы нужно ставить на кадаст...",
+    "color": "#50B878",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/rosreestr-teplitsy-kadastrovyy-uchet.md",
+    "group": "статья"
+  },
+  {
     "id": "s_zakon_ru_gpzu_2026_analiz_md",
     "label": "ГПЗУ как щит застройщика: анализ суде...",
     "color": "#50B878",
@@ -589,6 +602,10 @@ var edges = new vis.DataSet([
   {
     "from": "s_rosreestr_sro_reestr_md",
     "to": "t_topics_sro__index_md"
+  },
+  {
+    "from": "s_rosreestr_teplitsy_kadastrovyy_uchet_md",
+    "to": "t_topics_zemelnoe-pravo_izhs-registratsiya_md"
   },
   {
     "from": "s_zakon_ru_gpzu_2026_analiz_md",
