@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">14 узлов · 18 связей</div>
+<div id="stats">15 узлов · 20 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -188,6 +188,19 @@ var nodes = new vis.DataSet([
     "group": "статья"
   },
   {
+    "id": "s_landlawfirm_vs_razdel_uchastkov_2026_02_md",
+    "label": "ВС запретил нарезать участки в наруше...",
+    "color": "#50B878",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/landlawfirm-vs-razdel-uchastkov-2026-02.md",
+    "group": "статья"
+  },
+  {
     "id": "s_zakon_ru_gpzu_2026_analiz_md",
     "label": "ГПЗУ как щит застройщика: анализ суде...",
     "color": "#50B878",
@@ -270,6 +283,14 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_landlawfirm_ks_okn_ohrannye_zony_2025_12_md",
+    "to": "t_topics_zemelnoe-pravo__index_md"
+  },
+  {
+    "from": "s_landlawfirm_vs_razdel_uchastkov_2026_02_md",
+    "to": "t_topics_zemelnoe-pravo_izhs-registratsiya_md"
+  },
+  {
+    "from": "s_landlawfirm_vs_razdel_uchastkov_2026_02_md",
     "to": "t_topics_zemelnoe-pravo__index_md"
   },
   {

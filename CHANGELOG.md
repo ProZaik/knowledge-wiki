@@ -153,3 +153,11 @@
 - **Источник (статья):** [КС защитил право собственности в охранных зонах культурных памятников](sources/landlawfirm-ks-okn-ohrannye-zony-2025-12.md)
 - **Обновлены темы:**
   - [ohrannye-zony-okn-kompensaciya.md](file:///topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [ВС запретил нарезать участки в нарушение градрегламентов](sources/landlawfirm-vs-razdel-uchastkov-2026-02.md)
+- **Обновлены темы:**
+  - [razdel-uchastka-gradreglament.md](file:///topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md)
