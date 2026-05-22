@@ -181,3 +181,11 @@
 
 ### Добавлено:
 - **Источник (статья):** [Дом, который... — OSINT Mindset GitBook](sources/osint-mindset-dom-kotoryi.md)
+
+
+## [2026-05-22]
+
+### Добавлено:
+- **Источник (статья):** [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md)
+- **Обновлены темы:**
+  - [gpzu.md](file:///topics/gradostroitelstvo/gpzu.md)
