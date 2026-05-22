@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Граф знаний</title>
+<script src="https://cdn.jsdelivr.net/npm/vis-network@9/dist/vis-network.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; font-family: 'Segoe UI', sans-serif; }
+  #graph { width: 100vw; height: 100vh; }
+  #legend {
+    position: fixed; top: 16px; right: 16px;
+    background: rgba(26,26,46,0.92); border: 1px solid #333;
+    border-radius: 12px; padding: 16px 20px;
+    color: #ccc; font-size: 13px; z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+  #legend h3 { color: #fff; margin-bottom: 10px; font-size: 15px; }
+  .legend-item { display: flex; align-items: center; margin: 6px 0; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; }
+  .legend-box { width: 14px; height: 14px; border-radius: 3px; margin-right: 10px; flex-shrink: 0; }
+  #title {
+    position: fixed; top: 16px; left: 16px;
+    color: #fff; font-size: 22px; font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5); z-index: 10;
+  }
+  #stats {
+    position: fixed; bottom: 16px; left: 16px;
+    color: #666; font-size: 12px; z-index: 10;
+  }
+</style>
+</head>
+<body>
+<div id="title">🕸️ Граф знаний</div>
+<div id="legend">
+  <h3>Легенда</h3>
+  <div class="legend-item"><div class="legend-dot" style="background:#4A90D9"></div>Темы</div>
+  <div class="legend-item"><div class="legend-box" style="background:#E8A838"></div>Письма органов</div>
+  <div class="legend-item"><div class="legend-box" style="background:#D94A68"></div>Судебные акты</div>
+  <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
+  <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
+</div>
+<div id="stats">10 узлов · 12 связей</div>
+<div id="graph"></div>
+<script>
+var nodes = new vis.DataSet([
+  {
+    "id": "t_topics_zemelnoe-pravo_izhs-registratsiya_md",
+    "label": "Регистрация прав на объекты ИЖС",
+    "color": "#4A90D9",
+    "shape": "dot",
+    "size": 25,
+    "font": {
+      "size": 14,
+      "color": "#ffffff"
+    },
+    "url": "#/topics/zemelnoe-pravo/izhs-registratsiya.md",
+    "group": "topic"
+  },
+  {
+    "id": "t_topics_gradostroitelstvo__index_md",
+    "label": "Градостроительство",
+    "color": "#4A90D9",
+    "shape": "dot",
+    "size": 25,
+    "font": {
+      "size": 14,
+      "color": "#ffffff"
+    },
+    "url": "#/topics/gradostroitelstvo/_index.md",
+    "group": "topic"
+  },
+  {
+    "id": "t_topics_sro__index_md",
+    "label": "СРО",
+    "color": "#4A90D9",
+    "shape": "dot",
+    "size": 25,
+    "font": {
+      "size": 14,
+      "color": "#ffffff"
+    },
+    "url": "#/topics/sro/_index.md",
+    "group": "topic"
+  },
+  {
+    "id": "t_topics_zemelnoe-pravo__index_md",
+    "label": "Земельное право",
+    "color": "#4A90D9",
+    "shape": "dot",
+    "size": 25,
+    "font": {
+      "size": 14,
+      "color": "#ffffff"
+    },
+    "url": "#/topics/zemelnoe-pravo/_index.md",
+    "group": "topic"
+  },
+  {
+    "id": "t_topics_zhilishnoe-pravo__index_md",
+    "label": "Жилищное право",
+    "color": "#4A90D9",
+    "shape": "dot",
+    "size": 25,
+    "font": {
+      "size": 14,
+      "color": "#ffffff"
+    },
+    "url": "#/topics/zhilishnoe-pravo/_index.md",
+    "group": "topic"
+  },
+  {
+    "id": "s_vs_rf_A40_198765_2025_md",
+    "label": "Определение ВС РФ от 18.04.2026 по де...",
+    "color": "#D94A68",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/vs-rf-A40-198765-2025.md",
+    "group": "судебный акт"
+  },
+  {
+    "id": "s_A47_12503_2022_sro_kontrakt_nichtoznost_md",
+    "label": "Постановление АС Уральского округа от...",
+    "color": "#D94A68",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/A47-12503-2022-sro-kontrakt-nichtoznost.md",
+    "group": "судебный акт"
+  },
+  {
+    "id": "s_fz_218_izmenenia_2026_05_md",
+    "label": "Федеральный закон от 01.05.2026 № 97-...",
+    "color": "#9B59B6",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/fz-218-izmenenia-2026-05.md",
+    "group": "нормативный акт"
+  },
+  {
+    "id": "s_rosreestr_2026_05_10_14_5100_md",
+    "label": "Письмо Росреестра от 10.05.2026 № 14-...",
+    "color": "#E8A838",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/rosreestr-2026-05-10-14-5100.md",
+    "group": "письмо органа"
+  },
+  {
+    "id": "s_zakon_ru_gpzu_2026_analiz_md",
+    "label": "ГПЗУ как щит застройщика: анализ суде...",
+    "color": "#50B878",
+    "shape": "box",
+    "size": 15,
+    "font": {
+      "size": 11,
+      "color": "#333333"
+    },
+    "url": "#/sources/zakon-ru-gpzu-2026-analiz.md",
+    "group": "статья"
+  }
+]);
+var edges = new vis.DataSet([
+  {
+    "from": "s_vs_rf_A40_198765_2025_md",
+    "to": "t_topics_gradostroitelstvo__index_md"
+  },
+  {
+    "from": "s_vs_rf_A40_198765_2025_md",
+    "to": "t_topics_zemelnoe-pravo_izhs-registratsiya_md"
+  },
+  {
+    "from": "s_vs_rf_A40_198765_2025_md",
+    "to": "t_topics_zemelnoe-pravo__index_md"
+  },
+  {
+    "from": "s_A47_12503_2022_sro_kontrakt_nichtoznost_md",
+    "to": "t_topics_gradostroitelstvo__index_md"
+  },
+  {
+    "from": "s_A47_12503_2022_sro_kontrakt_nichtoznost_md",
+    "to": "t_topics_sro__index_md"
+  },
+  {
+    "from": "s_fz_218_izmenenia_2026_05_md",
+    "to": "t_topics_zemelnoe-pravo_izhs-registratsiya_md"
+  },
+  {
+    "from": "s_fz_218_izmenenia_2026_05_md",
+    "to": "t_topics_zemelnoe-pravo__index_md"
+  },
+  {
+    "from": "s_rosreestr_2026_05_10_14_5100_md",
+    "to": "t_topics_zemelnoe-pravo__index_md"
+  },
+  {
+    "from": "s_rosreestr_2026_05_10_14_5100_md",
+    "to": "t_topics_zemelnoe-pravo_izhs-registratsiya_md"
+  },
+  {
+    "from": "s_rosreestr_2026_05_10_14_5100_md",
+    "to": "t_topics_gradostroitelstvo__index_md"
+  },
+  {
+    "from": "s_zakon_ru_gpzu_2026_analiz_md",
+    "to": "t_topics_gradostroitelstvo__index_md"
+  },
+  {
+    "from": "t_topics_zemelnoe-pravo_izhs-registratsiya_md",
+    "to": "t_topics_zemelnoe-pravo__index_md"
+  }
+]);
+var container = document.getElementById('graph');
+var data = { nodes: nodes, edges: edges };
+var options = {
+  physics: {
+    barnesHut: {
+      gravitationalConstant: -3000,
+      centralGravity: 0.3,
+      springLength: 120,
+      springConstant: 0.04,
+      damping: 0.09
+    },
+    stabilization: { iterations: 150 }
+  },
+  edges: {
+    color: { color: '#555', highlight: '#aaa', hover: '#888' },
+    width: 1.5,
+    smooth: { type: 'continuous' }
+  },
+  interaction: {
+    hover: true,
+    tooltipDelay: 100,
+    zoomView: true,
+    dragView: true
+  }
+};
+var network = new vis.Network(container, data, options);
+network.on('click', function(params) {
+  if (params.nodes.length > 0) {
+    var nodeId = params.nodes[0];
+    var node = nodes.get(nodeId);
+    if (node && node.url) {
+      window.open(node.url, '_blank');
+    }
+  }
+});
+</script>
+</body>
+</html>

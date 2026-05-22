@@ -686,12 +686,30 @@ def generate_timeline():
 
 
 def generate_knowledge_graph():
-    """Генерирует _graph.md — граф знаний в формате Mermaid на основе связей между темами."""
-    topics_dir = os.path.join(ROOT, "topics")
-    graph_path = os.path.join(ROOT, "_graph.md")
+    """Генерирует интерактивный граф знаний (vis.js) — темы и источники с цветами и связями."""
+    import json as _json
 
+    topics_dir = os.path.join(ROOT, "topics")
+    sources_dir = os.path.join(ROOT, "sources")
+    graph_html_path = os.path.join(ROOT, "graph.html")
+    graph_md_path = os.path.join(ROOT, "_graph.md")
+
+    # === Цвета ===
+    TOPIC_COLOR = "#4A90D9"       # синий
+    SOURCE_COLORS = {
+        "письмо органа":   "#E8A838",  # оранжевый
+        "судебный акт":    "#D94A68",  # красный
+        "статья":          "#50B878",  # зелёный
+        "нормативный акт": "#9B59B6",  # фиолетовый
+    }
+    DEFAULT_SRC_COLOR = "#95A5A6"
+
+    nodes_data = []  # [{id, label, color, shape, url, group}]
+    edges_data = []  # [{from, to}]
+    seen_edges = set()
+
+    # --- Собираем темы ---
     topic_files = get_all_markdown_files(topics_dir)
-    # Включаем _index.md тоже
     for dirpath, _, filenames in os.walk(topics_dir):
         for fn in filenames:
             if fn.startswith("_") and fn.endswith(".md"):
@@ -699,114 +717,210 @@ def generate_knowledge_graph():
                 if fp not in topic_files:
                     topic_files.append(fp)
 
-    # Собираем информацию о каждом файле темы
-    # node_id -> {title, rel_path}
-    nodes = {}  # type: dict[str, dict]
-    # Карта: rel_path -> node_id для быстрого поиска
-    path_to_id = {}  # type: dict[str, str]
+    # rel_path -> node_id для связей
+    path_to_id = {}
 
     for fpath in topic_files:
         rel_path = os.path.relpath(fpath, ROOT).replace("\\", "/")
-        # Генерируем короткий id из имени файла
-        basename = os.path.splitext(os.path.basename(fpath))[0]
-        # Убираем подчёркивание для _index
-        node_id = basename.lstrip("_").replace("-", "_")
-        # Добавляем папку для уникальности
-        parent_dir = os.path.basename(os.path.dirname(fpath))
-        if node_id == "index":
-            node_id = parent_dir.replace("-", "_")
-
-        # На случай коллизии id
-        original_id = node_id
-        counter = 2
-        while node_id in nodes:
-            node_id = f"{original_id}_{counter}"
-            counter += 1
-
         title = _read_title_from_file(fpath)
-        # Укорачиваем заголовок — убираем " — обзор темы" и подобное
         title_short = title.split("—")[0].strip()
+        node_id = "t_" + rel_path.replace("/", "_").replace(".", "_")
 
-        nodes[node_id] = {"title": title_short, "rel_path": rel_path}
+        nodes_data.append({
+            "id": node_id,
+            "label": title_short,
+            "color": TOPIC_COLOR,
+            "shape": "dot",
+            "size": 25,
+            "font": {"size": 14, "color": "#ffffff"},
+            "url": "#/" + rel_path,
+            "group": "topic",
+        })
         path_to_id[rel_path] = node_id
 
-    # Собираем рёбра графа
-    edges = set()  # type: set[tuple[str, str]]
-    link_pattern = re.compile(r'\]\(([^)]+\.md)\)')
+    # --- Собираем источники ---
+    source_groups = _collect_sources_grouped()
+    for src_type, entries in source_groups.items():
+        color = SOURCE_COLORS.get(src_type, DEFAULT_SRC_COLOR)
+        for entry in entries:
+            rel_path = f"sources/{entry['filename']}"
+            node_id = "s_" + entry["filename"].replace(".", "_").replace("-", "_")
+            # Укорачиваем название для графа
+            label = entry["title"]
+            if len(label) > 40:
+                label = label[:37] + "..."
 
+            nodes_data.append({
+                "id": node_id,
+                "label": label,
+                "color": color,
+                "shape": "box",
+                "size": 15,
+                "font": {"size": 11, "color": "#333333"},
+                "url": "#/" + rel_path,
+                "group": src_type,
+            })
+            path_to_id[rel_path] = node_id
+
+            # Связи source -> related_topics
+            meta = entry.get("meta", {})
+            related = meta.get("related_topics", [])
+            if isinstance(related, list):
+                for rt in related:
+                    rt_str = str(rt).strip()
+                    if rt_str in path_to_id:
+                        edge_key = tuple(sorted([node_id, path_to_id[rt_str]]))
+                        if edge_key not in seen_edges:
+                            edges_data.append({"from": node_id, "to": path_to_id[rt_str]})
+                            seen_edges.add(edge_key)
+
+            # Связи source -> topics по общим тегам
+            src_tags = set(meta.get("tags", []))
+            if src_tags:
+                for tfpath in topic_files:
+                    tmeta = parse_yaml_front(tfpath)
+                    if not tmeta:
+                        continue
+                    ttags = set(tmeta.get("tags", []))
+                    if src_tags & ttags:
+                        trel = os.path.relpath(tfpath, ROOT).replace("\\", "/")
+                        if trel in path_to_id:
+                            edge_key = tuple(sorted([node_id, path_to_id[trel]]))
+                            if edge_key not in seen_edges:
+                                edges_data.append({"from": node_id, "to": path_to_id[trel]})
+                                seen_edges.add(edge_key)
+
+    # --- Связи topic <-> topic ---
+    link_pattern = re.compile(r'\]\(([^)]+\.md)\)')
     for fpath in topic_files:
         rel_self = os.path.relpath(fpath, ROOT).replace("\\", "/")
         self_id = path_to_id.get(rel_self)
         if not self_id:
             continue
-
         meta = parse_yaml_front(fpath)
-
-        # 1. Ссылки из related_topics в frontmatter
         if meta:
             related = meta.get("related_topics", [])
             if isinstance(related, list):
                 for rt in related:
                     rt_str = str(rt).strip()
-                    # related_topics может быть путём или просто именем
                     if rt_str in path_to_id:
-                        target_id = path_to_id[rt_str]
-                        edge = tuple(sorted([self_id, target_id]))
-                        edges.add(edge)
+                        edge_key = tuple(sorted([self_id, path_to_id[rt_str]]))
+                        if edge_key not in seen_edges:
+                            edges_data.append({"from": self_id, "to": path_to_id[rt_str]})
+                            seen_edges.add(edge_key)
 
-        # 2. Markdown-ссылки в теле файла на другие файлы topics/
-        try:
-            with open(fpath, "r", encoding="utf-8") as f:
-                content = f.read()
-        except Exception:
-            continue
+    # === Генерируем graph.html ===
+    nodes_json = _json.dumps(nodes_data, ensure_ascii=False, indent=2)
+    edges_json = _json.dumps(edges_data, ensure_ascii=False, indent=2)
 
-        for match in link_pattern.finditer(content):
-            raw_link = match.group(1)
-            link_dir = os.path.dirname(fpath)
-            abs_target = os.path.normpath(os.path.join(link_dir, raw_link))
-            rel_target = os.path.relpath(abs_target, ROOT).replace("\\", "/")
+    html = f"""<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Граф знаний</title>
+<script src="https://cdn.jsdelivr.net/npm/vis-network@9/dist/vis-network.min.js"></script>
+<style>
+  * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  body {{ background: #1a1a2e; font-family: 'Segoe UI', sans-serif; }}
+  #graph {{ width: 100vw; height: 100vh; }}
+  #legend {{
+    position: fixed; top: 16px; right: 16px;
+    background: rgba(26,26,46,0.92); border: 1px solid #333;
+    border-radius: 12px; padding: 16px 20px;
+    color: #ccc; font-size: 13px; z-index: 10;
+    backdrop-filter: blur(8px);
+  }}
+  #legend h3 {{ color: #fff; margin-bottom: 10px; font-size: 15px; }}
+  .legend-item {{ display: flex; align-items: center; margin: 6px 0; }}
+  .legend-dot {{ width: 14px; height: 14px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; }}
+  .legend-box {{ width: 14px; height: 14px; border-radius: 3px; margin-right: 10px; flex-shrink: 0; }}
+  #title {{
+    position: fixed; top: 16px; left: 16px;
+    color: #fff; font-size: 22px; font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5); z-index: 10;
+  }}
+  #stats {{
+    position: fixed; bottom: 16px; left: 16px;
+    color: #666; font-size: 12px; z-index: 10;
+  }}
+</style>
+</head>
+<body>
+<div id="title">🕸️ Граф знаний</div>
+<div id="legend">
+  <h3>Легенда</h3>
+  <div class="legend-item"><div class="legend-dot" style="background:{TOPIC_COLOR}"></div>Темы</div>
+  <div class="legend-item"><div class="legend-box" style="background:{SOURCE_COLORS['письмо органа']}"></div>Письма органов</div>
+  <div class="legend-item"><div class="legend-box" style="background:{SOURCE_COLORS['судебный акт']}"></div>Судебные акты</div>
+  <div class="legend-item"><div class="legend-box" style="background:{SOURCE_COLORS['статья']}"></div>Статьи</div>
+  <div class="legend-item"><div class="legend-box" style="background:{SOURCE_COLORS['нормативный акт']}"></div>Нормативные акты</div>
+</div>
+<div id="stats">{len(nodes_data)} узлов · {len(edges_data)} связей</div>
+<div id="graph"></div>
+<script>
+var nodes = new vis.DataSet({nodes_json});
+var edges = new vis.DataSet({edges_json});
+var container = document.getElementById('graph');
+var data = {{ nodes: nodes, edges: edges }};
+var options = {{
+  physics: {{
+    barnesHut: {{
+      gravitationalConstant: -3000,
+      centralGravity: 0.3,
+      springLength: 120,
+      springConstant: 0.04,
+      damping: 0.09
+    }},
+    stabilization: {{ iterations: 150 }}
+  }},
+  edges: {{
+    color: {{ color: '#555', highlight: '#aaa', hover: '#888' }},
+    width: 1.5,
+    smooth: {{ type: 'continuous' }}
+  }},
+  interaction: {{
+    hover: true,
+    tooltipDelay: 100,
+    zoomView: true,
+    dragView: true
+  }}
+}};
+var network = new vis.Network(container, data, options);
+network.on('click', function(params) {{
+  if (params.nodes.length > 0) {{
+    var nodeId = params.nodes[0];
+    var node = nodes.get(nodeId);
+    if (node && node.url) {{
+      window.open(node.url, '_blank');
+    }}
+  }}
+}});
+</script>
+</body>
+</html>"""
 
-            if rel_target in path_to_id and rel_target != rel_self:
-                target_id = path_to_id[rel_target]
-                edge = tuple(sorted([self_id, target_id]))
-                edges.add(edge)
+    with open(graph_html_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(html)
 
-    # Генерируем Mermaid-диаграмму
-    lines = [
-        '---',
+    # === Генерируем _graph.md со ссылкой ===
+    md_lines = [
+        "---",
         'title: "Граф знаний"',
-        '---',
-        '# 🕸️ Граф знаний',
-        '',
-        '```mermaid',
-        'graph LR',
+        "---",
+        "# 🕸️ Граф знаний",
+        "",
+        f"> **{len(nodes_data)}** узлов · **{len(edges_data)}** связей",
+        "",
+        "[🔗 Открыть интерактивный граф](graph.html ':target=_blank')",
+        "",
+        '<iframe src="graph.html" width="100%" height="700" style="border:1px solid #333; border-radius:8px;"></iframe>',
+        "",
     ]
 
-    # Добавляем узлы (только те, что имеют хотя бы одно ребро, плюс изолированные)
-    nodes_in_edges = set()
-    for a, b in edges:
-        nodes_in_edges.add(a)
-        nodes_in_edges.add(b)
+    with open(graph_md_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(md_lines))
 
-    # Добавляем все узлы — даже изолированные, для полноты карты
-    for nid, info in sorted(nodes.items()):
-        # Экранируем кавычки в заголовке для Mermaid
-        safe_title = info["title"].replace('"', "'")
-        lines.append(f'    {nid}["{safe_title}"]')
-
-    # Добавляем рёбра
-    for a, b in sorted(edges):
-        lines.append(f'    {a} --> {b}')
-
-    lines.append('```')
-    lines.append('')
-
-    with open(graph_path, "w", encoding="utf-8", newline="\n") as f:
-        f.write("\n".join(lines))
-
-    print(f"[OK] Граф знаний сгенерирован: _graph.md ({len(nodes)} узлов, {len(edges)} связей).")
-    return True
+    print(f"[OK] Граф знаний сгенерирован: graph.html ({len(nodes_data)} узлов, {len(edges_data)} связей).")
 
 
 def update_index_stats():
