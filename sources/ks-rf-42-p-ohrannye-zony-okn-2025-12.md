@@ -45,7 +45,7 @@ tags:
 
 ## Что из него взято
 
-- [topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md)
+- [topics/zemelnoe-pravo/zouit.md](topics/zemelnoe-pravo/zouit.md)
 
 ---
 

@@ -39,10 +39,7 @@ tags:
 
 ## Что из него взято
 
-- [topics/zemelnoe-pravo/VRI-arenda-goszemli.md](topics/zemelnoe-pravo/VRI-arenda-goszemli.md) — ВРИ участков в аренде/безвозмездном пользовании
-- [topics/zemelnoe-pravo/VRI-egrn-poryadok.md](topics/zemelnoe-pravo/VRI-egrn-poryadok.md) — Порядок внесения ВРИ в ЕГРН
-- [topics/zemelnoe-pravo/VRI-sadovye-uchastki.md](topics/zemelnoe-pravo/VRI-sadovye-uchastki.md) — ВРИ садовых/огородных участков
-- [topics/zemelnoe-pravo/VRI-likvidirovannye-tovarishchestva.md](topics/zemelnoe-pravo/VRI-likvidirovannye-tovarishchestva.md) — ВРИ после ликвидации СНТ
+- [topics/zemelnoe-pravo/vri.md](topics/zemelnoe-pravo/vri.md) — ВРИ земельных участков (порядок внесения в ЕГРН, аренда, садовые участки, ликвидация СНТ)
 
 ---
 

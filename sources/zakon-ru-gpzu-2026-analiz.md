@@ -9,8 +9,7 @@ tags:
 - градостроительство
 - ГрК
 source_url: https://zakon.ru/publication/gpzu-2026-analiz
-related_topics:
-- topics/gradostroitelstvo/_index.md
+related_topics: []
 date: '2026-05-15'
 ---
 

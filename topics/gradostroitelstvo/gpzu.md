@@ -10,8 +10,7 @@ tags:
 - ПЗЗ
 - разрешение-на-строительство
 - ГрК
-related_topics:
-- topics/gradostroitelstvo/_index.md
+related_topics: []
 ---
 
 # ГПЗУ — стабильность, судебная практика, нормативная база

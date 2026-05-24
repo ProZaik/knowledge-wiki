@@ -36,7 +36,7 @@ date: '2026-02-01'
 
 ## Что из него взято
 
-- [topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md](topics/zemelnoe-pravo/razdel-uchastka-gradreglament.md)
+- [topics/zemelnoe-pravo/vri.md](topics/zemelnoe-pravo/vri.md)
 
 ---
 
