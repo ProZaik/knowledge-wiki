@@ -6,6 +6,7 @@
   * [🧭 Обзор](topics/218-fz/_index.md)
   * [Кадастровый учёт — общие правила, постановка на учёт, НСПД](topics/218-fz/kadastrovyy-uchet.md)
   * [Реестровые ошибки — исправление, ККР, заключение кадастрового инженера](topics/218-fz/reestrovye-oshibki.md)
+  * [Технический и межевой план — требования к подготовке, иерархия документов](topics/218-fz/tehplan-mezhevoy.md)
 
 * **⚖️ Gradostroitelstvo**
   * [🧭 Обзор](topics/gradostroitelstvo/_index.md)
