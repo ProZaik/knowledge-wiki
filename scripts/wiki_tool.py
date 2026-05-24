@@ -8,36 +8,13 @@ Wiki Tool — утилита для автоматизации рутины в k
 import os
 import re
 import sys
-import yaml
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-def get_all_markdown_files(directory):
-    """Рекурсивно находит все md-файлы, исключая скрытые."""
-    md_files = []
-    if not os.path.exists(directory):
-        return md_files
-    for dirpath, _, filenames in os.walk(directory):
-        for fn in filenames:
-            if fn.endswith(".md") and not fn.startswith(".") and not fn.startswith("_"):
-                md_files.append(os.path.join(dirpath, fn))
-    return md_files
-
-
-def parse_yaml_front(filepath):
-    """Считывает YAML frontmatter из markdown-файла."""
-    try:
-        with open(filepath, "r", encoding="utf-8") as f:
-            content = f.read()
-        if not content.startswith("---"):
-            return None
-        parts = re.split(r'^---\s*$', content, maxsplit=2, flags=re.MULTILINE)
-        if len(parts) >= 3:
-            return yaml.safe_load(parts[1])
-    except Exception:
-        pass
-    return None
+from wiki_common import (
+    ROOT,
+    get_all_markdown_files,
+    parse_yaml_front as _parse_yaml_front_tuple,
+    parse_yaml_front_meta_only as parse_yaml_front,
+)
 
 
 def calculate_stats():

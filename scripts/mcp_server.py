@@ -11,7 +11,9 @@ import re
 import sys
 import argparse
 import datetime
-import yaml
+
+# Обеспечиваем доступ к модулям в scripts/
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -19,8 +21,7 @@ from starlette.routing import Mount
 import uvicorn
 
 # Определяем корень репозитория
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from wiki_common import ROOT
 
 from mcp_guards import sanitize_content, normalize_tags, validate_content_length, auto_git_commit
 from mcp_templates import build_letter, build_court_decision, build_article, build_law, build_topic, build_flexible_topic
@@ -859,7 +860,18 @@ def migrate_topic(
 # ===========================================================================
 
 app = FastAPI(title="knowledge-wiki-mcp")
-app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=['*'], allow_headers=['*'])
+# CORS: явные origins вместо wildcard. Можно расширить через переменную окружения.
+_DEFAULT_CORS_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:8000',
+    'https://wiki.domosrez.ru',
+    'http://wiki.domosrez.ru',
+]
+_env_origins = os.environ.get('WIKI_CORS_ORIGINS', '')
+_cors_origins = _DEFAULT_CORS_ORIGINS + [o.strip() for o in _env_origins.split(',') if o.strip()] if _env_origins else _DEFAULT_CORS_ORIGINS
+app.add_middleware(CORSMiddleware, allow_origins=_cors_origins, allow_methods=['*'], allow_headers=['*'])
 sse = SseServerTransport("/messages/")
 
 app.router.routes.append(Mount("/messages", app=sse.handle_post_message))

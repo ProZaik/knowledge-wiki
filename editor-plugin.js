@@ -15,7 +15,7 @@
   /* =========================================
      Config
      ========================================= */
-  var BACKEND_URL = '';
+  var BACKEND_URL = (window.$docsify && window.$docsify.backendUrl) || '';
 
   var DOMAINS = [
     { value: 'topics/gradostroitelstvo', label: 'Градостроительство' },

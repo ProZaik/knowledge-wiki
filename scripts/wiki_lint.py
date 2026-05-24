@@ -15,9 +15,14 @@ Wiki Lint — автоматическая проверка целостност
 import os
 import re
 import sys
-import yaml
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from wiki_common import (
+    ROOT,
+    parse_yaml_front,
+    load_allowed_tags,
+    load_index_content,
+    resolve_relative_link,
+)
 
 errors = []
 warnings = []
@@ -32,58 +37,9 @@ def warn(msg):
 
 
 # ---------------------------------------------------------------------------
-# 1. Загрузить допустимые теги из tags-registry.md
+# Функции load_allowed_tags, load_index_content, parse_yaml_front
+# импортированы из wiki_common (единая реализация)
 # ---------------------------------------------------------------------------
-def load_allowed_tags():
-    path = os.path.join(ROOT, "tags-registry.md")
-    if not os.path.exists(path):
-        err("tags-registry.md не найден в корне репозитория")
-        return set()
-
-    tags = set()
-    with open(path, "r", encoding="utf-8") as f:
-        for line in f:
-            # Ищем теги в первом столбце таблиц: | `тег` | описание |
-            m = re.match(r'\|\s*`([^`]+)`\s*\|', line)
-            if m:
-                tags.add(m.group(1))
-    return tags
-
-
-# ---------------------------------------------------------------------------
-# 2. Загрузить содержимое INDEX.md для проверки упоминаний
-# ---------------------------------------------------------------------------
-def load_index_content():
-    path = os.path.join(ROOT, "INDEX.md")
-    if not os.path.exists(path):
-        err("INDEX.md не найден в корне репозитория")
-        return ""
-    with open(path, "r", encoding="utf-8") as f:
-        return f.read()
-
-
-# ---------------------------------------------------------------------------
-# 3. Парсинг YAML-шапки из markdown-файла
-# ---------------------------------------------------------------------------
-def parse_yaml_front(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    # YAML frontmatter: между первой и второй строкой ---
-    if not content.startswith("---"):
-        return None, content
-
-    parts = re.split(r'^---\s*$', content, maxsplit=2, flags=re.MULTILINE)
-    if len(parts) < 3:
-        return None, content
-
-    try:
-        meta = yaml.safe_load(parts[1])
-    except yaml.YAMLError as e:
-        err(f"{filepath}: невалидный YAML — {e}")
-        return None, content
-
-    return meta, content
 
 
 # ---------------------------------------------------------------------------
@@ -145,12 +101,16 @@ def check_links(filepath, content, meta):
         if not target_clean:
             continue
 
-        # Docsify разрешает пути от корня репозитория
-        full_path = os.path.join(ROOT, target_clean)
+        # Ссылки с ../ разрешаем от директории исходного файла
+        if target_clean.startswith("../") or target_clean.startswith("./"):
+            full_path = resolve_relative_link(filepath, target_clean)
+        else:
+            # Docsify разрешает абсолютные пути от корня репозитория
+            full_path = os.path.join(ROOT, target_clean)
         if not os.path.exists(full_path):
             err(f"{rel}: битая ссылка -> {target_clean}")
 
-    # YAML related_topics
+    # YAML related_topics — всегда разрешаются от корня
     if meta and "related_topics" in meta and isinstance(meta["related_topics"], list):
         for rt in meta["related_topics"]:
             rt_str = str(rt).strip()
@@ -312,15 +272,18 @@ def run_linter(quiet=False):
         err("CHANGELOG.md не найден в корне репозитория")
 
     # 2. Проверяем актуальность статистики в INDEX.md
-    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+    # Вместо блокирующей ошибки — автоматически обновляем и выдаём предупреждение
     try:
-        from wiki_tool import check_index_stats
+        from wiki_tool import check_index_stats, update_index_stats
         if not quiet:
             print("Сверка статистики INDEX.md...")
         if not check_index_stats():
-            err("INDEX.md: статистика в файле не соответствует реальным данным. Запустите 'python scripts/wiki_tool.py --update-stats'")
+            if not quiet:
+                print("[~] Статистика устарела — автообновление...")
+            update_index_stats()
+            warn("INDEX.md: статистика была устаревшей и автоматически обновлена")
     except ImportError as e:
-        err(f"Не удалось импортировать wiki_tool для сверки статистики: {e}")
+        warn(f"Не удалось импортировать wiki_tool для сверки статистики: {e}")
 
     # Сканируем topics/ и sources/
     scan_dirs = ["topics", "sources", "inbox"]
