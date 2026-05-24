@@ -13,6 +13,8 @@ import argparse
 import datetime
 import yaml
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from starlette.routing import Mount
 import uvicorn
 
@@ -857,6 +859,7 @@ def migrate_topic(
 # ===========================================================================
 
 app = FastAPI(title="knowledge-wiki-mcp")
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=['*'], allow_headers=['*'])
 sse = SseServerTransport("/messages/")
 
 app.router.routes.append(Mount("/messages", app=sse.handle_post_message))
@@ -887,6 +890,210 @@ def read_root():
             "sse": "http://<ip>:8000/sse (POST-запросы на http://<ip>:8000/messages/)"
         }
     }
+
+# ===========================================================================
+# REST API ENDPOINTS (Файловый менеджер wiki)
+# ===========================================================================
+
+def _validate_wiki_path(path: str) -> str | None:
+    """Валидация пути: только topics/ и sources/, без '..' и абсолютных путей.
+    Возвращает сообщение об ошибке или None если путь валиден."""
+    if not path:
+        return None
+    normalized = os.path.normpath(path).replace('\\', '/')
+    if '..' in normalized or os.path.isabs(path):
+        return 'Недопустимый путь: запрещены ".." и абсолютные пути.'
+    if not (normalized.startswith('topics') or normalized.startswith('sources')):
+        return 'Доступ разрешён только к директориям topics/ и sources/.'
+    return None
+
+
+@app.get('/api/files')
+async def api_list_files(path: str = ''):
+    """Список файлов и папок. path — относительный путь от ROOT.
+    Разрешены ТОЛЬКО topics/ и sources/ директории.
+    Возвращает: {items: [{name, type: 'file'|'dir', size, path}]}
+    """
+    try:
+        if not path:
+            return JSONResponse(content={'items': [
+                {'name': 'topics', 'type': 'dir', 'path': 'topics/'},
+                {'name': 'sources', 'type': 'dir', 'path': 'sources/'},
+            ]})
+
+        error = _validate_wiki_path(path)
+        if error:
+            return JSONResponse(status_code=400, content={'error': error})
+
+        full_path = os.path.join(ROOT, os.path.normpath(path))
+        if not os.path.exists(full_path) or not os.path.isdir(full_path):
+            return JSONResponse(status_code=404, content={'error': f'Директория не найдена: {path}'})
+
+        items = []
+        for entry in sorted(os.listdir(full_path)):
+            entry_full = os.path.join(full_path, entry)
+            rel = os.path.join(path, entry).replace('\\', '/')
+            if os.path.isdir(entry_full):
+                items.append({'name': entry, 'type': 'dir', 'size': 0, 'path': rel + '/'})
+            elif entry.endswith('.md'):
+                items.append({'name': entry, 'type': 'file', 'size': os.path.getsize(entry_full), 'path': rel})
+
+        return JSONResponse(content={'items': items})
+    except Exception as e:
+        return JSONResponse(status_code=500, content={'error': f'Внутренняя ошибка сервера: {e}'})
+
+
+@app.get('/api/files/read')
+async def api_read_file(path: str):
+    """Чтение .md файла. Возвращает: {content: str, path: str}"""
+    try:
+        error = _validate_wiki_path(path)
+        if error:
+            return JSONResponse(status_code=400, content={'error': error})
+
+        if not path.endswith('.md'):
+            return JSONResponse(status_code=400, content={'error': 'Допускается чтение только .md файлов.'})
+
+        full_path = os.path.join(ROOT, os.path.normpath(path))
+        if not os.path.exists(full_path) or not os.path.isfile(full_path):
+            return JSONResponse(status_code=404, content={'error': f'Файл не найден: {path}'})
+
+        with open(full_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        return JSONResponse(content={'content': content, 'path': path})
+    except Exception as e:
+        return JSONResponse(status_code=500, content={'error': f'Ошибка чтения файла: {e}'})
+
+
+@app.post('/api/files/save')
+async def api_save_file(request: Request):
+    """Тело JSON: {path: str, content: str}
+    Создаёт или перезаписывает файл.
+    После сохранения запускает линтер и делает git commit.
+    Возвращает: {success, lint: {errors, warnings}, git: str}
+    """
+    try:
+        body = await request.json()
+        path = body.get('path', '')
+        content = body.get('content', '')
+
+        if not path:
+            return JSONResponse(status_code=400, content={'error': 'Не указан путь файла (path).'})
+
+        error = _validate_wiki_path(path)
+        if error:
+            return JSONResponse(status_code=400, content={'error': error})
+
+        if not path.endswith('.md'):
+            return JSONResponse(status_code=400, content={'error': 'Допускается сохранение только .md файлов.'})
+
+        normalized = os.path.normpath(path)
+        full_path = os.path.join(ROOT, normalized)
+
+        # Создание директорий при необходимости
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+
+        # Запись файла
+        with open(full_path, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(content)
+
+        # Линтер
+        from wiki_lint import run_linter
+        errors, warnings = run_linter(quiet=True)
+
+        # Git commit
+        rel_path = normalized.replace('\\', '/')
+        git_result = auto_git_commit(ROOT, [rel_path], f'[Web] Обновление: {rel_path}')
+
+        # Обновление статистики INDEX
+        from wiki_tool import update_index_stats
+        update_index_stats()
+
+        return JSONResponse(content={
+            'success': True,
+            'lint': {'errors': errors, 'warnings': warnings},
+            'git': git_result.get('output', git_result.get('error', 'неизвестно')),
+        })
+    except Exception as e:
+        return JSONResponse(status_code=500, content={'error': f'Ошибка сохранения файла: {e}'})
+
+
+@app.delete('/api/files/delete')
+async def api_delete_file(path: str):
+    """Удаляет .md файл. Только topics/ и sources/.
+    Делает git commit после удаления.
+    Возвращает: {success, git: str}
+    """
+    try:
+        error = _validate_wiki_path(path)
+        if error:
+            return JSONResponse(status_code=400, content={'error': error})
+
+        if not path.endswith('.md'):
+            return JSONResponse(status_code=400, content={'error': 'Допускается удаление только .md файлов.'})
+
+        full_path = os.path.join(ROOT, os.path.normpath(path))
+        if not os.path.exists(full_path) or not os.path.isfile(full_path):
+            return JSONResponse(status_code=404, content={'error': f'Файл не найден: {path}'})
+
+        os.remove(full_path)
+
+        rel_path = os.path.normpath(path).replace('\\', '/')
+        git_result = auto_git_commit(ROOT, [rel_path], f'[Web] Удаление: {rel_path}')
+
+        return JSONResponse(content={
+            'success': True,
+            'git': git_result.get('output', git_result.get('error', 'неизвестно')),
+        })
+    except Exception as e:
+        return JSONResponse(status_code=500, content={'error': f'Ошибка удаления файла: {e}'})
+
+
+def _build_tree(dir_path: str, rel_prefix: str) -> list[dict]:
+    """Рекурсивно строит дерево файлов/папок."""
+    tree = []
+    if not os.path.isdir(dir_path):
+        return tree
+    for entry in sorted(os.listdir(dir_path)):
+        entry_full = os.path.join(dir_path, entry)
+        rel = (rel_prefix + '/' + entry) if rel_prefix else entry
+        if os.path.isdir(entry_full):
+            tree.append({
+                'name': entry,
+                'type': 'dir',
+                'path': rel + '/',
+                'children': _build_tree(entry_full, rel),
+            })
+        elif entry.endswith('.md'):
+            tree.append({
+                'name': entry,
+                'type': 'file',
+                'path': rel,
+                'children': [],
+            })
+    return tree
+
+
+@app.get('/api/files/tree')
+async def api_file_tree():
+    """Возвращает полное дерево topics/ и sources/.
+    {tree: [{name, type, path, children: [...]}]}
+    """
+    try:
+        tree = []
+        for folder in ('topics', 'sources'):
+            folder_path = os.path.join(ROOT, folder)
+            tree.append({
+                'name': folder,
+                'type': 'dir',
+                'path': folder + '/',
+                'children': _build_tree(folder_path, folder),
+            })
+        return JSONResponse(content={'tree': tree})
+    except Exception as e:
+        return JSONResponse(status_code=500, content={'error': f'Ошибка построения дерева: {e}'})
+
 
 # ===========================================================================
 # ТОЧКА ВХОДА (Main Launcher)

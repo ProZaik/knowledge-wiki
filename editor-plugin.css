@@ -1,0 +1,871 @@
+/* ============================================
+   Docsify Editor Plugin — Styles
+   ============================================ */
+
+/* --- Animations --- */
+@keyframes editorFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes editorSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes editorPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+
+@keyframes statusFlash {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* =============================================
+   Floating Toolbar (bottom-right)
+   ============================================= */
+.editor-toolbar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.editor-toolbar-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(44, 95, 138, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  color: #fff;
+  position: relative;
+}
+
+.editor-toolbar-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 58px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(30, 30, 30, 0.9);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.editor-toolbar-btn:hover::after {
+  opacity: 1;
+}
+
+.editor-toolbar-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 20px rgba(44, 95, 138, 0.5);
+}
+
+.editor-toolbar-btn:active {
+  transform: scale(0.95);
+}
+
+/* Edit button */
+.editor-btn-edit {
+  background: linear-gradient(135deg, #2c5f8a 0%, #3a7cb8 100%);
+}
+
+/* Delete button */
+.editor-btn-delete {
+  background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+  box-shadow: 0 4px 14px rgba(192, 57, 43, 0.35);
+}
+
+.editor-btn-delete:hover {
+  box-shadow: 0 6px 20px rgba(192, 57, 43, 0.5);
+}
+
+/* =============================================
+   Sidebar — Create File Button
+   ============================================= */
+.editor-sidebar-create {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  margin: 12px 10px;
+  background: linear-gradient(135deg, #2c5f8a 0%, #3a7cb8 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(44, 95, 138, 0.3);
+  width: calc(100% - 20px);
+  justify-content: center;
+}
+
+.editor-sidebar-create:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(44, 95, 138, 0.45);
+}
+
+.editor-sidebar-create:active {
+  transform: translateY(0);
+}
+
+/* =============================================
+   Editor Overlay
+   ============================================= */
+.editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: editorFadeIn 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.editor-container {
+  background: #fff;
+  margin: 20px;
+  border-radius: 12px;
+  width: calc(100vw - 40px);
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: editorSlideUp 0.3s ease;
+}
+
+/* --- Top Bar --- */
+.editor-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #2c5f8a 0%, #1e4a6e 100%);
+  color: #fff;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.editor-topbar-title {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.95;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.editor-topbar-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.editor-topbar-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.editor-topbar-btn:hover {
+  transform: translateY(-1px);
+}
+
+.editor-topbar-btn:active {
+  transform: translateY(0);
+}
+
+.editor-btn-save {
+  background: #27ae60;
+  color: #fff;
+}
+
+.editor-btn-save:hover {
+  background: #2ecc71;
+}
+
+.editor-btn-save:disabled {
+  background: #5a8a6a;
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.editor-btn-close {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.editor-btn-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* --- Split View --- */
+.editor-split {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.editor-pane-editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e0e0e0;
+  min-width: 0;
+}
+
+.editor-pane-preview {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* Resize handle */
+.editor-resize-handle {
+  width: 6px;
+  cursor: col-resize;
+  background: #e0e0e0;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.editor-resize-handle:hover {
+  background: #2c5f8a;
+}
+
+/* --- Textarea --- */
+.editor-textarea {
+  flex: 1;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  border: none;
+  resize: none;
+  padding: 20px;
+  outline: none;
+  background: #fafbfc;
+  color: #24292e;
+  tab-size: 2;
+  -moz-tab-size: 2;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editor-textarea::placeholder {
+  color: #a0a8b4;
+}
+
+.editor-textarea:focus {
+  background: #fff;
+}
+
+/* --- Preview Pane --- */
+.editor-preview {
+  padding: 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.editor-preview h1, .editor-preview h2, .editor-preview h3,
+.editor-preview h4, .editor-preview h5, .editor-preview h6 {
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  color: #1a3a5c;
+}
+
+.editor-preview h1 { font-size: 1.8em; border-bottom: 2px solid #e8eef3; padding-bottom: 0.3em; }
+.editor-preview h2 { font-size: 1.4em; border-bottom: 1px solid #e8eef3; padding-bottom: 0.25em; }
+.editor-preview h3 { font-size: 1.2em; }
+
+.editor-preview code {
+  background: #f0f4f8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+}
+
+.editor-preview pre {
+  background: #1e2a3a;
+  color: #e0e8f0;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.editor-preview pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.editor-preview blockquote {
+  border-left: 4px solid #2c5f8a;
+  margin-left: 0;
+  padding: 8px 16px;
+  background: #f0f6fc;
+  border-radius: 0 6px 6px 0;
+}
+
+.editor-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.editor-preview th, .editor-preview td {
+  border: 1px solid #dde4ea;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.editor-preview th {
+  background: #f0f4f8;
+  font-weight: 600;
+}
+
+.editor-preview a {
+  color: #2c5f8a;
+  text-decoration: none;
+}
+
+.editor-preview a:hover {
+  text-decoration: underline;
+}
+
+.editor-preview img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.editor-preview hr {
+  border: none;
+  border-top: 2px solid #e8eef3;
+  margin: 1.5em 0;
+}
+
+/* --- Pane Label --- */
+.editor-pane-label {
+  padding: 6px 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8a9bb0;
+  background: #f4f6f8;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* --- Status Bar --- */
+.editor-statusbar {
+  background: #f0f2f5;
+  padding: 6px 20px;
+  font-size: 12px;
+  color: #6a7a8a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.editor-statusbar-left {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.editor-statusbar-right {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.editor-status-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.editor-status-saved {
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.editor-status-modified {
+  color: #e67e22;
+  font-weight: 500;
+}
+
+.editor-status-error {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+.editor-status-saving {
+  color: #2c5f8a;
+  font-weight: 500;
+  animation: statusFlash 1s ease infinite;
+}
+
+/* =============================================
+   Modal (Create / Delete confirmation)
+   ============================================= */
+.editor-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: editorFadeIn 0.2s ease;
+  backdrop-filter: blur(3px);
+}
+
+.editor-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: editorSlideUp 0.25s ease;
+}
+
+.editor-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a3a5c;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor-modal-body {
+  margin-bottom: 20px;
+}
+
+.editor-modal-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a5a6a;
+  margin-bottom: 6px;
+}
+
+.editor-modal-select,
+.editor-modal-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d0d8e0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  background: #fafbfc;
+}
+
+.editor-modal-select:focus,
+.editor-modal-input:focus {
+  border-color: #2c5f8a;
+  box-shadow: 0 0 0 3px rgba(44, 95, 138, 0.12);
+}
+
+.editor-modal-field {
+  margin-bottom: 16px;
+}
+
+.editor-modal-hint {
+  font-size: 12px;
+  color: #8a9bb0;
+  margin-top: 4px;
+}
+
+.editor-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.editor-modal-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.editor-modal-btn:hover {
+  transform: translateY(-1px);
+}
+
+.editor-modal-btn:active {
+  transform: translateY(0);
+}
+
+.editor-modal-btn-primary {
+  background: linear-gradient(135deg, #2c5f8a 0%, #3a7cb8 100%);
+  color: #fff;
+}
+
+.editor-modal-btn-primary:hover {
+  background: linear-gradient(135deg, #35729e 0%, #4a8cc8 100%);
+}
+
+.editor-modal-btn-danger {
+  background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+  color: #fff;
+}
+
+.editor-modal-btn-danger:hover {
+  background: linear-gradient(135deg, #d04030 0%, #f05a4a 100%);
+}
+
+.editor-modal-btn-cancel {
+  background: #e8ecf0;
+  color: #4a5a6a;
+}
+
+.editor-modal-btn-cancel:hover {
+  background: #dde2e8;
+}
+
+.editor-modal-warning {
+  padding: 12px 16px;
+  background: #fef3e8;
+  border-left: 4px solid #e67e22;
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: #7a5a30;
+  margin-bottom: 16px;
+}
+
+/* =============================================
+   Loading Spinner
+   ============================================= */
+.editor-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #8a9bb0;
+  font-size: 14px;
+  gap: 10px;
+}
+
+.editor-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e0e0e0;
+  border-top-color: #2c5f8a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =============================================
+   Toast Notifications
+   ============================================= */
+.editor-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10002;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editor-toast {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  animation: editorSlideUp 0.3s ease;
+  max-width: 360px;
+  word-wrap: break-word;
+}
+
+.editor-toast-success {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+}
+
+.editor-toast-error {
+  background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+}
+
+.editor-toast-info {
+  background: linear-gradient(135deg, #2c5f8a 0%, #3a7cb8 100%);
+}
+
+/* =============================================
+   Dark Theme
+   ============================================= */
+@media (prefers-color-scheme: dark) {
+  .editor-container {
+    background: #1e2128;
+  }
+
+  .editor-topbar {
+    background: linear-gradient(135deg, #1a2a3a 0%, #0f1e2e 100%);
+  }
+
+  .editor-pane-editor {
+    border-right-color: #2a3040;
+  }
+
+  .editor-textarea {
+    background: #1a1e26;
+    color: #d0d8e4;
+  }
+
+  .editor-textarea:focus {
+    background: #1e232c;
+  }
+
+  .editor-textarea::placeholder {
+    color: #4a5568;
+  }
+
+  .editor-preview {
+    background: #1e2128;
+    color: #c8d0dc;
+  }
+
+  .editor-preview h1, .editor-preview h2, .editor-preview h3,
+  .editor-preview h4, .editor-preview h5, .editor-preview h6 {
+    color: #8ab4e0;
+  }
+
+  .editor-preview h1 { border-bottom-color: #2a3548; }
+  .editor-preview h2 { border-bottom-color: #2a3548; }
+
+  .editor-preview code {
+    background: #2a3040;
+    color: #c8d0dc;
+  }
+
+  .editor-preview pre {
+    background: #0f1620;
+  }
+
+  .editor-preview blockquote {
+    background: #1a2538;
+    border-left-color: #3a7cb8;
+    color: #a0b0c8;
+  }
+
+  .editor-preview th {
+    background: #242a36;
+  }
+
+  .editor-preview th, .editor-preview td {
+    border-color: #2a3548;
+  }
+
+  .editor-preview a {
+    color: #6aacdf;
+  }
+
+  .editor-preview hr {
+    border-top-color: #2a3548;
+  }
+
+  .editor-pane-label {
+    background: #16191f;
+    color: #5a6a80;
+    border-bottom-color: #2a3040;
+  }
+
+  .editor-statusbar {
+    background: #16191f;
+    color: #5a6a80;
+    border-top-color: #2a3040;
+  }
+
+  .editor-resize-handle {
+    background: #2a3040;
+  }
+
+  .editor-resize-handle:hover {
+    background: #3a7cb8;
+  }
+
+  /* Modal dark */
+  .editor-modal {
+    background: #1e2128;
+    color: #c8d0dc;
+  }
+
+  .editor-modal-title {
+    color: #8ab4e0;
+  }
+
+  .editor-modal-label {
+    color: #8a9bb0;
+  }
+
+  .editor-modal-select,
+  .editor-modal-input {
+    background: #14181e;
+    border-color: #2a3548;
+    color: #c8d0dc;
+  }
+
+  .editor-modal-select:focus,
+  .editor-modal-input:focus {
+    border-color: #3a7cb8;
+    box-shadow: 0 0 0 3px rgba(58, 124, 184, 0.15);
+  }
+
+  .editor-modal-hint {
+    color: #5a6a80;
+  }
+
+  .editor-modal-btn-cancel {
+    background: #2a3040;
+    color: #8a9bb0;
+  }
+
+  .editor-modal-btn-cancel:hover {
+    background: #343c4e;
+  }
+
+  .editor-modal-warning {
+    background: #2a2418;
+    border-left-color: #c98a30;
+    color: #c8a860;
+  }
+
+  .editor-btn-save:disabled {
+    background: #2a3a30;
+  }
+}
+
+/* =============================================
+   Mobile Responsiveness
+   ============================================= */
+@media (max-width: 768px) {
+  .editor-container {
+    margin: 0;
+    border-radius: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .editor-split {
+    flex-direction: column;
+  }
+
+  .editor-pane-preview {
+    display: none;
+  }
+
+  .editor-resize-handle {
+    display: none;
+  }
+
+  .editor-pane-editor {
+    border-right: none;
+    flex: 1;
+  }
+
+  .editor-topbar {
+    padding: 10px 14px;
+  }
+
+  .editor-topbar-title {
+    font-size: 12px;
+  }
+
+  .editor-topbar-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .editor-toolbar {
+    bottom: 14px;
+    right: 14px;
+    gap: 10px;
+  }
+
+  .editor-toolbar-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .editor-toolbar-btn::after {
+    display: none;
+  }
+
+  .editor-modal {
+    margin: 10px;
+    padding: 20px;
+    width: calc(100% - 20px);
+  }
+}
+
+/* =============================================
+   Print: hide editor UI
+   ============================================= */
+@media print {
+  .editor-toolbar,
+  .editor-overlay,
+  .editor-modal-overlay,
+  .editor-toast-container,
+  .editor-sidebar-create {
+    display: none !important;
+  }
+}

@@ -13,7 +13,7 @@ tags:
 - ГрК
 - Минстрой
 related_topics:
-- topics/zhilishchnoe-pravo/pereplanirovka.md
+- topics/zhilishnoe-pravo/pereplanirovka.md
 ---
 
 # О согласии всех собственников помещений в МКД при демонтаже оконного проема

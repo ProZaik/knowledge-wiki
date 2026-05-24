@@ -93,7 +93,7 @@ type: служебный
 - [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md) (тема)
 - [Капитальные vs некапитальные объекты — критерии разграничения](topics/gradostroitelstvo/kapitalnye-nekap.md) (тема)
 - [Красные линии и ПЗЗ — влияние на застройку, границы территорий общего пользования](topics/gradostroitelstvo/krasnye-linii-pzz.md) (тема)
-- [Перепланировка и переустройство помещений в МКД](topics/zhilishchnoe-pravo/pereplanirovka.md) (тема)
+- [Перепланировка и переустройство помещений в МКД](topics/zhilishnoe-pravo/pereplanirovka.md) (тема)
 - [Пристройка vs Отдельное здание с общей стеной](topics/gradostroitelstvo/pristroyka-vs-zdanie.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
 - [Реконструкция и капитальный ремонт — разграничение понятий, когда требуется РНС, когда нет, техплан](topics/gradostroitelstvo/rekonstruktsiya-kapremont.md) (тема)
@@ -130,7 +130,7 @@ type: служебный
 - [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md) (источник)
 
 ## ЖК
-- [Перепланировка и переустройство помещений в МКД](topics/zhilishchnoe-pravo/pereplanirovka.md) (тема)
+- [Перепланировка и переустройство помещений в МКД](topics/zhilishnoe-pravo/pereplanirovka.md) (тема)
 - [О согласии всех собственников помещений в МКД при демонтаже оконного проема](sources/minstroy-6370-og-04-2020-03-03-demontazh-okonnogo-proema.md) (источник)
 - [Письмо Росреестра от 30.01.2025 № 13-0728-АБ/25 — ЕГРН при капремонте и перепланировке нежилых зданий](sources/rosreestr-13-0728-AB-25-2025-01.md) (источник)
 
@@ -254,7 +254,7 @@ type: служебный
 - [Раздел земельного участка: соответствие градрегламенту обязательно](topics/zemelnoe-pravo/razdel-uchastka.md) (тема)
 
 ## Минстрой
-- [Перепланировка и переустройство помещений в МКД](topics/zhilishchnoe-pravo/pereplanirovka.md) (тема)
+- [Перепланировка и переустройство помещений в МКД](topics/zhilishnoe-pravo/pereplanirovka.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
 - [О согласии всех собственников помещений в МКД при демонтаже оконного проема](sources/minstroy-6370-og-04-2020-03-03-demontazh-okonnogo-proema.md) (источник)
 - [Письмо Минстроя РФ от 20.12.2024 № 76955-СМ/08 — разъяснение условий, при которых разрешение на строительство не требуется](sources/minstroy-76955-SM-08-2024-12.md) (источник)
@@ -309,7 +309,7 @@ type: служебный
 - [Постановление КС РФ от 01.12.2025 № 42-П](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md) (источник)
 
 ## перепланировка
-- [Перепланировка и переустройство помещений в МКД](topics/zhilishchnoe-pravo/pereplanirovka.md) (тема)
+- [Перепланировка и переустройство помещений в МКД](topics/zhilishnoe-pravo/pereplanirovka.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
 - [Реконструкция и капитальный ремонт — разграничение понятий, когда требуется РНС, когда нет, техплан](topics/gradostroitelstvo/rekonstruktsiya-kapremont.md) (тема)
 - [О согласии всех собственников помещений в МКД при демонтаже оконного проема](sources/minstroy-6370-og-04-2020-03-03-demontazh-okonnogo-proema.md) (источник)
@@ -378,7 +378,7 @@ type: служебный
 - [Комплексные кадастровые работы (ККР)](topics/zemelnoe-pravo/kkr.md) (тема)
 
 ## реконструкция
-- [Перепланировка и переустройство помещений в МКД](topics/zhilishchnoe-pravo/pereplanirovka.md) (тема)
+- [Перепланировка и переустройство помещений в МКД](topics/zhilishnoe-pravo/pereplanirovka.md) (тема)
 - [Пристройка vs Отдельное здание с общей стеной](topics/gradostroitelstvo/pristroyka-vs-zdanie.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
 - [Реконструкция и капитальный ремонт — разграничение понятий, когда требуется РНС, когда нет, техплан](topics/gradostroitelstvo/rekonstruktsiya-kapremont.md) (тема)

@@ -35,14 +35,11 @@
   * [Земельный надзор — полномочия ГЗН, нарушения, штрафы, нецелевое использование](topics/zemelnoe-pravo/zemelnyy-nadzor.md)
   * [ЗОУИТ и ОКН — охранные зоны, ограничения застройки, компенсация убытков](topics/zemelnoe-pravo/zouit.md)
 
-* **📁 Zhilishchnoe pravo**
-  * [🧭 Обзор](topics/zhilishchnoe-pravo/_index.md)
-  * [Перепланировка и переустройство помещений в МКД](topics/zhilishchnoe-pravo/pereplanirovka.md)
-
 * **🏠 Zhilishnoe pravo**
   * [🧭 Обзор](topics/zhilishnoe-pravo/_index.md)
   * [Дачная амнистия и ИЖС — упрощенный порядок регистрации, требования к параметрам](topics/zhilishnoe-pravo/dachnaya-amnistiya.md)
   * [Единственное жильё должника — исполнительский иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md)
+  * [Перепланировка и переустройство помещений в МКД](topics/zhilishnoe-pravo/pereplanirovka.md)
 
 * **📂 Источники**
   * [📋 Каталог источников](sources/_index.md)
