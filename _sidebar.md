@@ -9,6 +9,7 @@
   * [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md)
   * [Красные линии и ПЗЗ — влияние на застройку, границы территорий общего пользования](topics/gradostroitelstvo/krasnye-linii-pzz.md)
   * [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md)
+  * [СРО в строительстве — членство, уровни ответственности, реестры](topics/gradostroitelstvo/sro.md)
 
 * [🌍 **Zemelnoe pravo**](topics/zemelnoe-pravo/_index.md)
 
