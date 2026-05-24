@@ -345,3 +345,9 @@
 - **Обновлены темы:**
   - [krasnye-linii.md](file:///topics/gradostroitelstvo/krasnye-linii.md)
   - [territorii-obshchego-polzovaniya.md](file:///topics/zemelnoe-pravo/territorii-obshchego-polzovaniya.md)
+
+
+## [2026-05-24]
+
+### Добавлено:
+- **Источник (письмо органа):** [Письмо Росреестра от 12.03.2026 № 13-2496-АБ/26](sources/rosreestr-2026-03-12-13-2496.md)
