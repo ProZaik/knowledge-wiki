@@ -1,8 +1,15 @@
-```
 # Logs and temp files
 *.log
 *.tmp
 *.swp
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 # Environment files
 .env
@@ -12,7 +19,9 @@
 # Editors
 .vscode/
 .idea/
-
-# Original rules preserved
-*.log
-```
+.history/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
