@@ -24,7 +24,9 @@
   * [Земельный надзор — полномочия ГЗН, нарушения, штрафы, нецелевое использование](topics/zemelnoe-pravo/zemelnyy-nadzor.md)
   * [ЗОУИТ и ОКН — охранные зоны, ограничения застройки, компенсация убытков](topics/zemelnoe-pravo/zouit.md)
 
-* [🏠 **Zhilishnoe pravo**](topics/zhilishnoe-pravo/_index.md)
+* **🏠 Zhilishnoe pravo**
+  * [🧭 Обзор](topics/zhilishnoe-pravo/_index.md)
+  * [Единственное жильё должника — исполнительский иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md)
 
 * **📂 Источники**
   * [📋 Каталог источников](sources/_index.md)
