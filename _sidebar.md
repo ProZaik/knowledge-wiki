@@ -34,6 +34,7 @@
   * [ВРИ земельных участков — виды разрешенного использования, порядок изменения, нецелевое использование](topics/zemelnoe-pravo/vri.md)
   * [Земельный надзор — полномочия ГЗН, нарушения, штрафы, нецелевое использование](topics/zemelnoe-pravo/zemelnyy-nadzor.md)
   * [ЗОУИТ и ОКН — охранные зоны, ограничения застройки, компенсация убытков](topics/zemelnoe-pravo/zouit.md)
+  * [ЗОУИТ — установление и связь с разрешением на строительство](topics/zemelnoe-pravo/zouity.md)
 
 * **🏠 Zhilishnoe pravo**
   * [🧭 Обзор](topics/zhilishnoe-pravo/_index.md)
@@ -55,9 +56,9 @@
   * [Письмо Росреестра от 23.03.2026 № 336576078](sources/rosreestr-2026-03-23-336576078.md)
   * [Письмо Росреестра от 18.03.2026 № 14-2722-ЛЛ/26](sources/rosreestr-2026-03-18-14-2722.md)
   * [Письмо Росреестра от 12.03.2026 № 13-2496-АБ/26](sources/rosreestr-2026-03-12-13-2496.md)
+  * [Письмо Росреестра от 15.04.2026 № 14-4104-ЛЛ/26](sources/rosreestr-14-4104-LL-26.md)
   * [Письмо Минстроя РФ от 20.12.2024 № 76955-СМ/08 — разъяснение условий, при которых разрешение на строительство не требуется](sources/minstroy-76955-SM-08-2024-12.md)
   * [Письмо Росреестра от 30.01.2025 № 13-0728-АБ/25 — ЕГРН при капремонте и перепланировке нежилых зданий](sources/rosreestr-13-0728-AB-25-2025-01.md)
-  * [Письмо Росреестра от 15.04.2026 № 14-4104-ЛЛ/26](sources/rosreestr-14-4104-LL-26.md)
   * [О согласии всех собственников помещений в МКД при демонтаже оконного проема](sources/minstroy-6370-og-04-2020-03-03-demontazh-okonnogo-proema.md)
 
 * **⚖️ Судебные акты**
@@ -72,21 +73,25 @@
   * [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md)
   * [Материал pravo.ru — story/250454](sources/pravo-ru-story-250454.md)
   * [НК Комиссия НОСТРОЙ](sources/nostroy-nk-komissiya.md)
-  * [Материал pravo.ru — story/249810](sources/pravo-ru-story-249810.md)
   * [Государственный надзор — раздел Росреестра (обзор)](sources/rosreestr-gosudarstvennyy-nadzor-obzor.md)
-  * [Позиции по вопросам правоприменения — Росреестр](sources/rosreestr-pozitsii-pravoprimeneniya.md)
-  * [Реестр СРО — сервис Росреестра](sources/rosreestr-sro-reestr.md)
+  * [Материал pravo.ru — story/249810](sources/pravo-ru-story-249810.md)
   * [Какие теплицы нужно ставить на кадастровый учёт](sources/rosreestr-teplitsy-kadastrovyy-uchet.md)
   * [Государственный земельный контроль (надзор) — Росреестр](sources/rosreestr-zemelnyy-nadzor.md)
+  * [Реестр СРО — сервис Росреестра](sources/rosreestr-sro-reestr.md)
+  * [Позиции по вопросам правоприменения — Росреестр](sources/rosreestr-pozitsii-pravoprimeneniya.md)
   * [Как получить землю для ИЖС с помощью сервисов НСПД и оформить жилой дом](sources/rosreestr-izhs-nspd-2025.md)
-  * [Стандарты кадастровой деятельности — КИ РФ](sources/ki-rf-standarty.md)
   * [Дом, который... — OSINT Mindset GitBook](sources/osint-mindset-dom-kotoryi.md)
+  * [Стандарты кадастровой деятельности — КИ РФ](sources/ki-rf-standarty.md)
   * [Красные линии: правовой статус и выводы из судебной практики](sources/urtmag-krasnye-linii-sudebnaya-praktika.md)
   * [ВС РФ расширил понятие "единственное жильё"](sources/rg-vs-edinstvennoe-zhilye-2024.md)
   * [Офис вместо склада: последствия нецелевого использования муниципального земельного участка](sources/ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md)
 
 * **📋 Нормативные акты**
   * [Федеральный закон от 01.05.2026 № 97-ФЗ о внесении изменений в ФЗ-218](sources/fz-218-izmenenia-2026-05.md)
+
+* **📄 Источник**
+  * [ШОРТРИД: Как действовать при противоречиях в градостроительной документации](sources/landlawfirm-shortrid-protivorechiya-graddok-2026.md)
+  * [Письмо Минстроя России от 26.03.2026 № 7186-ОГ/08 — установление ЗОУИТ до выдачи РнС](sources/minstroy-7186-OG-08-2026-03.md)
 
 * **🏷️ [Индекс тегов](tags/index.md)**
 * **🕸️ [Граф знаний](_graph.md)**
