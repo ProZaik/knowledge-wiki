@@ -2,26 +2,15 @@
 
 * **📚 База знаний**
 
-* **⚖️ Градостроительство**
+* [📁 **218 fz**](topics/218-fz/_index.md)
+
+* **⚖️ Gradostroitelstvo**
   * [🧭 Обзор](topics/gradostroitelstvo/_index.md)
   * [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md)
-  * [Красные линии — границы территорий общего пользования, влияние на строительство, судебная практика](topics/gradostroitelstvo/krasnye-linii.md)
 
-* **🏗️ СРО**
-  * [🧭 Обзор](topics/sro/_index.md)
-  * [СРО в строительстве — членство, уровни ответственности (КФ ОДО), судебная практика, реестр НОСТРОЙ](topics/sro/sro-v-stroitelstve.md)
+* [🌍 **Zemelnoe pravo**](topics/zemelnoe-pravo/_index.md)
 
-* **🌍 Земельное право**
-  * [🧭 Обзор](topics/zemelnoe-pravo/_index.md)
-  * [Регистрация прав на объекты ИЖС](topics/zemelnoe-pravo/izhs-registratsiya.md)
-  * [Кадастровый учёт — реестровые ошибки, приостановление, техпланы](topics/zemelnoe-pravo/kadastrovyy-uchet.md)
-  * [Охранные зоны объектов культурного наследия: компенсация, ограничения, ЕГРН](topics/zemelnoe-pravo/ohrannye-zony-okn.md)
-  * [ВРИ земельных участков — изменение, ЕГРН, нецелевое использование](topics/zemelnoe-pravo/vri.md)
-  * [Земельный надзор — полномочия ГЗН, нарушения, штрафы, нецелевое использование](topics/zemelnoe-pravo/zemelnyy-nadzor.md)
-
-* **🏠 Жилищное право**
-  * [🧭 Обзор](topics/zhilishnoe-pravo/_index.md)
-  * [Единственное жильё должника — имущественный иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md)
+* [🏠 **Zhilishnoe pravo**](topics/zhilishnoe-pravo/_index.md)
 
 * **📂 Источники**
   * [📋 Каталог источников](sources/_index.md)

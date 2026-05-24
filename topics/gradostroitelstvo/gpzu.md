@@ -2,8 +2,8 @@
 title: ГПЗУ — стабильность, судебная практика, нормативная база
 type: тема
 status: verified
-date_added: '2026-05-23'
-date_updated: '2026-05-23'
+date_added: '2026-05-24'
+date_updated: '2026-05-24'
 tags:
 - ГПЗУ
 - градостроительство
