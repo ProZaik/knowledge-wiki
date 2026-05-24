@@ -7,6 +7,7 @@
 * **⚖️ Gradostroitelstvo**
   * [🧭 Обзор](topics/gradostroitelstvo/_index.md)
   * [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md)
+  * [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md)
 
 * [🌍 **Zemelnoe pravo**](topics/zemelnoe-pravo/_index.md)
 
