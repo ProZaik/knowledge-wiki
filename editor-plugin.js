@@ -546,6 +546,14 @@
   /* =========================================
      Floating Toolbar
      ========================================= */
+
+  /** Check if current page is editable (topics/ or sources/) */
+  function isEditablePath(path) {
+    return path && (path.indexOf('topics/') === 0 || path.indexOf('sources/') === 0);
+  }
+
+  var toolbarEl = null;
+
   function createToolbar() {
     var toolbar = el('div', { className: 'editor-toolbar' });
 
@@ -556,6 +564,10 @@
       'data-tooltip': 'Редактировать',
       onClick: function () {
         var path = currentFilePath();
+        if (!isEditablePath(path)) {
+          showToast('Эта страница нередактируема (только topics/ и sources/)', 'error');
+          return;
+        }
         editBtn.style.animation = 'editorPulse 0.3s ease';
         setTimeout(function () { editBtn.style.animation = ''; }, 300);
 
@@ -564,6 +576,7 @@
             openEditor(path, content);
           })
           .catch(function (err) {
+            console.error('Editor plugin error:', err);
             showToast('Ошибка загрузки: ' + err.message, 'error');
           });
       }
@@ -576,6 +589,10 @@
       'data-tooltip': 'Удалить',
       onClick: function () {
         var path = currentFilePath();
+        if (!isEditablePath(path)) {
+          showToast('Эта страница нередактируема', 'error');
+          return;
+        }
         showDeleteModal(path, function () {
           API.delete(path)
             .then(function () {
@@ -593,6 +610,20 @@
     toolbar.appendChild(editBtn);
     toolbar.appendChild(deleteBtn);
     document.body.appendChild(toolbar);
+    toolbarEl = toolbar;
+
+    // Initial visibility
+    updateToolbarVisibility();
+  }
+
+  function updateToolbarVisibility() {
+    if (!toolbarEl) return;
+    var path = currentFilePath();
+    if (isEditablePath(path)) {
+      toolbarEl.style.display = '';
+    } else {
+      toolbarEl.style.display = 'none';
+    }
   }
 
   /* =========================================
@@ -631,9 +662,10 @@
       injectSidebarButton();
     });
 
-    // After each route change — re-inject sidebar button (Docsify may rebuild sidebar)
+    // After each route change — re-inject sidebar button and update toolbar visibility
     hook.doneEach(function () {
       injectSidebarButton();
+      updateToolbarVisibility();
     });
   }
 
