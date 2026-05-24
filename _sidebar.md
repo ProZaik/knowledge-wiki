@@ -2,7 +2,9 @@
 
 * **📚 База знаний**
 
-* [📁 **218 fz**](topics/218-fz/_index.md)
+* **📁 218 fz**
+  * [🧭 Обзор](topics/218-fz/_index.md)
+  * [Кадастровый учёт — общие правила, постановка на учёт, НСПД](topics/218-fz/kadastrovyy-uchet.md)
 
 * **⚖️ Gradostroitelstvo**
   * [🧭 Обзор](topics/gradostroitelstvo/_index.md)
