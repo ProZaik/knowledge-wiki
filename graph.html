@@ -40,7 +40,7 @@
   <div class="legend-item"><div class="legend-box" style="background:#50B878"></div>Статьи</div>
   <div class="legend-item"><div class="legend-box" style="background:#9B59B6"></div>Нормативные акты</div>
 </div>
-<div id="stats">39 узлов · 51 связей</div>
+<div id="stats">40 узлов · 66 связей</div>
 <div id="graph"></div>
 <script>
 var nodes = new vis.DataSet([
@@ -55,6 +55,19 @@ var nodes = new vis.DataSet([
       "color": "#ffffff"
     },
     "url": "#/topics/gradostroitelstvo/gpzu.md",
+    "group": "topic"
+  },
+  {
+    "id": "t_topics_gradostroitelstvo_kapitalnye-nekap_md",
+    "label": "Капитальные vs некапитальные объекты",
+    "color": "#4A90D9",
+    "shape": "dot",
+    "size": 25,
+    "font": {
+      "size": 14,
+      "color": "#ffffff"
+    },
+    "url": "#/topics/gradostroitelstvo/kapitalnye-nekap.md",
     "group": "topic"
   },
   {
@@ -559,6 +572,10 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_vs_rf_A40_198765_2025_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_vs_rf_A40_198765_2025_md",
     "to": "t_topics_gradostroitelstvo_krasnye-linii-pzz_md"
   },
   {
@@ -579,6 +596,10 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_A47_12503_2022_sro_kontrakt_nichtoznost_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_A47_12503_2022_sro_kontrakt_nichtoznost_md",
     "to": "t_topics_gradostroitelstvo_krasnye-linii-pzz_md"
   },
   {
@@ -599,6 +620,10 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_zakon_ru_gpzu_2026_analiz_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_zakon_ru_gpzu_2026_analiz_md",
     "to": "t_topics_gradostroitelstvo_krasnye-linii-pzz_md"
   },
   {
@@ -612,6 +637,10 @@ var edges = new vis.DataSet([
   {
     "from": "s_zakon_ru_gpzu_2026_analiz_md",
     "to": "t_topics_gradostroitelstvo_sro_md"
+  },
+  {
+    "from": "s_landlawfirm_vs_razdel_uchastkov_2026_02_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
   },
   {
     "from": "s_pravo_ru_gpzu_stabilnost_2025_md",
@@ -643,7 +672,15 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_rosreestr_gosudarstvennyy_nadzor_obzor_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_rosreestr_gosudarstvennyy_nadzor_obzor_md",
     "to": "t_topics_gradostroitelstvo_rekonstruktsiya-kapremont_md"
+  },
+  {
+    "from": "s_rosreestr_pozitsii_pravoprimeneniya_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
   },
   {
     "from": "s_rosreestr_pozitsii_pravoprimeneniya_md",
@@ -652,6 +689,10 @@ var edges = new vis.DataSet([
   {
     "from": "s_rosreestr_pozitsii_pravoprimeneniya_md",
     "to": "t_topics_gradostroitelstvo_sro_md"
+  },
+  {
+    "from": "s_rosreestr_sro_reestr_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
   },
   {
     "from": "s_rosreestr_sro_reestr_md",
@@ -663,11 +704,23 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_rosreestr_teplitsy_kadastrovyy_uchet_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_rosreestr_teplitsy_kadastrovyy_uchet_md",
     "to": "t_topics_gradostroitelstvo_rekonstruktsiya-kapremont_md"
   },
   {
     "from": "s_rosreestr_zemelnyy_nadzor_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_rosreestr_zemelnyy_nadzor_md",
     "to": "t_topics_gradostroitelstvo_rekonstruktsiya-kapremont_md"
+  },
+  {
+    "from": "s_rosreestr_izhs_nspd_2025_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
   },
   {
     "from": "s_rosreestr_izhs_nspd_2025_md",
@@ -687,6 +740,10 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_urtmag_krasnye_linii_sudebnaya_praktika_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_urtmag_krasnye_linii_sudebnaya_praktika_md",
     "to": "t_topics_gradostroitelstvo_krasnye-linii-pzz_md"
   },
   {
@@ -700,6 +757,10 @@ var edges = new vis.DataSet([
   {
     "from": "s_urtmag_krasnye_linii_sudebnaya_praktika_md",
     "to": "t_topics_gradostroitelstvo_sro_md"
+  },
+  {
+    "from": "s_ftl_advisers_necelevoe_ispolzovanie_zemlya_2024_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
   },
   {
     "from": "s_rosreestr_2026_05_10_14_5100_md",
@@ -719,6 +780,10 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_minstroy_76955_SM_08_2024_12_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_minstroy_76955_SM_08_2024_12_md",
     "to": "t_topics_gradostroitelstvo_krasnye-linii-pzz_md"
   },
   {
@@ -739,6 +804,10 @@ var edges = new vis.DataSet([
   },
   {
     "from": "s_rosreestr_13_0728_AB_25_2025_01_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
+  },
+  {
+    "from": "s_rosreestr_13_0728_AB_25_2025_01_md",
     "to": "t_topics_gradostroitelstvo_krasnye-linii-pzz_md"
   },
   {
@@ -752,6 +821,10 @@ var edges = new vis.DataSet([
   {
     "from": "s_rosreestr_13_0728_AB_25_2025_01_md",
     "to": "t_topics_gradostroitelstvo_sro_md"
+  },
+  {
+    "from": "s_rosreestr_14_4104_LL_26_md",
+    "to": "t_topics_gradostroitelstvo_kapitalnye-nekap_md"
   },
   {
     "from": "s_rosreestr_14_4104_LL_26_md",
