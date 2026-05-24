@@ -11,6 +11,7 @@
 
 * **⚖️ Gradostroitelstvo**
   * [🧭 Обзор](topics/gradostroitelstvo/_index.md)
+  * [Экспертиза проектной документации — когда не проводится и когда обязательна](topics/gradostroitelstvo/ekspertiza-pd.md)
   * [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md)
   * [Капитальные vs некапитальные объекты — критерии разграничения, теплицы, навесы](topics/gradostroitelstvo/kapitalnye-nekap.md)
   * [Красные линии и ПЗЗ — влияние на застройку, границы территорий общего пользования](topics/gradostroitelstvo/krasnye-linii-pzz.md)
