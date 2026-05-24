@@ -21,7 +21,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from mcp_guards import sanitize_content, normalize_tags, validate_content_length, auto_git_commit
-from mcp_templates import build_letter, build_court_decision, build_article, build_law, build_topic
+from mcp_templates import build_letter, build_court_decision, build_article, build_law, build_topic, build_flexible_topic
+from migration_guard import migration_precheck
 
 # Импортируем официальный SDK
 try:
@@ -668,6 +669,188 @@ def update_topic(
             "warnings": warnings
         }
     }
+
+@mcp.tool()
+def migrate_topic(
+    old_path: str,
+    new_topic_path: str,
+    title: str,
+    normativnaya_osnova: str,
+    klyuchevye_pozitsii: list[dict],
+    prakticheskie_riski: str,
+    svodnaya_tablitsa: list[dict],
+    extra_sections: list[dict] = None,
+    tags: list[str] = None,
+    related_topics: list[str] = None,
+    source_files: list[str] = None,
+    force: bool = False
+) -> dict:
+    """Миграция темы из archive_v1 в новый формат с автоматическим пре-чеком.
+
+    ОБЯЗАТЕЛЬНЫЙ WORKFLOW:
+    1. Читает old_path (архивный файл) и извлекает юридические сущности
+    2. Собирает новый контент через build_flexible_topic()
+    3. Запускает migration_precheck() — сравнивает сущности old vs new
+    4. Если coverage < 90% и force=False → ОТКЛОНЯЕТ с отчётом о пропусках
+    5. При успехе: записывает файл, обновляет INDEX, запускает линтер, git commit
+
+    ПРАВИЛА СИНТЕЗА (встроены в workflow):
+    - Запрет на сокращение судебных дел до одной строки
+    - Запрет на удаление таблиц и перечней
+    - Запрет на обобщение числовых порогов
+
+    Параметры:
+    - old_path: путь к старому файлу (например, 'archive_v1/topics/gradostroitelstvo/gpzu.md')
+    - new_topic_path: путь к новому файлу (например, 'topics/gradostroitelstvo/gpzu.md')
+    - extra_sections: дополнительные секции [{"title": "...", "content": "...", "position": "after_osnova|after_pozitsii|after_riski|end"}]
+    - source_files: список source-файлов, использованных при синтезе (для frontmatter)
+    - force: пропустить пре-чек (использовать с осторожностью)
+    """
+    # === 1. Валидация путей ===
+    normalized_new = os.path.normpath(new_topic_path)
+    if normalized_new.startswith("..") or os.path.isabs(normalized_new):
+        return {"success": False, "error": "Недопустимый путь new_topic_path. Должен быть относительным."}
+
+    if not (normalized_new.startswith("topics" + os.sep) or normalized_new.startswith("topics/")):
+        return {"success": False, "error": "Темы должны располагаться строго в папке 'topics/'."}
+
+    parts = normalized_new.split(os.sep)
+    if len(parts) > 3:
+        return {"success": False, "error": "Превышена глубина вложенности! Допустимо: topics/<домен>/<тема>.md"}
+
+    # Проверяем существование old_path
+    old_full_path = os.path.join(ROOT, os.path.normpath(old_path))
+    if not os.path.exists(old_full_path):
+        return {"success": False, "error": f"Архивный файл не найден: {old_path}"}
+
+    new_full_path = os.path.join(ROOT, normalized_new)
+    os.makedirs(os.path.dirname(new_full_path), exist_ok=True)
+
+    # === 2. Санитизация и нормализация тегов ===
+    normativnaya_osnova = sanitize_content(normativnaya_osnova)
+    prakticheskie_riski = sanitize_content(prakticheskie_riski)
+
+    tag_warnings = []
+    if tags:
+        from wiki_lint import load_allowed_tags
+        allowed_tags = load_allowed_tags()
+        tags, tag_warnings = normalize_tags(tags, allowed_tags)
+
+    date_str = datetime.date.today().isoformat()
+
+    # Сохраняем date_added если файл уже существует
+    date_added = date_str
+    existing_meta = None
+    if os.path.exists(new_full_path):
+        from wiki_tool import parse_yaml_front
+        existing_meta = parse_yaml_front(new_full_path)
+        if existing_meta and "date_added" in existing_meta:
+            date_added = existing_meta["date_added"]
+
+    final_tags = tags if tags else (existing_meta.get("tags", []) if existing_meta else [])
+    final_related = related_topics if related_topics else (existing_meta.get("related_topics", []) if existing_meta else [])
+
+    # === 3. Сборка нового контента через гибкий шаблон ===
+    template_params = {
+        "title": title,
+        "normativnaya_osnova": normativnaya_osnova,
+        "klyuchevye_pozitsii": klyuchevye_pozitsii,
+        "prakticheskie_riski": prakticheskie_riski,
+        "svodnaya_tablitsa": svodnaya_tablitsa,
+        "extra_sections": extra_sections or [],
+        "tags": final_tags,
+        "related_topics": final_related,
+        "sources": source_files or [],
+        "date_added": date_added,
+        "date_updated": date_str,
+    }
+    full_content = build_flexible_topic(template_params)
+
+    # === 4. ПРЕ-ЧЕК: сравнение сущностей old vs new ===
+    precheck_result = migration_precheck(old_full_path, full_content)
+
+    if not precheck_result["passed"] and not force:
+        return {
+            "success": False,
+            "error": "Пре-чек миграции не пройден: покрытие сущностей ниже 90%.",
+            "precheck": {
+                "passed": False,
+                "coverage_pct": precheck_result["coverage_pct"],
+                "old_entities_count": precheck_result["old_entities_count"],
+                "new_entities_count": precheck_result["new_entities_count"],
+                "missing_entities": {k: list(v) for k, v in precheck_result["missing_entities"].items() if v},
+                "report": precheck_result["report"],
+            },
+            "hint": "Добавьте недостающие сущности в контент или используйте force=True для принудительной записи."
+        }
+
+    # === 5. Запись файла ===
+    try:
+        with open(new_full_path, "w", encoding="utf-8", newline="\n") as f:
+            f.write(full_content)
+    except Exception as e:
+        return {"success": False, "error": f"Не удалось записать тему: {e}"}
+
+    link_reports = [f"Файл {normalized_new} успешно мигрирован из {old_path}"]
+
+    # === 6. Обновление INDEX.md ===
+    index_path = os.path.join(ROOT, "INDEX.md")
+    if os.path.exists(index_path):
+        try:
+            with open(index_path, "r", encoding="utf-8") as f:
+                index_content = f.read()
+
+            topic_rel_path = normalized_new.replace("\\", "/")
+            if topic_rel_path not in index_content:
+                topic_link = f"- [{title}]({topic_rel_path}) — обзор правового института."
+                if "## Темы" in index_content:
+                    idx_parts = index_content.split("## Темы", 1)
+                    updated_index = idx_parts[0] + "## Темы\n\n" + topic_link + "\n" + idx_parts[1].lstrip()
+                    with open(index_path, "w", encoding="utf-8", newline="\n") as f:
+                        f.write(updated_index)
+
+            from wiki_tool import update_index_stats
+            update_index_stats()
+            link_reports.append("INDEX.md обновлен")
+        except Exception as e:
+            link_reports.append(f"Ошибка обновления INDEX.md: {e}")
+
+    # === 7. Линтер ===
+    from wiki_lint import run_linter
+    errors, warnings = run_linter(quiet=True)
+
+    # === 8. Git-коммит ===
+    topic_rel_path = normalized_new.replace("\\", "/")
+    git_result = auto_git_commit(
+        ROOT,
+        [topic_rel_path, "INDEX.md", "_sidebar.md"],
+        f"[MCP] Миграция темы: {title} (из {old_path})"
+    )
+    link_reports.append(f"Git: {git_result.get('output', git_result.get('error', 'неизвестно'))}")
+
+    if tag_warnings:
+        link_reports.append(f"Теги нормализованы: {'; '.join(tag_warnings)}")
+
+    return {
+        "success": len(errors) == 0,
+        "topic_file": topic_rel_path,
+        "precheck": {
+            "passed": precheck_result["passed"],
+            "coverage_pct": precheck_result["coverage_pct"],
+            "old_entities_count": precheck_result["old_entities_count"],
+            "new_entities_count": precheck_result["new_entities_count"],
+            "missing_entities": {k: list(v) for k, v in precheck_result["missing_entities"].items() if v},
+            "report": precheck_result["report"],
+            "force_used": force,
+        },
+        "logs": link_reports,
+        "linter_results": {
+            "is_valid": len(errors) == 0,
+            "errors": errors,
+            "warnings": warnings
+        }
+    }
+
 
 # ===========================================================================
 # ИНТЕГРАЦИЯ С SSE ТРАНСПОРТОМ

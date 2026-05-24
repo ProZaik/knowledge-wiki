@@ -717,3 +717,165 @@ def build_topic(params: dict) -> str:
         "",
     ])
     return "\n".join(sections)
+
+
+# =========================================================================
+# Функция 5b: Тема с гибкой структурой (extra_sections)
+# =========================================================================
+
+
+def build_flexible_topic(params: dict) -> str:
+    """Собирает markdown для вики-темы с ГИБКОЙ структурой.
+
+    В отличие от build_topic(), поддерживает дополнительные секции
+    (extra_sections), которые вставляются без обработки шаблонизатором.
+    Это предотвращает потерю таблиц, перечней и судебных дел.
+
+    Обязательные ключи params:
+        title (str): Название темы
+        normativnaya_osnova (str): Нормативная основа
+        klyuchevye_pozitsii (list[dict]): Ключевые позиции
+        prakticheskie_riski (str): Практические риски
+        svodnaya_tablitsa (list[dict]): Сводная таблица
+
+    Необязательные ключи:
+        extra_sections (list[dict]): Дополнительные секции.
+            Каждый dict содержит:
+            - title (str): Заголовок секции (##)
+            - content (str): Markdown-контент (переносится КАК ЕСТЬ)
+            - position (str): Где вставить:
+                "after_osnova" — после Нормативной основы
+                "after_pozitsii" — после Ключевых позиций
+                "after_riski" — после Практических рисков
+                "end" (default) — перед Сводной таблицей
+        tags (list[str]): Теги
+        related_topics (list[str]): Связанные темы
+        sources (list[str]): Список файлов-источников для frontmatter
+        date_added (str): Дата добавления
+        date_updated (str): Дата обновления
+    """
+    # --- Обязательные поля ---
+    title = params["title"]
+    normativnaya_osnova = params["normativnaya_osnova"]
+    klyuchevye_pozitsii = params["klyuchevye_pozitsii"]
+    prakticheskie_riski = params["prakticheskie_riski"]
+    svodnaya_tablitsa = params["svodnaya_tablitsa"]
+
+    # --- Необязательные поля ---
+    tags = params.get("tags", [])
+    related_topics = params.get("related_topics", [])
+    sources = params.get("sources", [])
+    date_added = params.get("date_added", _today())
+    date_updated = params.get("date_updated", _today())
+    extra_sections = params.get("extra_sections", [])
+
+    # --- Группировка extra_sections по position ---
+    extras_by_pos: dict[str, list[dict]] = {
+        "after_osnova": [],
+        "after_pozitsii": [],
+        "after_riski": [],
+        "end": [],
+    }
+    for sec in extra_sections:
+        pos = sec.get("position", "end")
+        if pos not in extras_by_pos:
+            pos = "end"
+        extras_by_pos[pos].append(sec)
+
+    # --- Frontmatter ---
+    fm: dict = {
+        "title": title,
+        "type": "тема",
+        "status": "verified",
+        "date_added": date_added,
+        "date_updated": date_updated,
+    }
+    if tags:
+        fm["tags"] = tags
+    if related_topics:
+        fm["related_topics"] = related_topics
+    if sources:
+        fm["sources"] = sources
+
+    # --- Секция «Ключевые позиции» ---
+    pozitsii_parts: list[str] = []
+    for pos in klyuchevye_pozitsii:
+        pozitsii_parts.append(f"### {pos['tezis']}")
+        pozitsii_parts.append("")
+        pozitsii_parts.append(f"> {pos['istochnik']}")
+        pozitsii_parts.append("")
+        pozitsii_parts.append(f"**Вывод:** {pos['vyvod']}")
+        pozitsii_parts.append("")
+
+    # --- Секция «Сводная таблица источников» (с линковкой на sources/) ---
+    source_index = _build_source_index()
+    table_lines: list[str] = [
+        "| Источник | Тип | Ключевой вывод |",
+        "|----------|-----|----------------|",
+    ]
+    for row in svodnaya_tablitsa:
+        src = _linkify_source(row["istochnik"], source_index)
+        tip = row["tip"]
+        conclusion = row["klyuchevoy_vyvod"]
+        table_lines.append(f"| {src} | {tip} | {conclusion} |")
+
+    # --- Хелпер: рендер списка extra_sections ---
+    def _render_extras(position: str) -> list[str]:
+        """Возвращает список строк для extra_sections заданной позиции."""
+        result: list[str] = []
+        for sec in extras_by_pos.get(position, []):
+            result.append(f"## {sec['title']}")
+            result.append("")
+            result.append(sec["content"])
+            result.append("")
+        return result
+
+    # --- Сборка markdown ---
+    tag_line = _render_tags(tags)
+    sections = [
+        _render_frontmatter(fm),
+        "",
+        f"# {title}",
+        "",
+    ]
+    if tag_line:
+        sections.extend([tag_line, ""])
+
+    # Нормативная основа
+    sections.extend([
+        "## Нормативная основа",
+        "",
+        normativnaya_osnova.strip(),
+        "",
+    ])
+    sections.extend(_render_extras("after_osnova"))
+
+    # Ключевые позиции
+    sections.extend([
+        "## Ключевые позиции",
+        "",
+        "\n".join(pozitsii_parts).rstrip(),
+        "",
+    ])
+    sections.extend(_render_extras("after_pozitsii"))
+
+    # Практические риски
+    sections.extend([
+        "## Практические риски",
+        "",
+        prakticheskie_riski.strip(),
+        "",
+    ])
+    sections.extend(_render_extras("after_riski"))
+
+    # Extra-секции с позицией "end" — перед сводной таблицей
+    sections.extend(_render_extras("end"))
+
+    # Сводная таблица источников
+    sections.extend([
+        "## Сводная таблица источников",
+        "",
+        "\n".join(table_lines),
+        "",
+    ])
+    return "\n".join(sections)
