@@ -13,7 +13,9 @@
   * [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md)
   * [СРО в строительстве — членство, уровни ответственности, реестры](topics/gradostroitelstvo/sro.md)
 
-* [🌍 **Zemelnoe pravo**](topics/zemelnoe-pravo/_index.md)
+* **🌍 Zemelnoe pravo**
+  * [🧭 Обзор](topics/zemelnoe-pravo/_index.md)
+  * [ВРИ земельных участков — виды разрешенного использования, порядок изменения, нецелевое использование](topics/zemelnoe-pravo/vri.md)
 
 * [🏠 **Zhilishnoe pravo**](topics/zhilishnoe-pravo/_index.md)
 
