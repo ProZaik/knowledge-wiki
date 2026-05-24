@@ -15,7 +15,7 @@
   /* =========================================
      Config
      ========================================= */
-  var BACKEND_URL = window.location.protocol + '//' + window.location.hostname + ':8000';
+  var BACKEND_URL = '';
 
   var DOMAINS = [
     { value: 'topics/gradostroitelstvo', label: 'Градостроительство' },
