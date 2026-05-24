@@ -26,6 +26,7 @@
 
 * **🏠 Zhilishnoe pravo**
   * [🧭 Обзор](topics/zhilishnoe-pravo/_index.md)
+  * [Дачная амнистия и ИЖС — упрощенный порядок регистрации, требования к параметрам](topics/zhilishnoe-pravo/dachnaya-amnistiya.md)
   * [Единственное жильё должника — исполнительский иммунитет, практика ВС РФ](topics/zhilishnoe-pravo/edinstvennoe-zhilye.md)
 
 * **📂 Источники**
