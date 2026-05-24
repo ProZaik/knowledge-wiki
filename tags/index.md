@@ -83,7 +83,11 @@ type: служебный
 
 ## градостроительство
 - [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md) (тема)
+- [Красные линии](topics/gradostroitelstvo/krasnye-linii.md) (тема)
 - [Красные линии и ПЗЗ — влияние на застройку, границы территорий общего пользования](topics/gradostroitelstvo/krasnye-linii-pzz.md) (тема)
+- [Реконструкция и пристройки](topics/gradostroitelstvo/rekonstrukciya-pristoyka.md) (тема)
+- [Случаи, когда РнС не требуется](topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md) (тема)
+- [Экспертиза проектной документации](topics/gradostroitelstvo/ekspertiza-proektnoy-dokumentatsii.md) (тема)
 - [Экспертиза проектной документации — когда не проводится и когда обязательна](topics/gradostroitelstvo/ekspertiza-pd.md) (тема)
 - [ГПЗУ как щит застройщика: анализ судебной практики 2024–2026](sources/zakon-ru-gpzu-2026-analiz.md) (источник)
 - [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md) (источник)
@@ -99,12 +103,16 @@ type: служебный
 - [ГПЗУ — стабильность, судебная практика, нормативная база](topics/gradostroitelstvo/gpzu.md) (тема)
 - [ЗОУИТ — установление и связь с разрешением на строительство](topics/zemelnoe-pravo/zouity.md) (тема)
 - [Капитальные vs некапитальные объекты — критерии разграничения](topics/gradostroitelstvo/kapitalnye-nekap.md) (тема)
+- [Красные линии](topics/gradostroitelstvo/krasnye-linii.md) (тема)
 - [Красные линии и ПЗЗ — влияние на застройку, границы территорий общего пользования](topics/gradostroitelstvo/krasnye-linii-pzz.md) (тема)
 - [Перепланировка и переустройство помещений в МКД](topics/zhilishnoe-pravo/pereplanirovka.md) (тема)
 - [Пристройка vs Отдельное здание с общей стеной](topics/gradostroitelstvo/pristroyka-vs-zdanie.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
 - [Реконструкция и капитальный ремонт — разграничение понятий, когда требуется РНС, когда нет, техплан](topics/gradostroitelstvo/rekonstruktsiya-kapremont.md) (тема)
+- [Реконструкция и пристройки](topics/gradostroitelstvo/rekonstrukciya-pristoyka.md) (тема)
 - [СРО в строительстве — членство, уровни ответственности, реестры](topics/gradostroitelstvo/sro.md) (тема)
+- [Случаи, когда РнС не требуется](topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md) (тема)
+- [Экспертиза проектной документации](topics/gradostroitelstvo/ekspertiza-proektnoy-dokumentatsii.md) (тема)
 - [Экспертиза проектной документации — когда не проводится и когда обязательна](topics/gradostroitelstvo/ekspertiza-pd.md) (тема)
 - [ГПЗУ как щит застройщика: анализ судебной практики 2024–2026](sources/zakon-ru-gpzu-2026-analiz.md) (источник)
 - [Красные линии: правовой статус и выводы из судебной практики](sources/urtmag-krasnye-linii-sudebnaya-praktika.md) (источник)
@@ -154,6 +162,7 @@ type: служебный
 - [Выписки из ЕГРН: порядок, льготы, состав сведений](topics/zemelnoe-pravo/egrn-vypiski.md) (тема)
 - [Государственная пошлина за регистрацию прав](topics/zemelnoe-pravo/gosposhlina.md) (тема)
 - [Изъятие для госнужд — как узнать о планируемом изъятии участка](topics/zemelnoe-pravo/izyatie-uchastka.md) (тема)
+- [Компенсация при ограничениях в зонах ОКН](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md) (тема)
 - [Комплексные кадастровые работы (ККР)](topics/zemelnoe-pravo/kkr.md) (тема)
 - [Федеральный закон от 01.05.2026 № 97-ФЗ о внесении изменений в ФЗ-218](sources/fz-218-izmenenia-2026-05.md) (источник)
 
@@ -175,6 +184,7 @@ type: служебный
 ## ЗОУИТ
 - [ЗОУИТ и ОКН — охранные зоны, ограничения застройки, компенсация убытков](topics/zemelnoe-pravo/zouit.md) (тема)
 - [ЗОУИТ — установление и связь с разрешением на строительство](topics/zemelnoe-pravo/zouity.md) (тема)
+- [Компенсация при ограничениях в зонах ОКН](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md) (тема)
 - [Письмо Минстроя России от 26.03.2026 № 7186-ОГ/08 — установление ЗОУИТ до выдачи РнС](sources/minstroy-7186-OG-08-2026-03.md) (источник)
 - [Письмо ППК «Роскадастр» от 08.04.2026 № 18-0846/26](sources/rosreestr-ppk-2026-04-08-18-0846.md) (источник)
 
@@ -183,6 +193,7 @@ type: служебный
 - [Кадастровый учёт — общие правила, постановка на учёт, НСПД](topics/218-fz/kadastrovyy-uchet.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
 - [Раздел земельного участка: соответствие градрегламенту обязательно](topics/zemelnoe-pravo/razdel-uchastka.md) (тема)
+- [Случаи, когда РнС не требуется](topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md) (тема)
 - [Экспертиза проектной документации — когда не проводится и когда обязательна](topics/gradostroitelstvo/ekspertiza-pd.md) (тема)
 - [ВС запретил нарезать участки в нарушение градрегламентов](sources/landlawfirm-vs-razdel-uchastkov-2026-02.md) (источник)
 - [Как получить землю для ИЖС с помощью сервисов НСПД и оформить жилой дом](sources/rosreestr-izhs-nspd-2025.md) (источник)
@@ -237,6 +248,7 @@ type: служебный
 
 ## компенсация
 - [ЗОУИТ и ОКН — охранные зоны, ограничения застройки, компенсация убытков](topics/zemelnoe-pravo/zouit.md) (тема)
+- [Компенсация при ограничениях в зонах ОКН](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md) (тема)
 - [Охранные зоны ОКН: компенсация убытков и выкуп участка](topics/zemelnoe-pravo/ohrannye-zony-okn.md) (тема)
 - [КС защитил право собственности в охранных зонах культурных памятников](sources/landlawfirm-ks-okn-ohrannye-zony-2025-12.md) (источник)
 - [Постановление КС РФ от 01.12.2025 № 42-П](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md) (источник)
@@ -245,6 +257,7 @@ type: служебный
 - [Комплексные кадастровые работы (ККР)](topics/zemelnoe-pravo/kkr.md) (тема)
 
 ## красные-линии
+- [Красные линии](topics/gradostroitelstvo/krasnye-linii.md) (тема)
 - [Красные линии и ПЗЗ — влияние на застройку, границы территорий общего пользования](topics/gradostroitelstvo/krasnye-linii-pzz.md) (тема)
 - [Красные линии: правовой статус и выводы из судебной практики](sources/urtmag-krasnye-linii-sudebnaya-praktika.md) (источник)
 
@@ -288,6 +301,7 @@ type: служебный
 
 ## некапитальные-строения
 - [Капитальные vs некапитальные объекты — критерии разграничения](topics/gradostroitelstvo/kapitalnye-nekap.md) (тема)
+- [Случаи, когда РнС не требуется](topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md) (тема)
 
 ## нецелевое-использование
 - [Аренда публичного земельного участка — ВРИ и нецелевое использование](topics/zemelnoe-pravo/arenda-publichnoy-zemli.md) (тема)
@@ -311,6 +325,7 @@ type: служебный
 
 ## ОКН
 - [ЗОУИТ и ОКН — охранные зоны, ограничения застройки, компенсация убытков](topics/zemelnoe-pravo/zouit.md) (тема)
+- [Компенсация при ограничениях в зонах ОКН](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md) (тема)
 - [Охранные зоны ОКН: компенсация убытков и выкуп участка](topics/zemelnoe-pravo/ohrannye-zony-okn.md) (тема)
 - [КС защитил право собственности в охранных зонах культурных памятников](sources/landlawfirm-ks-okn-ohrannye-zony-2025-12.md) (источник)
 - [Постановление КС РФ от 01.12.2025 № 42-П](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md) (источник)
@@ -319,10 +334,12 @@ type: служебный
 - [Аренда публичного земельного участка — ВРИ и нецелевое использование](topics/zemelnoe-pravo/arenda-publichnoy-zemli.md) (тема)
 - [Земельный надзор — полномочия ГЗН, нарушения, штрафы, нецелевое использование](topics/zemelnoe-pravo/zemelnyy-nadzor.md) (тема)
 - [Капитальные vs некапитальные объекты — критерии разграничения](topics/gradostroitelstvo/kapitalnye-nekap.md) (тема)
+- [Реконструкция и пристройки](topics/gradostroitelstvo/rekonstrukciya-pristoyka.md) (тема)
 - [Какие теплицы нужно ставить на кадастровый учёт](sources/rosreestr-teplitsy-kadastrovyy-uchet.md) (источник)
 - [Офис вместо склада: последствия нецелевого использования муниципального земельного участка](sources/ftl-advisers-necelevoe-ispolzovanie-zemlya-2024.md) (источник)
 
 ## охранная-зона
+- [Компенсация при ограничениях в зонах ОКН](topics/zemelnoe-pravo/ohrannye-zony-okn-kompensaciya.md) (тема)
 - [Охранные зоны ОКН: компенсация убытков и выкуп участка](topics/zemelnoe-pravo/ohrannye-zony-okn.md) (тема)
 - [Постановление КС РФ от 01.12.2025 № 42-П](sources/ks-rf-42-p-ohrannye-zony-okn-2025-12.md) (источник)
 
@@ -342,6 +359,7 @@ type: служебный
 - [ШОРТРИД: Как действовать при противоречиях в градостроительной документации](sources/landlawfirm-shortrid-protivorechiya-graddok-2026.md) (источник)
 
 ## планировка-территории
+- [Красные линии](topics/gradostroitelstvo/krasnye-linii.md) (тема)
 - [Красные линии: правовой статус и выводы из судебной практики](sources/urtmag-krasnye-linii-sudebnaya-praktika.md) (источник)
 
 ## ПМТ
@@ -365,6 +383,7 @@ type: служебный
 - [Пристройка vs Отдельное здание с общей стеной](topics/gradostroitelstvo/pristroyka-vs-zdanie.md) (тема)
 
 ## проектная-документация
+- [Экспертиза проектной документации](topics/gradostroitelstvo/ekspertiza-proektnoy-dokumentatsii.md) (тема)
 - [Экспертиза проектной документации — когда не проводится и когда обязательна](topics/gradostroitelstvo/ekspertiza-pd.md) (тема)
 
 ## публичный-участок
@@ -380,6 +399,8 @@ type: служебный
 - [ЗОУИТ — установление и связь с разрешением на строительство](topics/zemelnoe-pravo/zouity.md) (тема)
 - [Пристройка vs Отдельное здание с общей стеной](topics/gradostroitelstvo/pristroyka-vs-zdanie.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
+- [Реконструкция и пристройки](topics/gradostroitelstvo/rekonstrukciya-pristoyka.md) (тема)
+- [Случаи, когда РнС не требуется](topics/gradostroitelstvo/razreshenie-na-stroitelstvo-isklyucheniya.md) (тема)
 - [Есть ли сила в градостроительных планах земельных участков?](sources/pravo-ru-gpzu-stabilnost-2025.md) (источник)
 - [Письмо Минстроя РФ от 20.12.2024 № 76955-СМ/08 — разъяснение условий, при которых разрешение на строительство не требуется](sources/minstroy-76955-SM-08-2024-12.md) (источник)
 - [Письмо Минстроя России от 26.03.2026 № 7186-ОГ/08 — установление ЗОУИТ до выдачи РнС](sources/minstroy-7186-OG-08-2026-03.md) (источник)
@@ -404,6 +425,7 @@ type: служебный
 - [Пристройка vs Отдельное здание с общей стеной](topics/gradostroitelstvo/pristroyka-vs-zdanie.md) (тема)
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
 - [Реконструкция и капитальный ремонт — разграничение понятий, когда требуется РНС, когда нет, техплан](topics/gradostroitelstvo/rekonstruktsiya-kapremont.md) (тема)
+- [Реконструкция и пристройки](topics/gradostroitelstvo/rekonstrukciya-pristoyka.md) (тема)
 - [О согласии всех собственников помещений в МКД при демонтаже оконного проема](sources/minstroy-6370-og-04-2020-03-03-demontazh-okonnogo-proema.md) (источник)
 - [Письмо Минстроя РФ от 20.12.2024 № 76955-СМ/08 — разъяснение условий, при которых разрешение на строительство не требуется](sources/minstroy-76955-SM-08-2024-12.md) (источник)
 - [Письмо Росреестра от 30.01.2025 № 13-0728-АБ/25 — ЕГРН при капремонте и перепланировке нежилых зданий](sources/rosreestr-13-0728-AB-25-2025-01.md) (источник)
@@ -452,6 +474,7 @@ type: служебный
 
 ## строительство
 - [РНС (разрешение на строительство) — порядок выдачи, исключения, судебная практика](topics/gradostroitelstvo/rns.md) (тема)
+- [Экспертиза проектной документации](topics/gradostroitelstvo/ekspertiza-proektnoy-dokumentatsii.md) (тема)
 - [НК Комиссия НОСТРОЙ](sources/nostroy-nk-komissiya.md) (источник)
 
 ## судебная-практика
@@ -473,6 +496,7 @@ type: служебный
 - [Адресация объектов недвижимости](topics/zemelnoe-pravo/adresatsiya.md) (тема)
 
 ## экспертиза
+- [Экспертиза проектной документации](topics/gradostroitelstvo/ekspertiza-proektnoy-dokumentatsii.md) (тема)
 - [Экспертиза проектной документации — когда не проводится и когда обязательна](topics/gradostroitelstvo/ekspertiza-pd.md) (тема)
 - [Письмо Росреестра от 29.04.2026 № 18-4658-ЛЛ/26](sources/rosreestr-2026-04-29-18-4658-ll.md) (источник)
 
