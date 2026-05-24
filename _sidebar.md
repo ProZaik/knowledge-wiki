@@ -17,6 +17,7 @@
   * [🧭 Обзор](topics/zemelnoe-pravo/_index.md)
   * [ВРИ земельных участков — виды разрешенного использования, порядок изменения, нецелевое использование](topics/zemelnoe-pravo/vri.md)
   * [Земельный надзор — полномочия ГЗН, нарушения, штрафы, нецелевое использование](topics/zemelnoe-pravo/zemelnyy-nadzor.md)
+  * [ЗОУИТ и ОКН — охранные зоны, ограничения застройки, компенсация убытков](topics/zemelnoe-pravo/zouit.md)
 
 * [🏠 **Zhilishnoe pravo**](topics/zhilishnoe-pravo/_index.md)
 
